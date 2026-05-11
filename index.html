@@ -26,15 +26,15 @@
 </head>
 <body>
   <div class="wrapper">
-    <form class="relative flex-1 w-full">
+    <form id="chat-form" class="relative flex-1 w-full">
       <div data-slot="input-group" role="group" class="group/input-group relative flex w-full items-center rounded-[1.25rem] border border-neutral-200 bg-white shadow-sm outline-none transition-[color,box-shadow] min-w-0 overflow-hidden flex-col">
         <div class="relative block w-full">
           <textarea
+            id="chat-input-empty"
             class="flex w-full border-neutral-200 px-3 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 max-h-48 min-h-0 text-base leading-6"
             rows="1"
             name="message"
             placeholder="What's your role and what eats up most of your day?"
-            id="chat-input-empty"
             aria-label="Chat message input"
             style="height: 48px;"
           ></textarea>
@@ -70,6 +70,7 @@
 
             <!-- Submit button -->
             <button
+              id="submit-btn"
               class="inline-flex justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none text-sm shadow-none items-center p-0 size-[2.625rem] rounded-full bg-zinc-800 text-white hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-white disabled:opacity-100"
               type="submit"
               aria-label="Submit"
@@ -84,5 +85,30 @@
       </div>
     </form>
   </div>
+
+  <script>
+    const textarea = document.getElementById('chat-input-empty');
+    const submitBtn = document.getElementById('submit-btn');
+    const form = document.getElementById('chat-form');
+
+    textarea.addEventListener('input', () => {
+      submitBtn.disabled = textarea.value.trim() === '';
+    });
+
+    textarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        if (!submitBtn.disabled) form.requestSubmit();
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const prompt = textarea.value.trim();
+      if (!prompt) return;
+      const url = `https://platform.agpt.co/login?next=%2Fcopilot%3Fautosubmit%3Dtrue#prompt=${encodeURIComponent(prompt)}`;
+      window.location.href = url;
+    });
+  </script>
 </body>
 </html>
