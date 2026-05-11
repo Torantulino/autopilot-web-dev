@@ -16,10 +16,29 @@
       min-height: 100vh;
       padding: 0;
       font-family: sans-serif;
+      background-color: #f5f1ea;
+    }
+    .topscene {
+      position: relative;
+      width: 100%;
       background-image: url('bg.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+    }
+    .topscene__fade {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 200px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(245, 241, 234, 0.4) 50%,
+        rgba(245, 241, 234, 0.92) 88%,
+        #f5f1ea 100%);
+      pointer-events: none;
+      z-index: 1;
     }
     .hero {
       display: flex;
@@ -185,7 +204,7 @@
     letter-spacing: 0.08em;
   }
       .press__eyebrow  { color: rgba(255,255,255,0.65) !important; }
-    .press__footnote { color: rgba(255,255,255,0.5)  !important; }
+    .press__footnote { color: #7a6c5d !important; }
 
   /* ---------- paper tokens (everything below the bridge) ---------- */
   :root {
@@ -196,25 +215,6 @@
     --ink-mid:    #4a3e30;
     --ink-soft:   #7a6c5d;
     --accent:     #c75428;
-  }
-
-  /* ---------- THE BRIDGE: atmospheric dissolve from hero scene to paper ---------- */
-  .bridge {
-    width: 100%;
-    height: 360px;
-    margin-top: 24px;
-    pointer-events: none;
-    background:
-      radial-gradient(120% 80% at 50% 100%,
-        rgba(245, 241, 234, 0.0) 0%,
-        rgba(245, 241, 234, 0.25) 35%,
-        rgba(245, 241, 234, 0.85) 75%,
-        var(--paper) 100%),
-      linear-gradient(to bottom,
-        transparent 0%,
-        rgba(245, 241, 234, 0.35) 45%,
-        rgba(245, 241, 234, 0.85) 80%,
-        var(--paper) 100%);
   }
 
   /* ---------- Demo section (on paper) ---------- */
@@ -403,6 +403,7 @@
   </style>
 </head>
 <body>
+<div class="topscene">
   <div class="hero">
     <div class="wrapper">
       <form id="chat-form" class="relative flex-1 w-full">
@@ -473,9 +474,8 @@
 
   <p class="press__footnote">Logos are property of their respective publishers.</p>
 </section>
-
-<!-- ============== BRIDGE: atmospheric dissolve ============== -->
-<div class="bridge" aria-hidden="true"></div>
+  <div class="topscene__fade" aria-hidden="true"></div>
+</div>
 
 <!-- ============== DEMO ============== -->
 <section class="demo" aria-labelledby="demo-title">
