@@ -108,7 +108,7 @@
       e.preventDefault();
       const prompt = textarea.value.trim();
       if (!prompt) return;
-      const url = `https://platform.agpt.co/login?next=%2Fcopilot%3Fautosubmit%3Dtrue#prompt=${encodeURIComponent(prompt)}`;
+      const url = `https://platform.agpt.co/copilot?autosubmit=true#prompt=${encodeURIComponent(prompt)}`;
       window.location.href = url;
     });
   </script>
