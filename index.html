@@ -1,34 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutoGPT</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoGPT CoPilot</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 0;
-      font-family: sans-serif;
-      background-image: url('bg.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+    /* ── Hero ── */
+    body { margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
     .hero {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 100vh;
-      padding: 2rem;
+      position: relative; display: flex; align-items: center;
+      justify-content: center; min-height: 100vh; width: 100%;
+      background: url('bg.png') center center / cover no-repeat;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,0,0,0.25);
     }
     .wrapper {
-      width: 100%;
-      max-width: 640px;
+      position: relative; z-index: 1;
+      width: 100%; max-width: 640px; padding: 1rem;
     }
 
   :root {
@@ -38,20 +29,24 @@
     --muted: #8a8a92;
     --rule: rgba(255,255,255,0.08);
     --row-h: 64px;
+    --row-h-sm: 52px;
     --gap: 84px;
-    --speed-1: 90s;
-    --speed-2: 110s;
+    --gap-sm: 72px;
+    --speed-1: 140s;
+    --speed-2: 160s;
+    --speed-3: 90s;
   }
 
   .press {
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
-    padding: 56px 0 64px;
+    padding: 56px 0 56px;
     border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
     position: relative;
   }
+  .press + .press { margin-top: 0; padding-top: 64px; }
+  .press:last-of-type { border-bottom: 1px solid var(--rule); padding-bottom: 64px; }
 
   .press__eyebrow {
     text-align: center;
@@ -62,7 +57,6 @@
     color: var(--muted);
     margin: 0 0 36px;
   }
-
   .press__eyebrow::before,
   .press__eyebrow::after {
     content: "";
@@ -93,7 +87,6 @@
       transparent 100%
     );
   }
-
   .marquee + .marquee { margin-top: 28px; }
 
   .marquee__track {
@@ -102,13 +95,19 @@
     align-items: center;
     gap: var(--gap);
     padding: 8px 0;
+    margin: 0;
+    list-style: none;
     animation: scroll var(--speed-1) linear infinite;
     will-change: transform;
   }
 
-  .marquee--reverse .marquee__track {
+  .marquee--row2 .marquee__track {
     animation-duration: var(--speed-2);
     animation-direction: reverse;
+  }
+  .marquee--cited .marquee__track {
+    animation-duration: var(--speed-3);
+    gap: var(--gap-sm);
   }
 
   .marquee:hover .marquee__track { animation-play-state: paused; }
@@ -117,7 +116,6 @@
     from { transform: translate3d(0, 0, 0); }
     to   { transform: translate3d(-50%, 0, 0); }
   }
-
   @media (prefers-reduced-motion: reduce) {
     .marquee__track { animation: none; }
     .marquee { overflow-x: auto; }
@@ -133,9 +131,7 @@
     transition: opacity 220ms ease, filter 220ms ease, transform 220ms ease;
     user-select: none;
   }
-
   .logo:hover { opacity: 1; transform: translateY(-1px); }
-
   .logo img {
     display: block;
     height: 100%;
@@ -144,13 +140,12 @@
     object-fit: contain;
     filter: brightness(0) invert(1) contrast(1.05);
   }
-
-  /* Slightly larger row for masthead-style serif marks */
-  .logo--tall img { height: 110%; }
+  .logo--tall  img { height: 110%; }
   .logo--short img { height: 78%; }
 
-  /* Typographic fallback — shown if image fails to load.
-     Each fallback is hand-tuned to feel like the publication's wordmark. */
+  .marquee--cited .logo { height: var(--row-h-sm); opacity: 0.70; }
+  .marquee--cited .logo img { max-width: 200px; }
+
   .logo .fallback {
     display: none;
     white-space: nowrap;
@@ -160,7 +155,6 @@
   .logo img.is-failed { display: none; }
   .logo img.is-failed + .fallback { display: inline-flex; align-items: center; }
 
-  /* Fallback typographies */
   .fb-serif      { font-family: "Old Standard TT", "Times New Roman", Georgia, serif; }
   .fb-sans       { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; font-weight: 700; letter-spacing: -0.01em; }
   .fb-sans-thin  { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; font-weight: 500; letter-spacing: 0.02em; }
@@ -168,19 +162,54 @@
   .fb-cond       { font-family: "Oswald", "Inter", sans-serif; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
   .fb-allcaps    { text-transform: uppercase; letter-spacing: 0.14em; }
   .fb-italic     { font-style: italic; }
-
   .fb-xl  { font-size: 30px; }
   .fb-lg  { font-size: 26px; }
   .fb-md  { font-size: 22px; }
   .fb-sm  { font-size: 19px; }
 
+  /* TIME-style red box wordmark recreation */
+  .fb-time-box {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #e90000; padding: 6px 14px; line-height: 1;
+    font-family: "Old Standard TT", "Times New Roman", Georgia, serif;
+    font-weight: 700; font-size: 26px; color: #fff !important;
+    letter-spacing: -0.01em;
+  }
+
+  /* GOV.UK style "crown" wordmark recreation (purely typographic) */
+  .fb-govuk {
+    display: inline-flex; align-items: center;
+    background: #fff; color: #0b0c0c !important;
+    padding: 6px 14px; font-family: "Inter", Arial, sans-serif;
+    font-weight: 700; font-size: 22px; letter-spacing: 0.01em;
+  }
+
+  /* Senate / official-document style */
+  .fb-official {
+    display: inline-flex; flex-direction: column; align-items: center;
+    line-height: 1.1; text-align: center;
+  }
+  .fb-official .top {
+    font-family: "Old Standard TT", "Times New Roman", Georgia, serif;
+    font-size: 20px; letter-spacing: 0.02em;
+  }
+  .fb-official .bot {
+    font-family: "Inter", sans-serif; font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: #cfcfd6; margin-top: 4px;
+  }
+
   .press__footnote {
-    margin-top: 32px;
+    margin-top: 36px;
     text-align: center;
     color: var(--muted);
     font-size: 11px;
     letter-spacing: 0.08em;
   }
+
+    /* ── White text fix ── */
+    .press__eyebrow  { color: rgba(255,255,255,0.65); }
+    .press__footnote { color: rgba(255,255,255,0.5);  }
   </style>
 </head>
 <body>
@@ -189,202 +218,234 @@
       <form id="chat-form" class="relative flex-1 w-full">
         <div data-slot="input-group" role="group" class="group/input-group relative flex w-full items-center rounded-[1.25rem] border border-neutral-200 bg-white shadow-sm outline-none transition-[color,box-shadow] min-w-0 overflow-hidden flex-col">
           <div class="relative block w-full">
-            <textarea
-              id="chat-input-empty"
+            <textarea id="chat-input-empty"
               class="flex w-full border-neutral-200 px-3 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 max-h-48 min-h-0 text-base leading-6"
-              rows="1"
-              name="message"
+              rows="1" name="message"
               placeholder="What's your role and what eats up most of your day?"
               aria-label="Chat message input"
-              style="height: 48px;"
-            ></textarea>
+              style="height: 48px;"></textarea>
           </div>
           <span id="chat-input-empty-hint" class="sr-only">Press Enter to send, Shift+Enter for new line</span>
-          <div role="group" data-slot="input-group-addon" class="flex h-auto cursor-text items-center py-1.5 text-sm font-medium select-none order-last w-full px-3 pb-3 justify-between gap-1">
-            <div class="flex min-w-0 items-center gap-1">
-              <input multiple class="hidden" tabindex="-1" type="file">
-              <button
-                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none p-3 border rounded-[96px] border-zinc-300 bg-white text-zinc-500 hover:border-zinc-400 hover:bg-zinc-50 hover:text-zinc-700"
-                type="button" aria-label="Attach file" disabled>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256" class="h-4 w-4">
-                  <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path>
+          <div role="group" data-slot="input-group-addon"
+            class="flex h-auto cursor-text items-center py-1.5 text-sm font-medium select-none order-last w-full px-3 pb-3 justify-between gap-1">
+            <!-- Attach button (disabled) -->
+            <div class="flex items-center gap-1">
+              <button type="button" disabled
+                style="cursor:no-drop"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-neutral-100 hover:text-neutral-900 h-8 w-8 text-neutral-500"
+                aria-label="Attach file">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                </svg>
+              </button>
+              <!-- Mic button (disabled) -->
+              <button type="button" disabled
+                style="cursor:no-drop"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-neutral-100 hover:text-neutral-900 h-8 w-8 text-neutral-500"
+                aria-label="Voice input">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/>
                 </svg>
               </button>
             </div>
-            <div class="flex items-center gap-4">
-              <button
-                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none p-3 rounded-[96px] border-0 bg-white text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700"
-                type="button" aria-label="Start recording" disabled>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256" class="h-4 w-4">
-                  <path d="M128,180a52.06,52.06,0,0,0,52-52V64A52,52,0,0,0,76,64v64A52.06,52.06,0,0,0,128,180ZM100,64a28,28,0,0,1,56,0v64a28,28,0,0,1-56,0Zm40,155.22V240a12,12,0,0,1-24,0V219.22A92.14,92.14,0,0,1,36,128a12,12,0,0,1,24,0,68,68,0,0,0,136,0,12,12,0,0,1,24,0A92.14,92.14,0,0,1,140,219.22Z"></path>
-                </svg>
-              </button>
-              <button
-                id="submit-btn"
-                class="inline-flex justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none text-sm shadow-none items-center p-0 size-[2.625rem] rounded-full bg-zinc-800 text-white hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-white disabled:opacity-100"
-                type="submit" aria-label="Submit" disabled>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256" class="size-4">
-                  <path d="M208.49,120.49a12,12,0,0,1-17,0L140,69V216a12,12,0,0,1-24,0V69L64.49,120.49a12,12,0,0,1-17-17l72-72a12,12,0,0,1,17,0l72,72A12,12,0,0,1,208.49,120.49Z"></path>
-                </svg>
-              </button>
-            </div>
+            <!-- Submit button -->
+            <button id="submit-btn" type="submit" disabled
+              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 bg-neutral-900 text-neutral-50 shadow hover:bg-neutral-800 h-8 px-4">
+              Send
+            </button>
           </div>
         </div>
       </form>
     </div>
   </div>
-
 <section class="press" aria-label="As featured in">
   <p class="press__eyebrow">As featured in</p>
 
-  <!-- ROW 1 -->
-  <div class="marquee" aria-hidden="false">
-    <ul class="marquee__track" id="row1">
-      <!-- items injected via JS so we don't have to duplicate by hand -->
-    </ul>
+  <div class="marquee marquee--row1">
+    <ul class="marquee__track" id="row1"></ul>
   </div>
 
-  <!-- ROW 2 (reverse direction) -->
-  <div class="marquee marquee--reverse" aria-hidden="true">
+  <div class="marquee marquee--row2" aria-hidden="true">
     <ul class="marquee__track" id="row2"></ul>
+  </div>
+</section>
+<section class="press" aria-label="Cited and referenced by">
+  <p class="press__eyebrow">Cited &amp; referenced by</p>
+
+  <div class="marquee marquee--cited">
+    <ul class="marquee__track" id="row3"></ul>
   </div>
 
   <p class="press__footnote">Logos are property of their respective publishers.</p>
 </section>
   <script>
-    const textarea = document.getElementById('chat-input-empty');
+    /* ── Form JS ── */
+    const textarea  = document.getElementById('chat-input-empty');
     const submitBtn = document.getElementById('submit-btn');
-    const form = document.getElementById('chat-form');
+    const form      = document.getElementById('chat-form');
 
     textarea.addEventListener('input', () => {
       submitBtn.disabled = textarea.value.trim() === '';
     });
-
     textarea.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         if (!submitBtn.disabled) form.requestSubmit();
       }
     });
-
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const prompt = textarea.value.trim();
       if (!prompt) return;
-      const url = `https://platform.agpt.co/copilot?autosubmit=true#prompt=${encodeURIComponent(prompt)}`;
-      window.location.href = url;
+      window.location.href =
+        `https://platform.agpt.co/copilot?autosubmit=true#prompt=${encodeURIComponent(prompt)}`;
     });
-  </script>
-  <script>
 
   // Each entry: name, Wikipedia Commons filename (resolved via Special:FilePath),
   // optional size class, and a typographic fallback in the publication's general style.
-  const outlets = [
-    { n: "Reuters",                  f: "Reuters_Logo.svg",
-      fb: '<span class="fb-sans fb-lg">Reuters</span>' },
 
+  const featuredRow1 = [
     { n: "The New York Times",       f: "The_New_York_Times_logo.png", size: "tall",
       fb: '<span class="fb-serif fb-xl">The New York Times</span>' },
-
-    { n: "Bloomberg",                f: "Bloomberg_logo.svg",
-      fb: '<span class="fb-sans fb-lg" style="letter-spacing:-0.02em">Bloomberg</span>' },
-
     { n: "WIRED",                    f: "Wired_logo.svg",
       fb: '<span class="fb-sans fb-xl" style="font-weight:900;letter-spacing:0.02em">WIRED</span>' },
-
-    { n: "TechCrunch",               f: "TechCrunch_logo.svg",
-      fb: '<span class="fb-sans fb-lg">TechCrunch</span>' },
-
     { n: "Forbes",                   f: "Forbes_logo.svg",
       fb: '<span class="fb-serif fb-xl" style="font-weight:700">Forbes</span>' },
-
-    { n: "Fortune",                  f: "Fortune_Magazine_Logo.svg",
-      fb: '<span class="fb-serif fb-xl" style="font-weight:700">FORTUNE</span>' },
-
-    { n: "Business Insider",         f: "Business_Insider_Logo.svg",
-      fb: '<span class="fb-sans fb-md">BUSINESS INSIDER</span>' },
-
+    { n: "Bloomberg",                f: "Bloomberg_logo.svg",
+      fb: '<span class="fb-sans fb-lg" style="letter-spacing:-0.02em">Bloomberg</span>' },
+    { n: "The Economist",            f: "The_Economist_Logo.svg",
+      fb: '<span class="fb-serif fb-xl" style="background:#e3120b;color:#fff;padding:6px 12px;font-weight:700">The Economist</span>' },
     { n: "Le Monde",                 f: "Le_monde_logo.svg",
       fb: '<span class="fb-serif fb-xl fb-italic">Le Monde</span>' },
-
-    { n: "DIE ZEIT",                 f: "Die_Zeit-Logo-Bremen.svg",
-      fb: '<span class="fb-serif fb-xl">DIE&nbsp;ZEIT</span>' },
-
+    { n: "Fortune",                  f: "Fortune_Magazine_Logo.svg",
+      fb: '<span class="fb-serif fb-xl" style="font-weight:700">FORTUNE</span>' },
+    { n: "TIME",                     f: "Time_Magazine_logo.svg",
+      fb: '<span class="fb-time-box">TIME</span>' },
     { n: "The Times",                f: "The_Times_masthead.svg", size: "tall",
       fb: '<span class="fb-serif fb-xl">The Times</span>' },
-
-    { n: "The Verge",                f: "The_Verge_logo.svg",
-      fb: '<span class="fb-sans fb-lg" style="font-weight:900">THE VERGE</span>' },
-
-    { n: "Vox",                      f: "Vox_logo.svg",
-      fb: '<span class="fb-sans fb-xl" style="font-weight:900">Vox</span>' },
-
-    { n: "VentureBeat",              f: "VentureBeat_VB_Logo.svg",
-      fb: '<span class="fb-sans fb-lg">VentureBeat</span>' },
-
+    { n: "BBC",                      f: "BBC_Logo_2021.svg",
+      fb: '<span class="fb-sans fb-xl" style="font-weight:900;letter-spacing:0.04em"><span style="background:#fff;color:#000;padding:4px 8px;margin-right:4px">B</span><span style="background:#fff;color:#000;padding:4px 8px;margin-right:4px">B</span><span style="background:#fff;color:#000;padding:4px 8px">C</span></span>' },
+    { n: "Reuters",                  f: "Reuters_Logo.svg",
+      fb: '<span class="fb-sans fb-lg">Reuters</span>' },
+    { n: "Nature",                   f: "Nature_journal_logo.svg",
+      fb: '<span class="fb-serif fb-xl" style="background:#fff;color:#000;padding:6px 14px;font-weight:800;font-style:italic">nature</span>' },
     { n: "Fast Company",             f: "Fast_Company_logo.svg",
       fb: '<span class="fb-sans fb-lg" style="font-weight:800">FastCompany</span>' },
-
-    { n: "Ars Technica",             f: "Ars_Technica_logo_(2016).svg",
-      fb: '<span class="fb-sans fb-md fb-allcaps" style="font-weight:800">ars TECHNICA</span>' },
-
-    { n: "The Register",             f: "The_Register_logo.svg",
-      fb: '<span class="fb-cond fb-lg">The Register</span>' },
-
+    { n: "Harvard Business Review",  f: "Harvard_Business_Review_logo.svg",
+      fb: '<span class="fb-serif fb-md" style="font-weight:700">Harvard Business Review</span>' },
+    { n: "Vox",                      f: "Vox_logo.svg",
+      fb: '<span class="fb-sans fb-xl" style="font-weight:900">Vox</span>' },
     { n: "ABC News Australia",       f: "ABC_News_2018.svg",
       fb: '<span class="fb-sans fb-lg" style="font-weight:800">ABC NEWS</span>' },
-
-    { n: "Euronews",                 f: "Euronews_2016_logo.svg",
-      fb: '<span class="fb-sans fb-lg" style="font-weight:700;letter-spacing:-0.02em">euronews.</span>' },
-
-    { n: "The Indian Express",       f: "The_Indian_Express_logo.svg",
-      fb: '<span class="fb-serif fb-lg">The Indian EXPRESS</span>' },
-
-    { n: "Toronto Star",             f: "Toronto_Star_Logo.svg",
-      fb: '<span class="fb-serif fb-xl">Toronto Star</span>' },
-
     { n: "Mashable",                 f: "Mashable_logo.svg",
       fb: '<span class="fb-sans fb-lg" style="font-weight:800">Mashable</span>' },
-
-    { n: "ZDNET",                    f: "ZDNET_logo.svg",
-      fb: '<span class="fb-sans fb-lg" style="font-weight:800;letter-spacing:-0.02em">ZDNET</span>' },
-
-    { n: "Fox News",                 f: "Fox_News_Channel_logo.svg",
-      fb: '<span class="fb-sans fb-md" style="font-weight:800">FOX NEWS</span>' },
-
-    { n: "VICE",                     f: "Vice_logo.svg",
-      fb: '<span class="fb-sans fb-xl" style="font-weight:900;letter-spacing:0.02em">VICE</span>' },
-
-    { n: "Gizmodo",                  f: "Gizmodo_logo.svg",
-      fb: '<span class="fb-sans fb-lg" style="font-weight:800">Gizmodo</span>' },
-
-    { n: "Decrypt",                  f: "Decrypt_logo.svg",
-      fb: '<span class="fb-mono fb-md">DECRYPT</span>' },
-
-    { n: "Digital Trends",           f: "Digital_Trends_logo.svg",
-      fb: '<span class="fb-sans fb-md" style="font-weight:700">DIGITAL TRENDS</span>' },
-
-    { n: "TechRadar",                f: "TechRadar_logo.svg",
-      fb: '<span class="fb-sans fb-lg" style="font-weight:800">TechRadar</span>' },
-
-    { n: "Tom's Guide",              f: "Tom's_Guide_logo.svg",
-      fb: '<span class="fb-sans fb-md" style="font-weight:800">Tom’s Guide</span>' },
-
-    { n: "Tom's Hardware",           f: "Tom's_Hardware_logo.svg",
-      fb: '<span class="fb-sans fb-md" style="font-weight:800">Tom’s Hardware</span>' },
-
-    { n: "MakeUseOf",                f: "MakeUseOf_logo.svg",
-      fb: '<span class="fb-sans fb-md" style="font-weight:800">MakeUseOf</span>' },
-
+    { n: "The Verge",                f: "The_Verge_logo.svg",
+      fb: '<span class="fb-sans fb-lg" style="font-weight:900">THE VERGE</span>' },
+    { n: "Financial Times",          f: "Financial_Times_corporate_logo_(no_background).svg",
+      fb: '<span class="fb-serif fb-lg" style="background:#fff1e5;color:#000;padding:6px 14px;font-weight:700">FINANCIAL TIMES</span>' },
+    { n: "Toronto Star",             f: "Toronto_Star_Logo.svg",
+      fb: '<span class="fb-serif fb-xl">Toronto Star</span>' },
     { n: "Al Jazeera Media Institute", f: "Al_Jazeera_Media_Institute_Logo.svg",
       fb: '<span class="fb-sans fb-md" style="font-weight:600">Al Jazeera <span style="opacity:.7">Media Institute</span></span>' },
+    { n: "TechCrunch",               f: "TechCrunch_logo.svg",
+      fb: '<span class="fb-sans fb-lg">TechCrunch</span>' },
+    { n: "Euronews",                 f: "Euronews_2016_logo.svg",
+      fb: '<span class="fb-sans fb-lg" style="font-weight:700;letter-spacing:-0.02em">euronews.</span>' },
+    { n: "Fox News",                 f: "Fox_News_Channel_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">FOX NEWS</span>' },
+    { n: "MIT Sloan Management Review", f: "MIT_Sloan_Management_Review_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:600">MIT Sloan <span style="opacity:.7">Management Review</span></span>' },
+    { n: "The Information",          f: "The_Information_logo.svg",
+      fb: '<span class="fb-serif fb-lg fb-italic">The Information</span>' },
+  ];
 
+  const featuredRow2 = [
+    { n: "Business Insider",         f: "Business_Insider_Logo.svg",
+      fb: '<span class="fb-sans fb-md">BUSINESS INSIDER</span>' },
+    { n: "DIE ZEIT",                 f: "Die_Zeit-Logo-Bremen.svg",
+      fb: '<span class="fb-serif fb-xl">DIE&nbsp;ZEIT</span>' },
     { n: "The Daily Telegraph",      f: "The_Daily_Telegraph_(Sydney_masthead).svg", size: "tall",
       fb: '<span class="fb-serif fb-xl">The Daily Telegraph</span>' },
+    { n: "Ars Technica",             f: "Ars_Technica_logo_(2016).svg",
+      fb: '<span class="fb-sans fb-md fb-allcaps" style="font-weight:800">ars TECHNICA</span>' },
+    { n: "The Register",             f: "The_Register_logo.svg",
+      fb: '<span class="fb-cond fb-lg">The Register</span>' },
+    { n: "The Indian Express",       f: "The_Indian_Express_logo.svg",
+      fb: '<span class="fb-serif fb-lg">The Indian EXPRESS</span>' },
+    { n: "ZDNET",                    f: "ZDNET_logo.svg",
+      fb: '<span class="fb-sans fb-lg" style="font-weight:800;letter-spacing:-0.02em">ZDNET</span>' },
+    { n: "VICE",                     f: "Vice_logo.svg",
+      fb: '<span class="fb-sans fb-xl" style="font-weight:900;letter-spacing:0.02em">VICE</span>' },
+    { n: "Gizmodo",                  f: "Gizmodo_logo.svg",
+      fb: '<span class="fb-sans fb-lg" style="font-weight:800">Gizmodo</span>' },
+    { n: "Decrypt",                  f: "Decrypt_logo.svg",
+      fb: '<span class="fb-mono fb-md">DECRYPT</span>' },
+    { n: "Digital Trends",           f: "Digital_Trends_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:700">DIGITAL TRENDS</span>' },
+    { n: "TechRadar",                f: "TechRadar_logo.svg",
+      fb: '<span class="fb-sans fb-lg" style="font-weight:800">TechRadar</span>' },
+    { n: "Tom's Guide",              f: "Tom's_Guide_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">Tom’s Guide</span>' },
+    { n: "Tom's Hardware",           f: "Tom's_Hardware_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">Tom’s Hardware</span>' },
+    { n: "MakeUseOf",                f: "MakeUseOf_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">MakeUseOf</span>' },
+    { n: "VentureBeat",              f: "VentureBeat_VB_Logo.svg",
+      fb: '<span class="fb-sans fb-lg">VentureBeat</span>' },
+    { n: "InfoWorld",                f: "InfoWorld_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">InfoWorld</span>' },
+    { n: "Computerworld",            f: "Computerworld_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">Computerworld</span>' },
+    { n: "CIO",                      f: "CIO_Magazine_logo.svg",
+      fb: '<span class="fb-sans fb-lg" style="font-weight:800;letter-spacing:0.04em">CIO</span>' },
+    { n: "SiliconANGLE",             f: "SiliconANGLE_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:700">silicon<span style="font-weight:900">ANGLE</span></span>' },
+    { n: "TechTarget",               f: "TechTarget_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">TechTarget</span>' },
+    { n: "Built In",                 f: "Built_In_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">Built In</span>' },
+    { n: "The Decoder",              f: "The_Decoder_logo.svg",
+      fb: '<span class="fb-sans-thin fb-md">THE DECODER</span>' },
+    { n: "KDnuggets",                f: "KDnuggets_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">KDnuggets</span>' },
+    { n: "Analytics India Magazine", f: "Analytics_India_Magazine_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:700">Analytics India <span style="opacity:.7">Magazine</span></span>' },
+    { n: "DataCamp",                 f: "DataCamp_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800">DataCamp</span>' },
+    { n: "DigitalOcean",             f: "DigitalOcean_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:700">DigitalOcean</span>' },
+  ];
+
+  const cited = [
+    { n: "World Economic Forum",     f: "World_Economic_Forum_logo.svg",
+      fb: '<span class="fb-sans-thin fb-sm">WORLD ECONOMIC FORUM</span>' },
+    { n: "GOV.UK",                   f: "Royal_Coat_of_Arms_of_the_United_Kingdom_(Variant_2,_2022).svg",
+      fb: '<span class="fb-govuk">GOV.UK</span>' },
+    { n: "U.S. Senate Judiciary Committee", f: "Seal_of_the_United_States_Senate.svg",
+      fb: '<span class="fb-official"><span class="top">U.S. Senate</span><span class="bot">Committee on the Judiciary</span></span>' },
+    { n: "OECD",                     f: "OECD_logo_new.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800;letter-spacing:0.04em">OECD</span>' },
+    { n: "European Commission",      f: "European_Commission.svg",
+      fb: '<span class="fb-sans-thin fb-sm">EUROPEAN COMMISSION</span>' },
+    { n: "NIST",                     f: "NIST_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:800;letter-spacing:0.06em">NIST</span>' },
+    { n: "Stanford HAI",             f: "Stanford_University_seal_2003.svg",
+      fb: '<span class="fb-serif fb-md">Stanford <span style="opacity:.7;font-family:Inter,sans-serif;font-size:14px;letter-spacing:0.12em;text-transform:uppercase">HAI</span></span>' },
+    { n: "NVIDIA",                   f: "Nvidia_logo.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:900;letter-spacing:0.04em">NVIDIA</span>' },
+    { n: "Google Cloud",             f: "Google_Cloud_logo.svg",
+      fb: '<span class="fb-sans-thin fb-sm">Google Cloud</span>' },
+    { n: "Microsoft",                f: "Microsoft_logo_(2012).svg",
+      fb: '<span class="fb-sans-thin fb-sm" style="letter-spacing:-0.02em">Microsoft</span>' },
+    { n: "IBM",                      f: "IBM_logo.svg",
+      fb: '<span class="fb-sans fb-lg" style="font-weight:900;letter-spacing:0.04em">IBM</span>' },
+    { n: "Ubuntu",                   f: "Ubuntu-logo-2022.svg",
+      fb: '<span class="fb-sans fb-md" style="font-weight:700">ubuntu</span>' },
   ];
 
   function logoMarkup(o) {
-    const cls = o.size === "tall" ? "logo logo--tall"
+    const cls = o.size === "tall"  ? "logo logo--tall"
               : o.size === "short" ? "logo logo--short"
               : "logo";
     const src = "https://commons.wikimedia.org/wiki/Special:FilePath/"
@@ -397,20 +458,14 @@
             </li>`;
   }
 
-  // Split the list into two visually balanced rows that, between them,
-  // contain every outlet exactly once — but each row repeats its own
-  // contents twice for a seamless scroll loop.
-  const half = Math.ceil(outlets.length / 2);
-  const rowA = outlets.slice(0, half);                 // first half
-  const rowB = outlets.slice(half);                    // second half
-
   function fillTrack(elId, items) {
     const html = items.map(logoMarkup).join("");
-    document.getElementById(elId).innerHTML = html + html; // duplicate for loop
+    document.getElementById(elId).innerHTML = html + html; // duplicate for seamless loop
   }
 
-  fillTrack("row1", rowA);
-  fillTrack("row2", rowB);
+  fillTrack("row1", featuredRow1);
+  fillTrack("row2", featuredRow2);
+  fillTrack("row3", cited);
   </script>
 </body>
 </html>
