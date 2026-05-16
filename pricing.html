@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — AutoGPT</title>
+  <meta name="description" content="AutoGPT pricing — coming soon.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body { background-color: #0b0b0f; }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f1ea;
+    }
+
+    /* ---------- Site header (same glass nav as index) ---------- */
+    .site-header {
+      isolation: isolate;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-feature-settings: "cv11", "ss01", "ss03";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .site-header__link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.625rem 0.875rem;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      color: rgba(255, 255, 255, 0.72);
+      transition: color 180ms ease, background-color 200ms ease;
+    }
+    .site-header__link[aria-current="page"] { color: #fff; }
+    .site-header__link:hover {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    .site-header__link:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.55), 0 0 0 4px rgba(10,10,14,0.95);
+    }
+    .site-header__glass {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-color: rgba(10, 10, 14, 0.55);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.04) inset,
+        0 12px 32px -16px rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+    .site-header__hairline {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 18%,
+        rgba(255, 255, 255, 0.14) 50%,
+        rgba(255, 255, 255, 0.08) 82%,
+        transparent 100%
+      );
+      z-index: -1;
+    }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .site-header__glass { background-color: rgba(10, 10, 14, 0.92); }
+    }
+
+    .cta-pill {
+      color: #18181b;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      padding: 0.625rem 1.125rem;
+      background-image: linear-gradient(180deg, #ffffff 0%, #f3f3f5 100%);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 1px 0 rgba(255, 255, 255, 0.6) inset,
+        0 1px 2px rgba(15, 15, 20, 0.18),
+        0 8px 24px -12px rgba(15, 15, 20, 0.35);
+      transition: transform 200ms ease, background-image 200ms ease, box-shadow 200ms ease;
+    }
+    .cta-pill:hover {
+      background-image: linear-gradient(180deg, #ffffff 0%, #e9e9ec 100%);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.05),
+        0 1px 0 rgba(255, 255, 255, 0.7) inset,
+        0 2px 4px rgba(15, 15, 20, 0.2),
+        0 12px 28px -12px rgba(15, 15, 20, 0.4);
+      transform: translateY(-0.5px);
+    }
+    .cta-pill:active { transform: translateY(0); }
+
+    .nav-divider {
+      width: 1px;
+      height: 22px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.16), transparent);
+      margin: 0 0.5rem;
+    }
+
+    .site-header__mobile {
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 10, 14, 0.85);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+    }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .site-header__mobile { background: rgba(10, 10, 14, 0.96); }
+    }
+
+    /* ---------- Placeholder hero ---------- */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .bg-glow {
+      position: absolute;
+      inset: -10% -10% -30% -10%;
+      background:
+        radial-gradient(50% 40% at 50% 30%, rgba(199, 84, 40, 0.18) 0%, transparent 70%),
+        radial-gradient(40% 30% at 80% 70%, rgba(255, 240, 210, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .placeholder {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      text-align: center;
+    }
+    .placeholder__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin: 0 0 24px;
+    }
+    .placeholder__eyebrow::before,
+    .placeholder__eyebrow::after {
+      content: "";
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+    .placeholder__title {
+      font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -0.022em;
+      color: #f5f1ea;
+      margin: 0 0 20px;
+    }
+    .placeholder__title em {
+      font-style: italic;
+      font-weight: 500;
+      color: #f29465;
+    }
+    .placeholder__sub {
+      font-size: clamp(16px, 1.4vw, 19px);
+      line-height: 1.55;
+      color: rgba(245, 241, 234, 0.65);
+      max-width: 520px;
+      margin: 0 auto 36px;
+    }
+    .placeholder__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .ghost-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.625rem 1.125rem;
+      border-radius: 9999px;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(245, 241, 234, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+      transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+    }
+    .ghost-pill:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-zinc-900 focus:shadow-lg">Skip to content</a>
+
+<header id="site-header" class="site-header sticky top-0 z-50 w-full">
+  <div class="site-header__glass" aria-hidden="true"></div>
+  <div class="site-header__hairline" aria-hidden="true"></div>
+  <nav aria-label="Primary" class="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <a href="index.html" aria-label="AutoGPT home" class="relative flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-4 focus-visible:ring-offset-zinc-950">
+      <img src="logo.png" alt="AutoGPT" width="790" height="356" class="h-10 w-auto" decoding="async" />
+    </a>
+
+    <ul role="list" class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-0.5">
+      <li><a href="#" class="site-header__link">Blog</a></li>
+      <li><a href="pricing.html" class="site-header__link" aria-current="page">Pricing</a></li>
+      <li><a href="https://agpt.co/docs" class="site-header__link">Docs</a></li>
+      <li><a href="https://agpt.co/docs/platform/changelog/changelog" class="site-header__link">Changelog</a></li>
+    </ul>
+
+    <div class="flex items-center">
+      <a href="https://platform.agpt.co/login" class="site-header__link hidden sm:inline-flex">Sign in</a>
+      <span aria-hidden="true" class="nav-divider hidden sm:block"></span>
+      <a href="https://platform.agpt.co/signup" class="cta-pill inline-flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">Get started</a>
+      <button id="mobile-menu-button" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden ml-1 inline-flex items-center justify-center rounded-md p-2.5 text-white/85 hover:text-white hover:bg-white/[0.06] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
+        <span class="sr-only">Toggle main menu</span>
+        <svg id="mobile-menu-icon-open" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+        <svg id="mobile-menu-icon-close" class="hidden h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="site-header__mobile md:hidden hidden">
+    <ul role="list" class="relative space-y-0.5 px-3 py-3">
+      <li><a href="index.html#" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Blog</a></li>
+      <li><a href="pricing.html" aria-current="page" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white hover:bg-white/[0.06] transition-colors">Pricing</a></li>
+      <li><a href="https://agpt.co/docs" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Docs</a></li>
+      <li><a href="https://agpt.co/docs/platform/changelog/changelog" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Changelog</a></li>
+      <li class="mt-2 border-t border-white/[0.06] pt-2"><a href="https://platform.agpt.co/login" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Sign in</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="placeholder">
+    <p class="placeholder__eyebrow">Pricing</p>
+    <h1 class="placeholder__title">
+      Plans are <em>coming soon.</em>
+    </h1>
+    <p class="placeholder__sub">
+      We're finalizing pricing for teams and individuals.
+      In the meantime, the platform is free to try.
+    </p>
+    <div class="placeholder__actions">
+      <a href="https://platform.agpt.co/signup" class="cta-pill inline-flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">Try AutoGPT free</a>
+      <a href="index.html" class="ghost-pill focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+          <path d="M19 12H5" />
+          <path d="m12 19-7-7 7-7" />
+        </svg>
+        Back home
+      </a>
+    </div>
+  </div>
+</main>
+
+<script>
+  (function () {
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('mobile-menu-icon-open');
+    const iconClose = document.getElementById('mobile-menu-icon-close');
+    if (!btn || !menu) return;
+
+    const setOpen = (open) => {
+      btn.setAttribute('aria-expanded', String(open));
+      menu.classList.toggle('hidden', !open);
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+    };
+
+    btn.addEventListener('click', () => {
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menu.addEventListener('click', (e) => {
+      if (e.target instanceof HTMLAnchorElement) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+
+    const mq = window.matchMedia('(min-width: 768px)');
+    mq.addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+  })();
+</script>
+</body>
+</html>
