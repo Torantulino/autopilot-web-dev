@@ -181,7 +181,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      height: 200px;
+      height: clamp(120px, 22vh, 220px);
       background: linear-gradient(to bottom,
         transparent 0%,
         rgba(245, 241, 234, 0.4) 50%,
@@ -196,11 +196,21 @@
       justify-content: center;
       width: 100%;
       min-height: 100vh;
+      min-height: 100svh;
       padding: 2rem;
     }
     .wrapper {
       width: 100%;
       max-width: 640px;
+    }
+    .hero__h1 {
+      font-size: clamp(2rem, 6.4vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .hero__h2 {
+      font-size: clamp(1.0625rem, 2.2vw, 1.25rem);
+      line-height: 1.35;
     }
 
   :root {
@@ -213,6 +223,28 @@
     --gap: 84px;
     --speed-1: 90s;
     --speed-2: 110s;
+    --mask-edge: 80px;
+  }
+
+  @media (max-width: 639px) {
+    :root {
+      --row-h: 48px;
+      --gap: 48px;
+      --speed-1: 55s;
+      --speed-2: 70s;
+      --mask-edge: 40px;
+    }
+    .logo img { max-width: 160px; }
+  }
+  @media (min-width: 640px) and (max-width: 767px) {
+    :root {
+      --row-h: 56px;
+      --gap: 64px;
+      --speed-1: 72s;
+      --speed-2: 90s;
+      --mask-edge: 56px;
+    }
+    .logo img { max-width: 200px; }
   }
 
   .press {
@@ -253,15 +285,15 @@
     -webkit-mask-image: linear-gradient(
       to right,
       transparent 0,
-      #000 80px,
-      #000 calc(100% - 80px),
+      #000 var(--mask-edge),
+      #000 calc(100% - var(--mask-edge)),
       transparent 100%
     );
             mask-image: linear-gradient(
       to right,
       transparent 0,
-      #000 80px,
-      #000 calc(100% - 80px),
+      #000 var(--mask-edge),
+      #000 calc(100% - var(--mask-edge)),
       transparent 100%
     );
   }
@@ -374,7 +406,7 @@
     background-image:
       radial-gradient(1400px 800px at 50% 0%, rgba(255, 240, 210, 0.45) 0%, transparent 60%),
       linear-gradient(180deg, var(--paper) 0%, var(--paper) 70%, var(--paper-deep) 100%);
-    padding: 96px 24px 160px;
+    padding: clamp(56px, 9vw, 96px) clamp(16px, 4vw, 24px) clamp(96px, 14vw, 160px);
     color: var(--ink-dark);
   }
   .demo__container { max-width: 1200px; margin: 0 auto; }
@@ -563,7 +595,7 @@
       <img src="logo.png" alt="AutoGPT" width="790" height="356" class="h-10 w-auto" decoding="async" />
     </a>
 
-    <ul role="list" class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-0.5">
+    <ul role="list" class="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-0.5">
       <li><a href="#" class="site-header__link">Blog</a></li>
       <li><a href="pricing.html" class="site-header__link">Pricing</a></li>
       <li><a href="https://agpt.co/docs" class="site-header__link">Docs</a></li>
@@ -574,7 +606,7 @@
       <a href="https://platform.agpt.co/login" class="site-header__link hidden sm:inline-flex">Sign in</a>
       <span aria-hidden="true" class="nav-divider hidden sm:block"></span>
       <a href="https://platform.agpt.co/signup" class="cta-pill inline-flex items-center rounded-full transition-[transform,background-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">Get started</a>
-      <button id="mobile-menu-button" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden ml-1 inline-flex items-center justify-center rounded-md p-2.5 text-white/85 hover:text-white hover:bg-white/[0.06] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
+      <button id="mobile-menu-button" type="button" aria-controls="mobile-menu" aria-expanded="false" class="lg:hidden ml-1 inline-flex items-center justify-center rounded-md p-2.5 text-white/85 hover:text-white hover:bg-white/[0.06] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
         <span class="sr-only">Toggle main menu</span>
         <svg id="mobile-menu-icon-open" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
@@ -586,13 +618,14 @@
     </div>
   </nav>
 
-  <div id="mobile-menu" class="site-header__mobile md:hidden hidden">
+  <div id="mobile-menu" class="site-header__mobile lg:hidden hidden">
     <ul role="list" class="relative space-y-0.5 px-3 py-3">
       <li><a href="#" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Blog</a></li>
       <li><a href="pricing.html" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Pricing</a></li>
       <li><a href="https://agpt.co/docs" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Docs</a></li>
       <li><a href="https://agpt.co/docs/platform/changelog/changelog" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Changelog</a></li>
       <li class="mt-2 border-t border-white/[0.06] pt-2"><a href="https://platform.agpt.co/login" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Sign in</a></li>
+      <li class="mt-2"><a href="https://platform.agpt.co/signup" class="cta-pill block text-center rounded-full mx-3 py-3">Get started</a></li>
     </ul>
   </div>
 </header>
@@ -601,10 +634,10 @@
   <div class="hero">
     <div class="wrapper">
       <div class="relative mb-4 flex flex-col items-center px-4 text-center md:mb-6">
-        <h1 class="text-white mb-2 flex items-center gap-1 text-3xl leading-none font-semibold sm:text-3xl md:mb-2.5 md:gap-0 md:text-5xl">
+        <h1 class="hero__h1 text-white mb-2 flex items-center gap-1 font-semibold md:mb-2.5 md:gap-0">
           <span class="pt-0.5 md:pt-0">Meet <span>AutoGPT</span></span>
         </h1>
-        <h2 class="text-white/65 mb-6 max-w-[25ch] text-center text-lg leading-tight font-normal md:max-w-full md:text-xl">
+        <h2 class="hero__h2 text-white/65 mb-6 max-w-[25ch] text-center font-normal md:max-w-full">
           Stop building workflows. Start hiring agents.
         </h2>
       </div>
@@ -626,7 +659,7 @@
             <div class="flex min-w-0 items-center gap-1">
               <input multiple class="hidden" tabindex="-1" type="file">
               <button
-                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none p-3 border rounded-[96px] border-zinc-300 bg-white text-zinc-500 hover:border-zinc-400 hover:bg-zinc-50 hover:text-zinc-700"
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none p-3 min-h-11 min-w-11 border rounded-[96px] border-zinc-300 bg-white text-zinc-500 hover:border-zinc-400 hover:bg-zinc-50 hover:text-zinc-700"
                 type="button" aria-label="Attach file" disabled>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256" class="h-4 w-4">
                   <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path>
@@ -635,7 +668,7 @@
             </div>
             <div class="flex items-center gap-4">
               <button
-                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none p-3 rounded-[96px] border-0 bg-white text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700"
+                class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none p-3 min-h-11 min-w-11 rounded-[96px] border-0 bg-white text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700"
                 type="button" aria-label="Start recording" disabled>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256" class="h-4 w-4">
                   <path d="M128,180a52.06,52.06,0,0,0,52-52V64A52,52,0,0,0,76,64v64A52.06,52.06,0,0,0,128,180ZM100,64a28,28,0,0,1,56,0v64a28,28,0,0,1-56,0Zm40,155.22V240a12,12,0,0,1-24,0V219.22A92.14,92.14,0,0,1,36,128a12,12,0,0,1,24,0,68,68,0,0,0,136,0,12,12,0,0,1,24,0A92.14,92.14,0,0,1,140,219.22Z"></path>
@@ -643,7 +676,7 @@
               </button>
               <button
                 id="submit-btn"
-                class="inline-flex justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none text-sm shadow-none items-center p-0 size-[2.625rem] rounded-full bg-zinc-800 text-white hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-white disabled:opacity-100"
+                class="inline-flex justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none text-sm shadow-none items-center p-0 size-11 rounded-full bg-zinc-800 text-white hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-white disabled:opacity-100"
                 type="submit" aria-label="Submit" disabled>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256" class="size-4">
                   <path d="M208.49,120.49a12,12,0,0,1-17,0L140,69V216a12,12,0,0,1-24,0V69L64.49,120.49a12,12,0,0,1-17-17l72-72a12,12,0,0,1,17,0l72,72A12,12,0,0,1,208.49,120.49Z"></path>
@@ -761,7 +794,7 @@
         }
       });
 
-      const mq = window.matchMedia('(min-width: 768px)');
+      const mq = window.matchMedia('(min-width: 1024px)');
       mq.addEventListener('change', (e) => { if (e.matches) setOpen(false); });
     })();
 

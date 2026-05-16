@@ -376,7 +376,7 @@
       <img src="logo.png" alt="AutoGPT" width="790" height="356" class="h-10 w-auto" decoding="async" />
     </a>
 
-    <ul role="list" class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-0.5">
+    <ul role="list" class="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-0.5">
       <li><a href="#" class="site-header__link">Blog</a></li>
       <li><a href="pricing.html" class="site-header__link" aria-current="page">Pricing</a></li>
       <li><a href="https://agpt.co/docs" class="site-header__link">Docs</a></li>
@@ -387,7 +387,7 @@
       <a href="https://platform.agpt.co/login" class="site-header__link hidden sm:inline-flex">Sign in</a>
       <span aria-hidden="true" class="nav-divider hidden sm:block"></span>
       <a href="https://platform.agpt.co/signup" class="cta-pill inline-flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">Get started</a>
-      <button id="mobile-menu-button" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden ml-1 inline-flex items-center justify-center rounded-md p-2.5 text-white/85 hover:text-white hover:bg-white/[0.06] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
+      <button id="mobile-menu-button" type="button" aria-controls="mobile-menu" aria-expanded="false" class="lg:hidden ml-1 inline-flex items-center justify-center rounded-md p-2.5 text-white/85 hover:text-white hover:bg-white/[0.06] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
         <span class="sr-only">Toggle main menu</span>
         <svg id="mobile-menu-icon-open" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
@@ -399,13 +399,14 @@
     </div>
   </nav>
 
-  <div id="mobile-menu" class="site-header__mobile md:hidden hidden">
+  <div id="mobile-menu" class="site-header__mobile lg:hidden hidden">
     <ul role="list" class="relative space-y-0.5 px-3 py-3">
       <li><a href="index.html#" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Blog</a></li>
       <li><a href="pricing.html" aria-current="page" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white hover:bg-white/[0.06] transition-colors">Pricing</a></li>
       <li><a href="https://agpt.co/docs" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Docs</a></li>
       <li><a href="https://agpt.co/docs/platform/changelog/changelog" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Changelog</a></li>
       <li class="mt-2 border-t border-white/[0.06] pt-2"><a href="https://platform.agpt.co/login" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Sign in</a></li>
+      <li class="mt-2"><a href="https://platform.agpt.co/signup" class="cta-pill block text-center rounded-full mx-3 py-3">Get started</a></li>
     </ul>
   </div>
 </header>
@@ -527,7 +528,7 @@
       }
     });
 
-    const mq = window.matchMedia('(min-width: 768px)');
+    const mq = window.matchMedia('(min-width: 1024px)');
     mq.addEventListener('change', (e) => { if (e.matches) setOpen(false); });
   })();
 </script>
