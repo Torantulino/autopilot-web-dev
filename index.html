@@ -582,6 +582,140 @@
     70%  { box-shadow: 0 0 0 10px rgba(199, 84, 40, 0); }
     100% { box-shadow: 0 0 0 0   rgba(199, 84, 40, 0); }
   }
+
+  /* ---------- Use cases (paper, alternating rows) ---------- */
+  .usecases {
+    width: 100%;
+    background: var(--paper);
+    background-image: linear-gradient(180deg, var(--paper-deep) 0%, var(--paper) 14%, var(--paper) 100%);
+    padding: clamp(56px, 9vw, 96px) clamp(16px, 4vw, 24px) clamp(96px, 13vw, 140px);
+    color: var(--ink-dark);
+  }
+  .usecases__container { max-width: 1200px; margin: 0 auto; }
+
+  .usecases__intro {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto clamp(48px, 7vw, 88px);
+  }
+  .usecases__intro .demo__eyebrow { color: var(--ink-soft); margin: 0 0 20px; }
+  .usecases__intro .usecases__title {
+    font-size: clamp(32px, 4.4vw, 52px);
+    margin: 0 auto;
+  }
+  .usecases__intro .usecases__title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .usecases__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "text image";
+    align-items: center;
+    gap: clamp(40px, 6vw, 88px);
+    padding-block: clamp(48px, 7vw, 88px);
+  }
+  .usecases__row--reverse { grid-template-areas: "image text"; }
+  .usecases__text  { grid-area: text;  max-width: 460px; }
+  .usecases__panel { grid-area: image; }
+
+  .usecases__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--row-accent, var(--ink-soft));
+    margin: 0 0 18px;
+  }
+  .usecases__eyebrow::after {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.45;
+  }
+  .usecases__title {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink-dark);
+    margin: 0 0 18px;
+  }
+  .usecases__title em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--row-accent, var(--accent));
+  }
+  .usecases__body {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(15px, 1.15vw, 17px);
+    line-height: 1.6;
+    color: var(--ink-mid);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .usecases__panel {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+    padding: clamp(28px, 4vw, 56px);
+    background:
+      linear-gradient(135deg, var(--row-tint-a, rgba(255,196,140,0.22)) 0%, var(--row-tint-b, rgba(255,224,196,0.10)) 100%),
+      var(--paper);
+    border: 1px solid rgba(40, 24, 8, 0.06);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.5) inset,
+      0 24px 60px -28px rgba(40, 24, 8, 0.18),
+      0 2px 6px -2px rgba(40, 24, 8, 0.06);
+    overflow: hidden;
+    margin: 0;
+  }
+  .usecases__panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(120% 80% at 20% 0%, rgba(255,255,255,0.35) 0%, transparent 55%);
+  }
+  .usecases__image {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 10px 28px rgba(40, 24, 8, 0.10));
+  }
+
+  @media (max-width: 880px) {
+    .usecases {
+      padding: clamp(48px, 10vw, 72px) clamp(16px, 5vw, 20px) clamp(64px, 14vw, 96px);
+    }
+    .usecases__row,
+    .usecases__row--reverse {
+      grid-template-columns: 1fr;
+      grid-template-areas: "image" "text";
+      gap: clamp(24px, 5vw, 36px);
+      padding-block: clamp(32px, 7vw, 56px);
+    }
+    .usecases__text { max-width: none; }
+    .usecases__title { font-size: clamp(24px, 6vw, 32px); }
+    .usecases__body  { font-size: 15px; }
+    .usecases__panel { aspect-ratio: 4 / 3; padding: clamp(20px, 5vw, 32px); }
+    .usecases__intro { margin-bottom: clamp(32px, 8vw, 48px); }
+    .usecases__intro .usecases__title { font-size: clamp(28px, 7vw, 36px); }
+  }
   </style>
 </head>
 <body>
@@ -763,6 +897,137 @@
     </div>
   </div>
 </section>
+
+<section class="usecases" aria-labelledby="usecases-title">
+  <div class="usecases__container">
+    <header class="usecases__intro">
+      <p class="demo__eyebrow">Built for every role</p>
+      <h2 class="usecases__title" id="usecases-title">
+        One platform. <em>Every team's busywork.</em>
+      </h2>
+    </header>
+
+    <article class="usecases__row"
+             style="--row-accent:#c75428; --row-tint-a:rgba(255,196,140,0.22); --row-tint-b:rgba(255,224,196,0.10);"
+             aria-labelledby="uc-briefing-title">
+      <div class="usecases__text">
+        <p class="usecases__eyebrow">Executive ops</p>
+        <h3 class="usecases__title" id="uc-briefing-title">
+          Your <em>morning brief</em>, already written.
+        </h3>
+        <p class="usecases__body">Earnings, headlines, internal pulse &mdash; pulled, ranked, and on your desk before standup. No dashboards to babysit.</p>
+      </div>
+      <figure class="usecases__panel">
+        <img class="usecases__image" src="images/daily_briefing.png"
+             alt="AutoGPT generating an executive daily briefing"
+             width="1000" height="1000" decoding="async" />
+      </figure>
+    </article>
+
+    <article class="usecases__row usecases__row--reverse"
+             style="--row-accent:#3a6b8a; --row-tint-a:rgba(170,205,230,0.22); --row-tint-b:rgba(200,225,240,0.10);"
+             aria-labelledby="uc-callprep-title">
+      <div class="usecases__text">
+        <p class="usecases__eyebrow">Sales</p>
+        <h3 class="usecases__title" id="uc-callprep-title">
+          Walk in knowing <em>exactly who you're meeting</em>.
+        </h3>
+        <p class="usecases__body">Account history, recent news, last-touch context, and the three questions worth asking &mdash; assembled for every meeting on tomorrow's calendar.</p>
+      </div>
+      <figure class="usecases__panel">
+        <img class="usecases__image" src="images/call_prep.png"
+             alt="AutoGPT preparing a sales call briefing"
+             width="1000" height="1000" loading="lazy" decoding="async" />
+      </figure>
+    </article>
+
+    <article class="usecases__row"
+             style="--row-accent:#a14a7a; --row-tint-a:rgba(230,180,205,0.20); --row-tint-b:rgba(240,210,225,0.10);"
+             aria-labelledby="uc-campaign-title">
+      <div class="usecases__text">
+        <p class="usecases__eyebrow">Marketing</p>
+        <h3 class="usecases__title" id="uc-campaign-title">
+          From brief to <em>full campaign draft</em> overnight.
+        </h3>
+        <p class="usecases__body">Positioning, channel cuts, subject lines, and a launch checklist &mdash; drafted while you sleep, ready for your edits in the morning.</p>
+      </div>
+      <figure class="usecases__panel">
+        <img class="usecases__image" src="images/campaign_draft.png"
+             alt="AutoGPT drafting a multi-channel marketing campaign"
+             width="1000" height="1000" loading="lazy" decoding="async" />
+      </figure>
+    </article>
+
+    <article class="usecases__row usecases__row--reverse"
+             style="--row-accent:#4a7a5a; --row-tint-a:rgba(190,220,200,0.22); --row-tint-b:rgba(215,235,220,0.10);"
+             aria-labelledby="uc-market-title">
+      <div class="usecases__text">
+        <p class="usecases__eyebrow">Finance</p>
+        <h3 class="usecases__title" id="uc-market-title">
+          Markets move. <em>You hear about it first.</em>
+        </h3>
+        <p class="usecases__body">Tickers, filings, and sector signals watched continuously. You only get pinged when something actually matters to your book.</p>
+      </div>
+      <figure class="usecases__panel">
+        <img class="usecases__image" src="images/market_watch_update.png"
+             alt="AutoGPT delivering a market watch update"
+             width="1000" height="1000" loading="lazy" decoding="async" />
+      </figure>
+    </article>
+
+    <article class="usecases__row"
+             style="--row-accent:#8a5a2a; --row-tint-a:rgba(220,170,140,0.20); --row-tint-b:rgba(235,200,175,0.10);"
+             aria-labelledby="uc-issue-title">
+      <div class="usecases__text">
+        <p class="usecases__eyebrow">Engineering</p>
+        <h3 class="usecases__title" id="uc-issue-title">
+          Incidents triaged <em>before you open Slack</em>.
+        </h3>
+        <p class="usecases__body">Logs cross-referenced, recent deploys checked, likely culprit named. Your on-call starts with a hypothesis, not a blank terminal.</p>
+      </div>
+      <figure class="usecases__panel">
+        <img class="usecases__image" src="images/issue_analysis.png"
+             alt="AutoGPT analyzing an engineering incident"
+             width="1000" height="1000" loading="lazy" decoding="async" />
+      </figure>
+    </article>
+
+    <article class="usecases__row usecases__row--reverse"
+             style="--row-accent:#7a6a3a; --row-tint-a:rgba(225,210,160,0.22); --row-tint-b:rgba(240,230,195,0.10);"
+             aria-labelledby="uc-support-title">
+      <div class="usecases__text">
+        <p class="usecases__eyebrow">Customer support</p>
+        <h3 class="usecases__title" id="uc-support-title">
+          Every ticket, <em>already half-answered</em>.
+        </h3>
+        <p class="usecases__body">Drafted replies, pulled order history, flagged escalations &mdash; your team reviews and sends instead of typing from scratch.</p>
+      </div>
+      <figure class="usecases__panel">
+        <img class="usecases__image" src="images/support_queue.png"
+             alt="AutoGPT triaging a customer support queue"
+             width="1000" height="1000" loading="lazy" decoding="async" />
+      </figure>
+    </article>
+
+    <article class="usecases__row"
+             style="--row-accent:#5a6a8a; --row-tint-a:rgba(195,195,230,0.22); --row-tint-b:rgba(220,220,240,0.10);"
+             aria-labelledby="uc-trials-title">
+      <div class="usecases__text">
+        <p class="usecases__eyebrow">Clinical operations</p>
+        <h3 class="usecases__title" id="uc-trials-title">
+          Trial sites flagged <em>before they fall behind</em>.
+        </h3>
+        <p class="usecases__body">Enrollment pace, protocol deviations, and site activity reviewed daily. The CRO team gets a ranked watchlist, not another export.</p>
+      </div>
+      <figure class="usecases__panel">
+        <img class="usecases__image" src="images/at-risk-trials.png"
+             alt="AutoGPT flagging at-risk clinical trial sites"
+             width="1000" height="1000" loading="lazy" decoding="async" />
+      </figure>
+    </article>
+  </div>
+</section>
+
   <script>
     // Mobile menu disclosure
     (function () {
