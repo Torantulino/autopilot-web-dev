@@ -220,7 +220,7 @@
     /* ---------- Hero recommended-prompt chips ---------- */
     .hero__prompts {
       margin: clamp(20px, 3vw, 32px) auto 0;
-      max-width: 760px;
+      max-width: 480px;
       text-align: center;
     }
     .hero__prompts-eyebrow {
@@ -247,13 +247,13 @@
       gap: 0;
       padding: 10px 16px;
       border-radius: 999px;
-      background-color: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(12px) saturate(150%);
-      -webkit-backdrop-filter: blur(12px) saturate(150%);
+      background-color: rgba(10, 10, 14, 0.55);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.04) inset,
-        0 6px 16px -10px rgba(0, 0, 0, 0.4);
+        0 6px 16px -10px rgba(0, 0, 0, 0.5);
       color: rgba(255, 255, 255, 0.85);
       font-family: "Inter", sans-serif;
       font-size: 14px;
@@ -282,13 +282,13 @@
         margin-left 180ms ease;
     }
     .prompt-chip:hover {
-      background-color: rgba(255, 255, 255, 0.07);
-      border-color: rgba(255, 255, 255, 0.18);
+      background-color: rgba(20, 20, 28, 0.7);
+      border-color: rgba(255, 255, 255, 0.22);
       color: #ffffff;
       transform: translateY(-1px);
       box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.06) inset,
-        0 10px 24px -10px rgba(0, 0, 0, 0.55);
+        0 1px 0 rgba(255, 255, 255, 0.08) inset,
+        0 10px 24px -10px rgba(0, 0, 0, 0.6);
     }
     .prompt-chip:hover .prompt-chip__arrow {
       opacity: 0.85;
@@ -905,13 +905,13 @@
       <div class="hero__prompts" aria-label="Recommended prompts">
         <p class="hero__prompts-eyebrow">Or try a prompt</p>
         <ul class="hero__prompts-list" role="list">
-          <li><a class="prompt-chip" href="#usecase-daily-briefing">Prepare my daily briefing and plan my day<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
-          <li><a class="prompt-chip" href="#usecase-call-prep">Prepare for my call with Acme at 2pm<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
-          <li><a class="prompt-chip" href="#usecase-campaign">Create a social campaign draft for our launch<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
-          <li><a class="prompt-chip" href="#usecase-market-watch">Research competitor pricing changes and send me alerts<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
-          <li><a class="prompt-chip" href="#usecase-issue">Review issue #142 and draft a fix<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
-          <li><a class="prompt-chip" href="#usecase-support">Summarize support tickets and draft replies<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
-          <li><a class="prompt-chip" href="#usecase-trials">Check trial users at risk and suggest outreach<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
+          <li><a class="prompt-chip" href="#usecase-daily-briefing">Brief me for today<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
+          <li><a class="prompt-chip" href="#usecase-call-prep">Prep me for my call<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
+          <li><a class="prompt-chip" href="#usecase-campaign">Draft my launch campaign<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
+          <li><a class="prompt-chip" href="#usecase-market-watch">Watch my competitors<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
+          <li><a class="prompt-chip" href="#usecase-issue">Fix my bug<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
+          <li><a class="prompt-chip" href="#usecase-support">Clear my support queue<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
+          <li><a class="prompt-chip" href="#usecase-trials">Save my at-risk users<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
         </ul>
       </div>
     </div>
