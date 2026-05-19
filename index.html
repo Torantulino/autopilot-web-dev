@@ -874,6 +874,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    align-items: stretch;
   }
   .testimonials__rails .marquee--row3 .marquee__track {
     animation-duration: var(--speed-3);
@@ -884,7 +885,7 @@
   }
   .testimonials__card {
     width: 360px;
-    height: var(--row-h);
+    min-height: var(--row-h);
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -987,11 +988,6 @@
     margin: 0 0 12px;
     font-style: normal;
     font-weight: 400;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
-    overflow: hidden;
     flex: 1 1 auto;
   }
   .testimonials__meta {
@@ -1020,7 +1016,6 @@
       margin-top: 40px;
     }
     .testimonials__card { width: 280px; padding: 18px 18px 14px; }
-    .testimonials__quote { -webkit-line-clamp: 3; }
     .testimonials__avatar { width: 36px; height: 36px; }
   }
   @media (prefers-reduced-motion: reduce) {
