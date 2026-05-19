@@ -797,6 +797,205 @@
     .usecases__intro { margin-bottom: clamp(32px, 8vw, 48px); }
     .usecases__intro .usecases__title { font-size: clamp(28px, 7vw, 36px); }
   }
+
+  /* ---------- Testimonials (Wall of Love) ---------- */
+  .testimonials {
+    width: 100%;
+    background: var(--paper-deep);
+    background-image:
+      radial-gradient(1200px 700px at 50% 0%, rgba(255, 255, 255, 0.55) 0%, transparent 65%),
+      linear-gradient(180deg, var(--paper-deep) 0%, var(--paper) 100%);
+    padding: clamp(72px, 11vw, 128px) clamp(16px, 4vw, 24px);
+    color: var(--ink-dark);
+  }
+  .testimonials__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .testimonials__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 24px;
+  }
+  .testimonials__eyebrow::before,
+  .testimonials__eyebrow::after {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--paper-line);
+  }
+  .testimonials__title {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(34px, 5vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    color: var(--ink-dark);
+    margin: 0 0 20px;
+  }
+  .testimonials__title em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .testimonials__sub {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(15px, 1.3vw, 18px);
+    line-height: 1.55;
+    color: var(--ink-mid);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .testimonials__grid {
+    max-width: 1280px;
+    margin: 56px auto 0;
+    column-count: 3;
+    column-gap: 24px;
+    text-align: left;
+  }
+  .testimonials__card {
+    break-inside: avoid;
+    display: block;
+    margin: 0 0 24px;
+    padding: 22px 22px 18px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid var(--paper-line);
+    box-shadow:
+      0 1px 2px rgba(40, 24, 8, 0.04),
+      0 4px 12px rgba(40, 24, 8, 0.06),
+      0 16px 32px rgba(40, 24, 8, 0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+  .testimonials__card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 2px rgba(40, 24, 8, 0.05),
+      0 6px 16px rgba(40, 24, 8, 0.08),
+      0 24px 48px rgba(40, 24, 8, 0.10);
+  }
+  .testimonials__card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .testimonials__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .testimonials__avatar {
+    position: relative;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #d8eef4 0%, #b8d8e3 100%);
+  }
+  .testimonials__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .testimonials__avatar-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink-mid);
+    letter-spacing: 0.02em;
+  }
+  .testimonials__nameblock {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    min-width: 0;
+    flex: 1;
+  }
+  .testimonials__name {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink-dark);
+    letter-spacing: -0.005em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .testimonials__handle {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .testimonials__x {
+    flex-shrink: 0;
+    color: var(--ink-soft);
+    transition: color 160ms ease;
+  }
+  .testimonials__card:hover .testimonials__x {
+    color: var(--accent);
+  }
+  .testimonials__quote {
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-dark);
+    margin: 0 0 14px;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .testimonials__meta {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--paper-line);
+    padding-top: 10px;
+    margin: 0;
+  }
+  @media (max-width: 1023px) {
+    .testimonials__grid { column-count: 2; }
+  }
+  @media (max-width: 639px) {
+    .testimonials {
+      padding: clamp(56px, 12vw, 80px) clamp(16px, 5vw, 20px);
+    }
+    .testimonials__grid {
+      column-count: 1;
+      column-gap: 0;
+      margin-top: 40px;
+    }
+    .testimonials__avatar { width: 36px; height: 36px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .testimonials__card { transition: none; }
+    .testimonials__card:hover { transform: none; }
+  }
   </style>
 </head>
 <body>
@@ -988,6 +1187,516 @@
         <span class="dot"></span>
         Recorded in real time. No cuts, no acceleration.
       </p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" aria-labelledby="testimonials-title">
+  <div class="testimonials__inner">
+    <p class="testimonials__eyebrow">In their words</p>
+    <h2 class="testimonials__title" id="testimonials-title">
+      What people are saying about <em>AutoGPT</em>
+    </h2>
+    <p class="testimonials__sub">Founders, researchers, and builders on what AutoGPT unlocked.</p>
+
+    <div class="testimonials__grid">
+
+      <a class="testimonials__card" href="https://twitter.com/gregisenberg/status/1651968710465273856" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Greg Isenberg">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/gregisenberg" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">GI</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Greg Isenberg</span>
+            <span class="testimonials__handle">@gregisenberg · 642K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">I've plugged AI, ChatGPT &amp; AutoGPT into my businesses and the results are bonkers…</p>
+        <p class="testimonials__meta" title="Entrepreneur &amp; community builder; founded Late Checkout, 5by (acq. StumbleUpon), Islands (acq. WeWork); advisor to TikTok &amp; Reddit">Entrepreneur &amp; community builder</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/Scobleizer/status/1647373398899847168" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Robert Scoble">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/Scobleizer" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">RS</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Robert Scoble</span>
+            <span class="testimonials__handle">@Scobleizer · 581K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Certainly if you get to AutoGPT you are an AI First thinker.</p>
+        <p class="testimonials__meta" title="Veteran Silicon Valley tech blogger &amp; futurist; ex-Microsoft evangelist">Veteran Silicon Valley tech blogger &amp; futurist</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/amasad/status/1647738298495025153" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Amjad Masad">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/amasad" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">AM</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Amjad Masad</span>
+            <span class="testimonials__handle">@amasad · 460K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">If you have a phone you can run AutoGPT. You don't even need to learn how to code…</p>
+        <p class="testimonials__meta">Co-founder &amp; CEO of Replit</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/adcock_brett/status/1650145609591185408" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Brett Adcock">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/adcock_brett" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">BA</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Brett Adcock</span>
+            <span class="testimonials__handle">@adcock_brett · 442K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">ChatGPT is good. But AutoGPT is the future.</p>
+        <p class="testimonials__meta">Founder &amp; CEO of Figure AI</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/DrJimFan/status/1646186278743072770" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Jim Fan">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/DrJimFan" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">JF</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Jim Fan</span>
+            <span class="testimonials__handle">@DrJimFan · 410K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">AutoGPT is a prototype of the next frontier: "Agent Smith" AI that recursively clones itself…</p>
+        <p class="testimonials__meta" title="NVIDIA Distinguished Scientist &amp; Director of AI; Stanford PhD">NVIDIA Distinguished Scientist &amp; Director of AI</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/_akhaliq/status/1647045743809527813" target="_blank" rel="noopener noreferrer" aria-label="Tweet from AK">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/_akhaliq" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">AK</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">AK</span>
+            <span class="testimonials__handle">@_akhaliq · 497K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">AutoGPT is great but can be more powerful if it had more commands…</p>
+        <p class="testimonials__meta">AI/ML researcher &amp; content curator at Hugging Face / Gradio</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/BrianRoemmele/status/1673412806048354304" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Brian Roemmele">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/BrianRoemmele" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">BR</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Brian Roemmele</span>
+            <span class="testimonials__handle">@BrianRoemmele · 475K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">We made some spectacular Garage Lab discoveries with FinGPT running local…</p>
+        <p class="testimonials__meta" title="Tech futurist &amp; entrepreneur; founder of 1st American Card Service &amp; PayFinders.com">Tech futurist &amp; entrepreneur</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/hasantoxr/status/1654786695441657857" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Hasan Toor">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/hasantoxr" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">HT</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Hasan Toor</span>
+            <span class="testimonials__handle">@hasantoxr · 438K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">ChatGPT, AutoGPT, and GPT-4 feels like old school. Introducing the next biggest thing…</p>
+        <p class="testimonials__meta" title="Pakistani AI/tech educator &amp; founder; The Prohuman newsletter">Pakistani AI/tech educator &amp; founder</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/waitin4agi_/status/1643904376065654785" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Varun Mayya">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/waitin4agi_" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">VM</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Varun Mayya</span>
+            <span class="testimonials__handle">@waitin4agi_ · 282K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">I would recommend everyone who can write code to set 2 hours aside and try AutoGPT.</p>
+        <p class="testimonials__meta" title="Entrepreneur &amp; author; founded Jobspire (acq.), Avalon Labs">Entrepreneur &amp; author</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/heyBarsee/status/1646270998243581954" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Barsee">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/heyBarsee" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">BA</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Barsee</span>
+            <span class="testimonials__handle">@heyBarsee · 272K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">AutoGPT is the next BIG thing in AI. Seems like a new groundbreaking update comes out…</p>
+        <p class="testimonials__meta">Creator of The AI Valley newsletter</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/itsPaulAi/status/1650138627081486337" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Paul Couvert">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/itsPaulAi" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">PC</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Paul Couvert</span>
+            <span class="testimonials__handle">@itsPaulAi · 221K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">ChatGPT is a toy compared to AutoGPT. This tool performs tasks for you from A to Z…</p>
+        <p class="testimonials__meta" title="AI educator &amp; builder; founder of Answera (AI customer support)">AI educator &amp; builder</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/DataChaz/status/1644228147636731905" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Charly Wargnier">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/DataChaz" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">CW</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Charly Wargnier</span>
+            <span class="testimonials__handle">@DataChaz · 171K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Auto-GPT, the world's first #AGI? AutoGPT is now able to write its own code…</p>
+        <p class="testimonials__meta">Data scientist &amp; dev advocate (Streamlit / Snowflake)</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/stephsmithio/status/1647457351086252033" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Steph Smith">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/stephsmithio" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">SS</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Steph Smith</span>
+            <span class="testimonials__handle">@stephsmithio · 164K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">AutoGPT takes "a problem well stated is a problem half solved" to a whole new level.</p>
+        <p class="testimonials__meta" title="Writer &amp; host of the a16z Podcast; formerly The Hustle / HubSpot">Writer &amp; host of the a16z Podcast</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/swyx/status/1648724088536596481" target="_blank" rel="noopener noreferrer" aria-label="Tweet from swyx">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/swyx" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">SW</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">swyx</span>
+            <span class="testimonials__handle">@swyx · 158K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">What is AutoGPT and why are they the next frontier of prompt engineering?…</p>
+        <p class="testimonials__meta" title="Developer &amp; AI community builder; popularised 'The AI Engineer'; co-founded AI Engineer Foundation">Developer &amp; AI community builder</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/SmokeAwayyy/status/1642710226020495360" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Smoke-away">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/SmokeAwayyy" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">SA</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Smoke-away</span>
+            <span class="testimonials__handle">@SmokeAwayyy · 153K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Imagine 8 billion autonomous Auto-GPT agents interacting with each other.</p>
+        <p class="testimonials__meta" title="Influential AI commentary account; known for AI benchmarking and sharp takes">Influential AI commentary account</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/AngryTomtweets/status/1651889808375947265" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Angry Tom">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/AngryTomtweets" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">AT</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Angry Tom</span>
+            <span class="testimonials__handle">@AngryTomtweets · 151K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">AutoGPT is taking the internet by storm. It's the greatest AI you've seen yet.</p>
+        <p class="testimonials__meta" title="AI educator &amp; consultant; on a mission to build an empire with AI">AI educator &amp; consultant</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/itsolelehmann/status/1646504042766409728" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Ole Lehmann">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/itsolelehmann" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">OL</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Ole Lehmann</span>
+            <span class="testimonials__handle">@itsolelehmann · 147K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Marketing is overwhelming, but AutoGPT can lift the burden off your shoulders…</p>
+        <p class="testimonials__meta" title="AI solopreneur; founder of The AI Solopreneur newsletter">AI solopreneur</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/dr_cintas/status/1646870745534935040" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Alvaro Cintas">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/dr_cintas" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">AC</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Alvaro Cintas</span>
+            <span class="testimonials__handle">@dr_cintas · 130K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">AutoGPT is the new big thing in AI. Created by @SigGravitas, AutoGPT has taken over the internet…</p>
+        <p class="testimonials__meta">Assistant Professor of AI &amp; Cybersecurity at Marymount University</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/LiorOnAI/status/1645847165066006529" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Lior Alexander">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/LiorOnAI" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">LA</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Lior Alexander</span>
+            <span class="testimonials__handle">@LiorOnAI · 115K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">AutoGPT might be the next big step in AI. Here's why Karpathy recently said "AutoGPT is…"</p>
+        <p class="testimonials__meta" title="CEO of AlphaSignal; former ML engineer at Mila / Yoshua Bengio's lab">CEO of AlphaSignal</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/MakadiaHarsh/status/1646068523570167811" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Harsh Makadia">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/MakadiaHarsh" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">HM</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Harsh Makadia</span>
+            <span class="testimonials__handle">@MakadiaHarsh · 230K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">ChatGPT feels like old school. Meet Next Big Thing in AI: AutoGPT.</p>
+        <p class="testimonials__meta">AI tools educator, no-code builder, founder</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/boringmarketer/status/1645859025345564682" target="_blank" rel="noopener noreferrer" aria-label="Tweet from The Boring Marketer">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/boringmarketer" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">BM</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">The Boring Marketer</span>
+            <span class="testimonials__handle">@boringmarketer · 97K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Imagine giving AutoGPT a marketing KPI to hit and it autonomously works toward it…</p>
+        <p class="testimonials__meta" title="Marketing automation creator; builds AI workflow content for marketers">Marketing automation creator</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/antonosika/status/1645479640994021398" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Anton Osika">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/antonosika" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">AO</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Anton Osika</span>
+            <span class="testimonials__handle">@antonosika · 80K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Example of AutoGPT in action doing research to produce a high quality report…</p>
+        <p class="testimonials__meta" title="Co-founder &amp; CEO of Lovable ($10M ARR in 60 days); ex-CERN">Co-founder &amp; CEO of Lovable</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/jerryjliu0/status/1646172524173209600" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Jerry Liu">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/jerryjliu0" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">JL</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Jerry Liu</span>
+            <span class="testimonials__handle">@jerryjliu0 · 74K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Want to learn more about how to use @gpt_index? Just ask #AutoGPT!</p>
+        <p class="testimonials__meta" title="Co-founder &amp; CEO of LlamaIndex; ex-Uber, Quora">Co-founder &amp; CEO of LlamaIndex</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/SullyOmarr/status/1645482778677452805" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Sully">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/SullyOmarr" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">SU</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Sully</span>
+            <span class="testimonials__handle">@SullyOmarr · 58K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">AutoGPT is taking the internet by storm. They're basically AI agents that…</p>
+        <p class="testimonials__meta">Co-founder &amp; CEO of Sully.ai (YC S21)</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/phuctm97/status/1646166496584843264" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Minh-Phuc Tran">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/phuctm97" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">MT</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Minh-Phuc Tran</span>
+            <span class="testimonials__handle">@phuctm97 · 51K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Man, I just learned about AutoGPT today and feel like I know nothing about the whole AI world…</p>
+        <p class="testimonials__meta" title="Vietnamese indie hacker &amp; startup founder; ex-Fig">Vietnamese indie hacker &amp; startup founder</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/ChrisClickUp/status/1647963193765945347" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Chris Cunningham">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/ChrisClickUp" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">CC</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Chris Cunningham</span>
+            <span class="testimonials__handle">@ChrisClickUp · 47K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">ChatGPT is officially old news. If you haven't heard how AutoGPT is DOMINATING AI…</p>
+        <p class="testimonials__meta">Head of Influencer Marketing at ClickUp</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/daniel_eckler/status/1646509806856044552" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Eckler">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/daniel_eckler" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">EC</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Eckler</span>
+            <span class="testimonials__handle">@daniel_eckler · 43K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Everyone is talking about ChatGPT… But the future of AI is AutoGPT.</p>
+        <p class="testimonials__meta" title="Serial founder &amp; designer; 2x exited (Piccsy, EveryGuyed, Mylo)">Serial founder &amp; designer</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/natiakourdadze/status/1651572510897348612" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Natia Kurdadze">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/natiakourdadze" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">NK</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Natia Kurdadze</span>
+            <span class="testimonials__handle">@natiakourdadze · 43K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">The latest breakthrough in AI innovation is AutoGPT, which can essentially automate far more…</p>
+        <p class="testimonials__meta" title="Startup growth strategist &amp; IP advisor; WIPO certified, Harvard Berkman Klein">Startup growth strategist &amp; IP advisor</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/JayScambler/status/1645603816111308800" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Jay Scambler">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/JayScambler" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">JS</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Jay Scambler</span>
+            <span class="testimonials__handle">@JayScambler · 5.5K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">The pace of development surrounding Baby AGI and AutoGPT is mind blowing…</p>
+        <p class="testimonials__meta" title="AI operator &amp; investor; CTO at PATH; Managing Partner at Grey Haven">AI operator &amp; investor</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/airesearch12/status/1838586840929952100" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Florian S">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/airesearch12" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">FS</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Florian S</span>
+            <span class="testimonials__handle">@airesearch12 · 4.9K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">For anyone who wasn't around: AutoGPT was one of the first visionary AI agent frameworks…</p>
+        <p class="testimonials__meta" title="Software architect &amp; AI hobbyist; architecting tech for a Fortune 500">Software architect &amp; AI hobbyist</p>
+      </a>
+
+      <a class="testimonials__card" href="https://twitter.com/hackgoofer/status/1711129031343784128" target="_blank" rel="noopener noreferrer" aria-label="Tweet from Sasha Sheng">
+        <div class="testimonials__head">
+          <span class="testimonials__avatar">
+            <img src="https://unavatar.io/twitter/hackgoofer" alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="testimonials__avatar-fallback" aria-hidden="true" style="display:none">SS</span>
+          </span>
+          <span class="testimonials__nameblock">
+            <span class="testimonials__name">Sasha Sheng</span>
+            <span class="testimonials__handle">@hackgoofer · 4.7K</span>
+          </span>
+          <svg class="testimonials__x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <p class="testimonials__quote">Thanks to the AutoGPT team for hosting the Beat, Build, Break hackathon. Proud to say we won…</p>
+        <p class="testimonials__meta" title="Software engineer &amp; AI builder; ex-Yahoo, ex-Meta; ex-Executive Director of AI Engineer Foundation">Software engineer &amp; AI builder</p>
+      </a>
+
     </div>
   </div>
 </section>
