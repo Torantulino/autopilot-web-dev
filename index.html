@@ -875,9 +875,26 @@
     padding: 0;
     list-style: none;
     align-items: stretch;
+    /* JS owns the transform now — disable the CSS marquee animation. */
+    animation: none;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+    will-change: transform;
   }
-  .testimonials__rails .marquee--row3 .marquee__track {
-    animation-duration: var(--speed-3);
+  .testimonials__rails .marquee__track.is-dragging {
+    cursor: grabbing;
+  }
+  .testimonials__rails .marquee__track a,
+  .testimonials__rails .marquee__track img {
+    -webkit-user-drag: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* Site-wide rule sets .marquee overflow-x:auto; for our JS-driven rows we need
+       overflow hidden so the mask still works and our transforms aren't fighting
+       a native scrollbar. */
+    .testimonials__rails .marquee { overflow-x: hidden; }
   }
   .testimonials__cell {
     list-style: none;
@@ -2107,6 +2124,154 @@
     var track = document.getElementById(id);
     if (track) track.innerHTML = track.innerHTML + track.innerHTML;
   });
+
+  // Testimonials drag-with-momentum. JS owns the transform; the CSS marquee
+  // animation is disabled inside .testimonials__rails. Ambient velocity matches
+  // the previous CSS speeds (80s/95s/110s for one half-width traversal).
+  function setupTestimonialsDrag() {
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var rowConfigs = [
+      { id: "t-row1", speedSec: 80,  direction: -1 },
+      { id: "t-row2", speedSec: 95,  direction: +1 },
+      { id: "t-row3", speedSec: 110, direction: -1 }
+    ];
+    var rows = [];
+    for (var i = 0; i < rowConfigs.length; i++) {
+      var cfg = rowConfigs[i];
+      var el = document.getElementById(cfg.id);
+      if (!el) continue;
+      var halfWidth = el.scrollWidth / 2;
+      var ambient = reduced ? 0 : cfg.direction * (halfWidth / cfg.speedSec);
+      rows.push({
+        track: el,
+        speedSec: cfg.speedSec,
+        direction: cfg.direction,
+        position: 0,
+        velocity: ambient,
+        ambient: ambient,
+        halfWidth: halfWidth,
+        isDragging: false,
+        pointerId: null,
+        lastX: 0,
+        samples: [],
+        dragMoved: false,
+        downX: 0
+      });
+    }
+    if (!rows.length) return;
+
+    var MOVE_THRESHOLD = 4;          // px before pointermove counts as a drag
+    var MAX_FLING = 6000;            // px/sec velocity ceiling
+    var SAMPLE_WINDOW_MS = 80;       // window for release-velocity calc
+    var DECAY_PER_SEC = 0.08;        // fraction of gap-to-ambient remaining after 1s
+
+    function attachHandlers(r) {
+      r.track.addEventListener("pointerdown", function (e) {
+        if (e.button !== undefined && e.button !== 0) return; // left/primary only
+        r.isDragging = true;
+        r.pointerId = e.pointerId;
+        r.lastX = e.clientX;
+        r.downX = e.clientX;
+        r.samples = [{ t: performance.now(), x: e.clientX }];
+        r.dragMoved = false;
+        r.velocity = 0;
+        r.track.classList.add("is-dragging");
+        try { r.track.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+
+      r.track.addEventListener("pointermove", function (e) {
+        if (!r.isDragging || e.pointerId !== r.pointerId) return;
+        var dx = e.clientX - r.lastX;
+        r.lastX = e.clientX;
+        r.position += dx;
+        var now = performance.now();
+        r.samples.push({ t: now, x: e.clientX });
+        var cutoff = now - SAMPLE_WINDOW_MS;
+        while (r.samples.length > 2 && r.samples[0].t < cutoff) r.samples.shift();
+        if (!r.dragMoved && Math.abs(e.clientX - r.downX) > MOVE_THRESHOLD) {
+          r.dragMoved = true;
+        }
+        if (r.dragMoved) e.preventDefault();
+      });
+
+      function endDrag(e) {
+        if (!r.isDragging || (e && e.pointerId !== r.pointerId)) return;
+        r.isDragging = false;
+        try { r.track.releasePointerCapture(r.pointerId); } catch (_) {}
+        r.pointerId = null;
+        r.track.classList.remove("is-dragging");
+        // Compute release velocity from samples (last SAMPLE_WINDOW_MS).
+        if (r.samples.length >= 2) {
+          var first = r.samples[0];
+          var last = r.samples[r.samples.length - 1];
+          var dt = (last.t - first.t) / 1000;
+          var v = dt > 0 ? (last.x - first.x) / dt : 0;
+          if (v > MAX_FLING) v = MAX_FLING;
+          else if (v < -MAX_FLING) v = -MAX_FLING;
+          r.velocity = v;
+        } else {
+          r.velocity = r.ambient;
+        }
+        // Swallow the link-click that a real drag would otherwise produce.
+        if (r.dragMoved) {
+          var swallow = function (evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            r.track.removeEventListener("click", swallow, true);
+          };
+          r.track.addEventListener("click", swallow, true);
+          // Safety net: if no click event fires within a frame, clean up.
+          setTimeout(function () { r.track.removeEventListener("click", swallow, true); }, 0);
+        }
+      }
+      r.track.addEventListener("pointerup", endDrag);
+      r.track.addEventListener("pointercancel", endDrag);
+    }
+    rows.forEach(attachHandlers);
+
+    // Recompute halfWidth when layout shifts (font load, image decode, resize).
+    if (typeof ResizeObserver !== "undefined") {
+      var ro = new ResizeObserver(function () {
+        for (var i = 0; i < rows.length; i++) {
+          var r = rows[i];
+          var newHalf = r.track.scrollWidth / 2;
+          if (newHalf > 0 && newHalf !== r.halfWidth) {
+            // Preserve visual position relative to new half-width
+            r.position = r.position % newHalf;
+            r.halfWidth = newHalf;
+            if (!reduced) r.ambient = r.direction * (newHalf / r.speedSec);
+          }
+        }
+      });
+      rows.forEach(function (r) { ro.observe(r.track); });
+    }
+
+    var last = performance.now();
+    function tick(now) {
+      var dt = (now - last) / 1000;
+      if (dt > 0.05) dt = 0.05; // clamp tab-switch jumps
+      last = now;
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        if (!r.isDragging) {
+          // FPS-independent exponential decay toward ambient velocity.
+          var keep = Math.pow(DECAY_PER_SEC, dt); // fraction of gap remaining
+          r.velocity = r.ambient + (r.velocity - r.ambient) * keep;
+          r.position += r.velocity * dt;
+        }
+        // Wrap into [-halfWidth, 0] for seamless loop.
+        if (r.halfWidth > 0) {
+          if (r.position <= -r.halfWidth) r.position += r.halfWidth;
+          else if (r.position > 0) r.position -= r.halfWidth;
+        }
+        r.track.style.transform = "translate3d(" + r.position + "px, 0, 0)";
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  // One RAF delay so the duplicated innerHTML has laid out and scrollWidth is correct.
+  requestAnimationFrame(setupTestimonialsDrag);
   </script>
 </body>
 </html>
