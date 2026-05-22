@@ -472,6 +472,9 @@
   .logo img.is-failed { display: none; }
   .logo img.is-failed + .fallback { display: inline-flex; align-items: center; }
 
+  /* Emblem/seal entries are rendered as their wordmark (no image) -- show it. */
+  .logo--wordmark .fallback { display: inline-flex; align-items: center; }
+
   /* Fallback typographies */
   .fb-serif      { font-family: "Old Standard TT", "Times New Roman", Georgia, serif; }
   .fb-sans       { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; font-weight: 700; letter-spacing: -0.01em; }
@@ -485,6 +488,14 @@
   .fb-lg  { font-size: 26px; }
   .fb-md  { font-size: 22px; }
   .fb-sm  { font-size: 19px; }
+
+  /* GOV.UK wordmark (stands in for the full-colour Royal coat of arms) */
+  .fb-govuk { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: -0.01em; }
+
+  /* Official seals rendered as a stacked institutional wordmark */
+  .fb-official { display: inline-flex; flex-direction: column; justify-content: center; text-align: left; line-height: 1.12; font-family: "Inter", "Helvetica Neue", Arial, sans-serif; }
+  .fb-official .top { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .fb-official .bot { font-size: 10px; font-weight: 500; opacity: 0.62; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
 
   .press__footnote {
     margin-top: 32px;
@@ -1988,7 +1999,7 @@
       fb: '<span class="fb-serif fb-xl" style="font-weight:700">Forbes</span>' },
     { n: "Bloomberg",                f: "Bloomberg_logo.svg",
       fb: '<span class="fb-sans fb-lg" style="letter-spacing:-0.02em">Bloomberg</span>' },
-    { n: "The Economist",            f: "The_Economist_Logo.svg",
+    { n: "The Economist",            f: "The_Economist_Logo.svg", wordmark: true,
       fb: '<span class="fb-serif fb-xl" style="background:#e3120b;color:#fff;padding:6px 12px;font-weight:700">The Economist</span>' },
     { n: "Le Monde",                 f: "Le_monde_logo.svg",
       fb: '<span class="fb-serif fb-xl fb-italic">Le Monde</span>' },
@@ -1996,7 +2007,7 @@
       fb: '<span class="fb-serif fb-xl" style="font-weight:700">FORTUNE</span>' },
     { n: "TIME",                     f: "Time_Magazine_logo.svg",
       fb: '<span class="fb-time-box">TIME</span>' },
-    { n: "The Times",                f: "The_Times_masthead.svg", size: "tall",
+    { n: "The Times",                f: "The_Times_masthead.svg", wordmark: true, size: "tall",
       fb: '<span class="fb-serif fb-xl">The Times</span>' },
     { n: "BBC",                      f: "BBC_Logo_2021.svg",
       fb: '<span class="fb-sans fb-xl" style="font-weight:900;letter-spacing:0.04em"><span style="background:#fff;color:#000;padding:4px 8px;margin-right:4px">B</span><span style="background:#fff;color:#000;padding:4px 8px;margin-right:4px">B</span><span style="background:#fff;color:#000;padding:4px 8px">C</span></span>' },
@@ -2020,13 +2031,13 @@
       fb: '<span class="fb-serif fb-lg" style="background:#fff1e5;color:#000;padding:6px 14px;font-weight:700">FINANCIAL TIMES</span>' },
     { n: "Toronto Star",             f: "Toronto_Star_Logo.svg",
       fb: '<span class="fb-serif fb-xl">Toronto Star</span>' },
-    { n: "Al Jazeera Media Institute", f: "Al_Jazeera_Media_Institute_Logo.svg",
+    { n: "Al Jazeera Media Institute", f: "Al_Jazeera_Media_Institute_Logo.svg", wordmark: true,
       fb: '<span class="fb-sans fb-md" style="font-weight:600">Al Jazeera <span style="opacity:.7">Media Institute</span></span>' },
     { n: "TechCrunch",               f: "TechCrunch_logo.svg",
       fb: '<span class="fb-sans fb-lg">TechCrunch</span>' },
     { n: "Euronews",                 f: "Euronews_2016_logo.svg",
       fb: '<span class="fb-sans fb-lg" style="font-weight:700;letter-spacing:-0.02em">euronews.</span>' },
-    { n: "Fox News",                 f: "Fox_News_Channel_logo.svg",
+    { n: "Fox News",                 f: "Fox_News_Channel_logo.svg", wordmark: true,
       fb: '<span class="fb-sans fb-md" style="font-weight:800">FOX NEWS</span>' },
     { n: "MIT Sloan Management Review", f: "MIT_Sloan_Management_Review_logo.svg",
       fb: '<span class="fb-sans fb-md" style="font-weight:600">MIT Sloan <span style="opacity:.7">Management Review</span></span>' },
@@ -2037,11 +2048,11 @@
   const featuredRow2 = [
     { n: "Business Insider",         f: "Business_Insider_Logo.svg",
       fb: '<span class="fb-sans fb-md">BUSINESS INSIDER</span>' },
-    { n: "DIE ZEIT",                 f: "Die_Zeit-Logo-Bremen.svg",
+    { n: "DIE ZEIT",                 f: "Die_Zeit-Logo-Bremen.svg", wordmark: true,
       fb: '<span class="fb-serif fb-xl">DIE&nbsp;ZEIT</span>' },
     { n: "The Daily Telegraph",      f: "The_Daily_Telegraph_(Sydney_masthead).svg", size: "tall",
       fb: '<span class="fb-serif fb-xl">The Daily Telegraph</span>' },
-    { n: "Ars Technica",             f: "Ars_Technica_logo_(2016).svg",
+    { n: "Ars Technica",             f: "Ars_Technica_logo_(2016).svg", wordmark: true,
       fb: '<span class="fb-sans fb-md fb-allcaps" style="font-weight:800">ars TECHNICA</span>' },
     { n: "The Register",             f: "The_Register_logo.svg",
       fb: '<span class="fb-cond fb-lg">The Register</span>' },
@@ -2055,7 +2066,7 @@
       fb: '<span class="fb-sans fb-lg" style="font-weight:800">Gizmodo</span>' },
     { n: "Decrypt",                  f: "Decrypt_logo.svg",
       fb: '<span class="fb-mono fb-md">DECRYPT</span>' },
-    { n: "Digital Trends",           f: "Digital_Trends_logo.svg",
+    { n: "Digital Trends",           f: "Digital_Trends_logo.svg", wordmark: true,
       fb: '<span class="fb-sans fb-md" style="font-weight:700">DIGITAL TRENDS</span>' },
     { n: "TechRadar",                f: "TechRadar_logo.svg",
       fb: '<span class="fb-sans fb-lg" style="font-weight:800">TechRadar</span>' },
@@ -2094,17 +2105,17 @@
   const cited = [
     { n: "World Economic Forum",     f: "World_Economic_Forum_logo.svg",
       fb: '<span class="fb-sans-thin fb-sm">WORLD ECONOMIC FORUM</span>' },
-    { n: "GOV.UK",                   f: "Royal_Coat_of_Arms_of_the_United_Kingdom_(Variant_2,_2022).svg",
+    { n: "GOV.UK",                   f: "Royal_Coat_of_Arms_of_the_United_Kingdom_(Variant_2,_2022).svg", wordmark: true,
       fb: '<span class="fb-govuk">GOV.UK</span>' },
-    { n: "U.S. Senate Judiciary Committee", f: "Seal_of_the_United_States_Senate.svg",
+    { n: "U.S. Senate Judiciary Committee", f: "Seal_of_the_United_States_Senate.svg", wordmark: true,
       fb: '<span class="fb-official"><span class="top">U.S. Senate</span><span class="bot">Committee on the Judiciary</span></span>' },
-    { n: "OECD",                     f: "OECD_logo_new.svg",
+    { n: "OECD",                     f: "OECD_logo_new.svg", wordmark: true,
       fb: '<span class="fb-sans fb-md" style="font-weight:800;letter-spacing:0.04em">OECD</span>' },
-    { n: "European Commission",      f: "European_Commission.svg",
+    { n: "European Commission",      f: "European_Commission.svg", wordmark: true,
       fb: '<span class="fb-sans-thin fb-sm">EUROPEAN COMMISSION</span>' },
     { n: "NIST",                     f: "NIST_logo.svg",
       fb: '<span class="fb-sans fb-md" style="font-weight:800;letter-spacing:0.06em">NIST</span>' },
-    { n: "Stanford HAI",             f: "Stanford_University_seal_2003.svg",
+    { n: "Stanford HAI",             f: "Stanford_University_seal_2003.svg", wordmark: true,
       fb: '<span class="fb-serif fb-md">Stanford <span style="opacity:.7;font-family:Inter,sans-serif;font-size:14px;letter-spacing:0.12em;text-transform:uppercase">HAI</span></span>' },
     { n: "NVIDIA",                   f: "Nvidia_logo.svg",
       fb: '<span class="fb-sans fb-md" style="font-weight:900;letter-spacing:0.04em">NVIDIA</span>' },
@@ -2114,11 +2125,20 @@
       fb: '<span class="fb-sans-thin fb-sm" style="letter-spacing:-0.02em">Microsoft</span>' },
     { n: "IBM",                      f: "IBM_logo.svg",
       fb: '<span class="fb-sans fb-lg" style="font-weight:900;letter-spacing:0.04em">IBM</span>' },
-    { n: "Ubuntu",                   f: "Ubuntu-logo-2022.svg",
+    { n: "Ubuntu",                   f: "Ubuntu-logo-2022.svg", wordmark: true,
       fb: '<span class="fb-sans fb-md" style="font-weight:700">ubuntu</span>' },
   ];
 
   function logoMarkup(o) {
+    // Detailed full-colour emblems and seals can't be reduced to a flat white
+    // silhouette by the monochrome filter -- they collapse into a featureless
+    // white blob. For those, render the hand-tuned typographic wordmark instead
+    // of the raster mark, so they stay legible and consistent with the wall.
+    if (o.wordmark) {
+      return `<li class="logo logo--wordmark" title="${o.n}">
+                <span class="fallback">${o.fb}</span>
+              </li>`;
+    }
     const cls = o.size === "tall"  ? "logo logo--tall"
               : o.size === "short" ? "logo logo--short"
               : "logo";
