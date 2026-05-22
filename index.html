@@ -875,6 +875,23 @@
     gap: 10px;
     text-align: left;
   }
+  /* The marquee clips overflow on both axes — required horizontally for the
+     scroll loop and edge fade-mask, but it also shears each card's drop shadow
+     off flush with the row edge. Expand the clip box vertically with padding so
+     the shadow has room to render, then cancel that space with equal negative
+     margins so the cards and overall layout don't shift. */
+  .testimonials__rails .marquee {
+    padding-top: 12px;
+    padding-bottom: 44px;
+    margin-top: -12px;
+    margin-bottom: -44px;
+  }
+  /* The negative top margin above would also swallow the inter-row spacing
+     (the site-wide .marquee + .marquee margin). Add it back: -12px base
+     + 16px ≈ the original 28px gap between rows. */
+  .testimonials__rails .marquee + .marquee {
+    margin-top: 16px;
+  }
   .testimonials__rails .marquee__track {
     margin: 0;
     padding: 0;
