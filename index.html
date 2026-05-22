@@ -418,6 +418,11 @@
     animation-direction: reverse;
   }
 
+  /* Hold a track still until JS marks it ready (all logos loaded). This keeps
+     the track width final before it starts moving, so the -50% loop reset is
+     seamless and late-loading images can't shift it mid-scroll. */
+  .marquee__track:not(.is-running) { animation-play-state: paused; }
+
   .marquee:hover .marquee__track { animation-play-state: paused; }
 
   @keyframes scroll {
@@ -2104,7 +2109,7 @@
               + encodeURIComponent(o.f) + "?width=480";
     return `<li class="${cls}" title="${o.n}">
               <img src="${src}" alt="${o.n}"
-                   loading="lazy" decoding="async"
+                   loading="eager" decoding="async" fetchpriority="low"
                    onerror="this.classList.add('is-failed')" />
               <span class="fallback">${o.fb}</span>
             </li>`;
@@ -2118,6 +2123,35 @@
   fillTrack("row1", featuredRow1);
   fillTrack("row2", featuredRow2);
   fillTrack("row3", cited);
+
+  // Start each press row only once its logos have settled. Logos load at
+  // unpredictable times — and previously lazily, as the section scrolled into
+  // view — and each late arrival re-widened the track, shifting where the CSS
+  // loop's -50% reset lands and causing a visible "teleport." Waiting for every
+  // image to load (or error) means the track width is final before it moves.
+  function startMarqueeWhenReady(elId) {
+    var track = document.getElementById(elId);
+    if (!track) return;
+    var started = false;
+    var start = function () {
+      if (started) return;
+      started = true;
+      track.classList.add("is-running");
+    };
+    var imgs = track.querySelectorAll("img");
+    var remaining = imgs.length;
+    if (!remaining) { start(); return; }
+    var tick = function () { if (--remaining <= 0) start(); };
+    for (var i = 0; i < imgs.length; i++) {
+      var img = imgs[i];
+      if (img.complete) { tick(); continue; }
+      img.addEventListener("load", tick, { once: true });
+      img.addEventListener("error", tick, { once: true });
+    }
+    // Safety net: never leave a row frozen if an image hangs.
+    setTimeout(start, 4000);
+  }
+  ["row1", "row2", "row3"].forEach(startMarqueeWhenReady);
 
   // Testimonials marquee: duplicate each row's cards for seamless infinite scroll.
   ["t-row1", "t-row2", "t-row3"].forEach(function (id) {
