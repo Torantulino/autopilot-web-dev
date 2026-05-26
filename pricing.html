@@ -97,18 +97,19 @@
       outline: none;
       box-shadow: 0 0 0 2px rgba(255,255,255,0.55), 0 0 0 4px rgba(10,10,14,0.95);
     }
+    /* Pricing has no hero behind the nav, so the header shows its frosted glass
+       from the top (no transparent phase). Same glass values as index.html's
+       scrolled state, so the two navbars match once index is scrolled. */
     .site-header__glass {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: rgba(10, 10, 14, 0);
-      backdrop-filter: blur(0);
-      -webkit-backdrop-filter: blur(0);
-      transition:
-        background-color 280ms ease,
-        backdrop-filter 280ms ease,
-        -webkit-backdrop-filter 280ms ease,
-        box-shadow 280ms ease;
+      background-color: rgba(10, 10, 14, 0.55);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.04) inset,
+        0 12px 32px -16px rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
     .site-header__hairline {
@@ -124,23 +125,10 @@
         rgba(255, 255, 255, 0.08) 82%,
         transparent 100%
       );
-      opacity: 0;
-      transition: opacity 280ms ease;
       z-index: -1;
     }
-    .site-header.is-scrolled .site-header__glass {
-      background-color: rgba(10, 10, 14, 0.55);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.04) inset,
-        0 12px 32px -16px rgba(0, 0, 0, 0.5);
-    }
-    .site-header.is-scrolled .site-header__hairline { opacity: 1; }
     @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-      .site-header.is-scrolled .site-header__glass {
-        background-color: rgba(10, 10, 14, 0.92);
-      }
+      .site-header__glass { background-color: rgba(10, 10, 14, 0.92); }
     }
 
     .cta-pill {
@@ -1184,25 +1172,6 @@
 
     const mq = window.matchMedia('(min-width: 1024px)');
     mq.addEventListener('change', (e) => { if (e.matches) setOpen(false); });
-  })();
-
-  // Scroll-aware header: transparent at the top, frosted glass once scrolled (matches index.html)
-  (function () {
-    const header = document.getElementById('site-header');
-    if (!header) return;
-    let ticking = false;
-    const update = () => {
-      header.classList.toggle('is-scrolled', window.scrollY > 8);
-      ticking = false;
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
-      }
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
   })();
 </script>
 
