@@ -19,7 +19,7 @@
       min-height: 100vh;
       padding: 0;
       font-family: sans-serif;
-      background-color: #e3f7fd;
+      background-color: #ffffff;
     }
 
     /* ---------- Site header (sticky glass nav) ---------- */
@@ -189,9 +189,9 @@
       height: clamp(120px, 22vh, 220px);
       background: linear-gradient(to bottom,
         transparent 0%,
-        rgba(227, 247, 253, 0.4) 50%,
-        rgba(227, 247, 253, 0.92) 88%,
-        #e3f7fd 100%);
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0.92) 88%,
+        #ffffff 100%);
       pointer-events: none;
       z-index: 1;
     }
@@ -511,13 +511,13 @@
 
   /* ---------- paper tokens (everything below the bridge) ---------- */
   :root {
-    --paper:      #e3f7fd;
-    --paper-deep: #CCE8F0;
-    --paper-line: rgba(15, 55, 70, 0.10);
-    --ink-dark:   #1f1a14;
-    --ink-mid:    #4a3e30;
-    --ink-soft:   #7a6c5d;
-    --accent:     #c75428;
+    --paper:      #ffffff;
+    --paper-deep: #f4f4f5;
+    --paper-line: rgba(24, 24, 27, 0.10);
+    --ink-dark:   #18181b;
+    --ink-mid:    #3f3f46;
+    --ink-soft:   #52525b;
+    --accent:     #4f46e5;
   }
 
   /* ---------- Demo section (on paper) ---------- */
@@ -525,7 +525,7 @@
     width: 100%;
     background: var(--paper);
     background-image:
-      radial-gradient(1400px 800px at 50% 0%, rgba(255, 240, 210, 0.45) 0%, transparent 60%),
+      radial-gradient(1400px 800px at 50% 0%, rgba(99, 102, 241, 0.06) 0%, transparent 60%),
       linear-gradient(180deg, var(--paper) 0%, var(--paper) 70%, var(--paper-deep) 100%);
     padding: clamp(56px, 9vw, 96px) clamp(16px, 4vw, 24px) clamp(96px, 14vw, 160px);
     color: var(--ink-dark);
@@ -588,7 +588,7 @@
     position: absolute;
     inset: -8% -6% -14% -6%;
     background:
-      radial-gradient(60% 50% at 50% 60%, rgba(199, 84, 40, 0.10) 0%, transparent 70%),
+      radial-gradient(60% 50% at 50% 60%, rgba(79, 70, 229, 0.10) 0%, transparent 70%),
       radial-gradient(80% 60% at 50% 100%, rgba(0, 0, 0, 0.12) 0%, transparent 70%);
     filter: blur(8px);
     z-index: 0;
@@ -601,10 +601,10 @@
     border-radius: 18px;
     border: 1px solid var(--paper-line);
     box-shadow:
-      0 1px 2px rgba(40, 24, 8, 0.04),
-      0 4px 12px rgba(40, 24, 8, 0.06),
-      0 16px 40px rgba(40, 24, 8, 0.08),
-      0 48px 120px rgba(40, 24, 8, 0.14);
+      0 1px 2px rgba(24, 24, 27, 0.04),
+      0 4px 12px rgba(24, 24, 27, 0.06),
+      0 16px 40px rgba(24, 24, 27, 0.08),
+      0 48px 120px rgba(24, 24, 27, 0.14);
     overflow: hidden;
   }
   .demo__chrome {
@@ -612,7 +612,7 @@
     align-items: center;
     gap: 14px;
     padding: 12px 16px;
-    background: linear-gradient(180deg, #fafaf8 0%, #f4f1ec 100%);
+    background: linear-gradient(180deg, #fafafa 0%, #f1f1f4 100%);
     border-bottom: 1px solid var(--paper-line);
   }
   .demo__dots { display: flex; gap: 7px; }
@@ -644,7 +644,7 @@
   .demo__viewport {
     position: relative;
     aspect-ratio: 16 / 10;
-    background: radial-gradient(70% 60% at 50% 40%, #fbfaf7 0%, #f1ece2 100%);
+    background: radial-gradient(70% 60% at 50% 40%, #fafafb 0%, #eff0f3 100%);
     overflow: hidden;
   }
   .demo__viewport video {
@@ -668,8 +668,8 @@
     width: 64px; height: 64px; border-radius: 50%;
     background: #fff;
     box-shadow:
-      0 2px 6px rgba(40,24,8,0.06),
-      0 12px 32px rgba(40,24,8,0.10);
+      0 2px 6px rgba(24,24,27,0.06),
+      0 12px 32px rgba(24,24,27,0.10);
     display: inline-flex; align-items: center; justify-content: center;
   }
   .demo__placeholder .play::after {
@@ -695,13 +695,13 @@
     background: var(--accent);
     margin-right: 8px;
     transform: translateY(-1px);
-    box-shadow: 0 0 0 0 rgba(199, 84, 40, 0.5);
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.5);
     animation: demo-pulse 2.4s ease-out infinite;
   }
   @keyframes demo-pulse {
-    0%   { box-shadow: 0 0 0 0   rgba(199, 84, 40, 0.45); }
-    70%  { box-shadow: 0 0 0 10px rgba(199, 84, 40, 0); }
-    100% { box-shadow: 0 0 0 0   rgba(199, 84, 40, 0); }
+    0%   { box-shadow: 0 0 0 0   rgba(79, 70, 229, 0.45); }
+    70%  { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+    100% { box-shadow: 0 0 0 0   rgba(79, 70, 229, 0); }
   }
 
   /* ---------- Use cases (paper, alternating rows) ---------- */
@@ -795,7 +795,7 @@
     width: 100%;
     height: auto;
     border-radius: 20px;
-    filter: drop-shadow(0 18px 40px rgba(40, 24, 8, 0.10));
+    filter: drop-shadow(0 18px 40px rgba(24, 24, 27, 0.10));
   }
 
   @media (max-width: 880px) {
@@ -946,9 +946,9 @@
     border-radius: 16px;
     border: 1px solid var(--paper-line);
     box-shadow:
-      0 1px 2px rgba(40, 24, 8, 0.04),
-      0 4px 12px rgba(40, 24, 8, 0.06),
-      0 16px 32px rgba(40, 24, 8, 0.06);
+      0 1px 2px rgba(24, 24, 27, 0.04),
+      0 4px 12px rgba(24, 24, 27, 0.06),
+      0 16px 32px rgba(24, 24, 27, 0.06);
     text-decoration: none;
     color: inherit;
     transition: transform 160ms ease, box-shadow 160ms ease;
@@ -956,9 +956,9 @@
   .testimonials__card:hover {
     transform: translateY(-2px);
     box-shadow:
-      0 1px 2px rgba(40, 24, 8, 0.05),
-      0 6px 16px rgba(40, 24, 8, 0.08),
-      0 24px 48px rgba(40, 24, 8, 0.10);
+      0 1px 2px rgba(24, 24, 27, 0.05),
+      0 6px 16px rgba(24, 24, 27, 0.08),
+      0 24px 48px rgba(24, 24, 27, 0.10);
   }
   .testimonials__card:focus-visible {
     outline: 2px solid var(--accent);
@@ -977,7 +977,7 @@
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
-    background: linear-gradient(135deg, #d8eef4 0%, #b8d8e3 100%);
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
   }
   .testimonials__avatar img {
     width: 100%;
@@ -1777,7 +1777,7 @@
     </header>
 
     <article id="usecase-daily-briefing" class="usecases__row"
-             style="--row-accent:#c75428;"
+             style="--row-accent:#4f46e5;"
              aria-labelledby="uc-briefing-title">
       <div class="usecases__text">
         <p class="usecases__eyebrow">Executive ops</p>
@@ -1794,7 +1794,7 @@
     </article>
 
     <article id="usecase-call-prep" class="usecases__row usecases__row--reverse"
-             style="--row-accent:#3a6b8a;"
+             style="--row-accent:#7c3aed;"
              aria-labelledby="uc-callprep-title">
       <div class="usecases__text">
         <p class="usecases__eyebrow">Sales</p>
@@ -1811,7 +1811,7 @@
     </article>
 
     <article id="usecase-campaign" class="usecases__row"
-             style="--row-accent:#a14a7a;"
+             style="--row-accent:#9333ea;"
              aria-labelledby="uc-campaign-title">
       <div class="usecases__text">
         <p class="usecases__eyebrow">Marketing</p>
@@ -1828,7 +1828,7 @@
     </article>
 
     <article id="usecase-market-watch" class="usecases__row usecases__row--reverse"
-             style="--row-accent:#4a7a5a;"
+             style="--row-accent:#4338ca;"
              aria-labelledby="uc-market-title">
       <div class="usecases__text">
         <p class="usecases__eyebrow">Finance</p>
@@ -1845,7 +1845,7 @@
     </article>
 
     <article id="usecase-issue" class="usecases__row"
-             style="--row-accent:#8a5a2a;"
+             style="--row-accent:#6d28d9;"
              aria-labelledby="uc-issue-title">
       <div class="usecases__text">
         <p class="usecases__eyebrow">Engineering</p>
@@ -1862,7 +1862,7 @@
     </article>
 
     <article id="usecase-support" class="usecases__row usecases__row--reverse"
-             style="--row-accent:#7a6a3a;"
+             style="--row-accent:#5b21b6;"
              aria-labelledby="uc-support-title">
       <div class="usecases__text">
         <p class="usecases__eyebrow">Customer support</p>
@@ -1879,7 +1879,7 @@
     </article>
 
     <article id="usecase-trials" class="usecases__row"
-             style="--row-accent:#5a6a8a;"
+             style="--row-accent:#7c3aed;"
              aria-labelledby="uc-trials-title">
       <div class="usecases__text">
         <p class="usecases__eyebrow">Clinical operations</p>
