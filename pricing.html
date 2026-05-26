@@ -191,7 +191,9 @@
       flex: 1;
       position: relative;
       overflow: clip; /* clip the bg-glow without creating a scroll container (keeps position:sticky working) */
-      padding: 7rem 1.5rem 6rem;
+      /* Top padding only needs to clear the fixed 80px nav; the paywall block adds
+         its own py-14/16 below that, so keep this small to avoid a big top gap. */
+      padding: 3rem 1.5rem 6rem;
     }
     .bg-glow {
       position: absolute;
