@@ -101,13 +101,14 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      /* Opaque enough that the white logo + nav links keep high contrast over the now-light page */
-      background-color: rgba(11, 11, 15, 0.9);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.04) inset,
-        0 12px 32px -16px rgba(0, 0, 0, 0.5);
+      background: rgba(10, 10, 14, 0);
+      backdrop-filter: blur(0);
+      -webkit-backdrop-filter: blur(0);
+      transition:
+        background-color 280ms ease,
+        backdrop-filter 280ms ease,
+        -webkit-backdrop-filter 280ms ease,
+        box-shadow 280ms ease;
       z-index: -1;
     }
     .site-header__hairline {
@@ -123,10 +124,23 @@
         rgba(255, 255, 255, 0.08) 82%,
         transparent 100%
       );
+      opacity: 0;
+      transition: opacity 280ms ease;
       z-index: -1;
     }
+    .site-header.is-scrolled .site-header__glass {
+      background-color: rgba(10, 10, 14, 0.55);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.04) inset,
+        0 12px 32px -16px rgba(0, 0, 0, 0.5);
+    }
+    .site-header.is-scrolled .site-header__hairline { opacity: 1; }
     @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-      .site-header__glass { background-color: rgba(10, 10, 14, 0.92); }
+      .site-header.is-scrolled .site-header__glass {
+        background-color: rgba(10, 10, 14, 0.92);
+      }
     }
 
     .cta-pill {
@@ -522,7 +536,7 @@
 <body>
 <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-zinc-900 focus:shadow-lg">Skip to content</a>
 
-<header id="site-header" class="site-header sticky top-0 z-50 w-full">
+<header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 w-full">
   <div class="site-header__glass" aria-hidden="true"></div>
   <div class="site-header__hairline" aria-hidden="true"></div>
   <nav aria-label="Primary" class="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -1168,6 +1182,25 @@
 
     const mq = window.matchMedia('(min-width: 1024px)');
     mq.addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+  })();
+
+  // Scroll-aware header: transparent at the top, frosted glass once scrolled (matches index.html)
+  (function () {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+    let ticking = false;
+    const update = () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 8);
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
   })();
 </script>
 
