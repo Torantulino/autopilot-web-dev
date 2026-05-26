@@ -109,6 +109,10 @@ function parseCell(raw) {
 const CHECK_SVG =
   '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg>';
 
+// refined 4-point sparkle (not an emoji) marking standout rows
+const SPARKLE_SVG =
+  '<svg class="cmp__star-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 6 3.4 8.8 9.5 9.5-6.1.7-8.9 3.5-9.5 9.5-.6-6-3.4-8.8-9.5-9.5C8.6 10.8 11.4 8 12 2Z"/></svg>';
+
 function valueInner(p, smallPill) {
   if (p.kind === 'check') return `<span class="cmp__check" role="img" aria-label="Included">${CHECK_SVG}</span>`;
   if (p.kind === 'dash') return `<span class="cmp__dash" role="img" aria-label="Not included">${DASH}</span>`;
@@ -152,7 +156,7 @@ function renderRow(f) {
   const nameLower = stripCode(f.name).toLowerCase();
   const descLower = f.desc.toLowerCase();
   const star = f.highlight
-    ? `<span class="cmp__star" aria-hidden="true">${STAR}</span><span class="cmp__sr-only">Highlighted feature. </span>`
+    ? `<span class="cmp__star">${SPARKLE_SVG}</span><span class="cmp__sr-only">Highlighted feature. </span>`
     : '';
   const info =
     `<button type="button" class="cmp__info" aria-label="About ${attr(f.name)}" ` +
@@ -193,24 +197,6 @@ function renderGroup(cat) {
   );
 }
 
-function renderHighlightCard(f) {
-  let vals = '';
-  if (f.pro !== f.max) {
-    const pp = parseCell(f.pro);
-    const mp = parseCell(f.max);
-    vals =
-      `<span class="cmp__hl-vals">` +
-      `<span class="cmp__pill cmp__pill--sm">Pro ${MIDDOT} ${esc(pp.value)}</span>` +
-      `<span class="cmp__pill cmp__pill--sm">Max ${MIDDOT} ${esc(mp.value)}</span>` +
-      `</span>`;
-  }
-  return (
-    `<a class="cmp__hl-card" href="#row-${f.slug}" title="${attr(f.desc)}">` +
-    `<span class="cmp__hl-star" aria-hidden="true">${STAR}</span>` +
-    `<span class="cmp__hl-name">${esc(f.name)}</span>${vals}</a>`
-  );
-}
-
 function renderChip(cat) {
   return (
     `<li><a class="cmp__chip" href="#${cat.id}" data-jump="${cat.id}">` +
@@ -226,7 +212,6 @@ const chipsHtml = categories.map(renderChip).join('\n          ');
 
 const highlightFeats = [];
 categories.forEach((c) => c.features.forEach((f) => { if (f.highlight) highlightFeats.push(f); }));
-const highlightsHtml = highlightFeats.map(renderHighlightCard).join('\n        ');
 
 // ---------- assertions (fail loud) ----------
 const total = categories.reduce((a, c) => a + c.features.length, 0);
@@ -276,7 +261,6 @@ function inject(html, key, content) {
 }
 
 let html = readFileSync(HTML, 'utf8');
-html = inject(html, 'CMP_HIGHLIGHTS', '        ' + highlightsHtml);
 html = inject(html, 'CMP_JUMP', '          ' + chipsHtml);
 html = inject(html, 'CMP_GROUPS', groupsHtml);
 writeFileSync(HTML, html, 'utf8');
