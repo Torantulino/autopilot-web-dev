@@ -1,0 +1,123 @@
+        <!-- Billing toggle (default: yearly) -->
+        <div class="inline-flex rounded-full border border-[#d8d8d8] bg-zinc-100 p-[3px]" role="group" aria-label="Billing cycle">
+          <button type="button" data-billing="monthly" class="paywall-billing rounded-full border-none bg-transparent px-4 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:text-zinc-700">
+            Monthly billing
+          </button>
+          <button type="button" data-billing="yearly" class="paywall-billing rounded-full border-none bg-white px-4 py-1.5 text-xs font-medium text-zinc-900 shadow-sm transition-all">
+            Yearly billing
+            <span class="ml-1.5 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 bg-clip-text text-[11px] font-semibold text-transparent">Save 15%</span>
+          </button>
+        </div>
+
+        <!-- Plan cards -->
+        <div class="relative mt-2 w-full max-w-[75.625rem]">
+          <div class="grid w-full grid-cols-1 gap-4 px-[1rem] md:grid-cols-3 md:px-0">
+
+            <!-- Pro -->
+            <div class="order-2 relative rounded-2xl bg-gradient-to-br from-zinc-300 via-zinc-400 to-zinc-500 p-px transition-opacity md:order-none md:my-5">
+              <div class="relative flex h-full flex-col overflow-hidden rounded-[15px] bg-white p-5">
+                <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(140%_70%_at_0%_0%,rgba(244,244,245,0.7),transparent_60%)]"></div>
+                <div class="relative flex h-full flex-col">
+                  <div class="mb-2 flex items-center gap-2">
+                    <h2 class="font-poppins text-[17px] font-semibold leading-[1.5rem] text-zinc-800">Pro</h2>
+                    <span class="inline-flex items-center gap-1 rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-medium text-purple-700">1x usage</span>
+                  </div>
+                  <div class="mb-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                    <span class="font-poppins text-[26px] font-medium leading-none text-zinc-800" data-monthly="$50.00" data-yearly="$42.50">$42.50</span>
+                    <span class="text-xs text-zinc-400">/ month</span>
+                  </div>
+                  <div class="mb-1 flex items-baseline gap-1 text-xs font-medium text-zinc-700">
+                    <span>Charged today:</span>
+                    <span data-monthly="$50.00" data-yearly="$510.00">$510.00</span>
+                  </div>
+                  <p class="mb-3.5 min-h-[30px] text-sm leading-relaxed text-zinc-800">For individuals getting started with dependable everyday automation.</p>
+                  <div class="mb-3 h-px bg-zinc-100"></div>
+                  <div class="mb-4 flex flex-1 flex-col gap-2">
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Access to virtually any leading AI model</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Agents work non-stop in the background</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Visual agent builder and chat-based agent creation</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">File-aware agents that can work with your documents</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">End-to-end agent management and run visibility</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Scheduled and event-based triggers</span></div>
+                  </div>
+                  <div class="relative isolate mt-5 w-full">
+                    <a href="https://platform.agpt.co/signup?plan=pro" class="inline-flex h-[2.25rem] w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-zinc-100 bg-zinc-100 px-3 py-2 font-sans text-sm font-medium leading-snug text-black no-underline transition-colors hover:border-zinc-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950">Get Pro</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Max (highlighted) -->
+            <div class="order-1 relative rounded-2xl bg-gradient-to-br from-purple-500 via-fuchsia-500 to-purple-700 p-px shadow-[0_10px_32px_-8px_rgba(119,51,245,0.25)] transition-opacity md:order-none">
+              <span class="absolute -top-3 right-5 z-10 inline-flex overflow-hidden rounded-full p-px shadow-[0_10px_28px_-6px_rgba(124,58,237,0.55)]">
+                <span aria-hidden="true" class="paywall-badge-ring absolute -inset-[150%] bg-[conic-gradient(from_0deg,#a476f8,#7733f5,#6c2edf,#5424ae,#6c2edf,#7733f5,#a476f8)]"></span>
+                <span class="relative inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-purple-600 via-blue-600 to-blue-500 px-2.5 py-1 text-[10px] font-semibold text-white">
+                  <span class="paywall-star inline-flex"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-yellow-300" fill="currentColor" aria-hidden="true"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.5-58.55-45.11-39.41a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-54.84a15.95,15.95,0,0,1,29.44,0l23.21,54.84,59.45,5.15a16,16,0,0,1,9.11,28.06Z"/></svg></span>
+                  Best value
+                </span>
+              </span>
+              <div class="relative flex h-full flex-col overflow-hidden rounded-[15px] bg-white p-6">
+                <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_0%_0%,rgba(168,85,247,0.10),transparent_60%),radial-gradient(120%_60%_at_100%_100%,rgba(119,51,245,0.08),transparent_60%)]"></div>
+                <div class="relative flex h-full flex-col">
+                  <div class="mb-2 flex items-center gap-2">
+                    <h2 class="font-poppins text-[17px] font-semibold leading-[1.5rem] text-zinc-800">Max</h2>
+                    <span class="inline-flex items-center gap-1 rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-medium text-purple-700">8.5x usage</span>
+                  </div>
+                  <div class="mb-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                    <span class="font-poppins text-[32px] font-medium leading-none text-zinc-800" data-monthly="$320.00" data-yearly="$272.00">$272.00</span>
+                    <span class="text-xs text-zinc-400">/ month</span>
+                  </div>
+                  <div class="mb-1 flex items-baseline gap-1 text-xs font-medium text-zinc-700">
+                    <span>Charged today:</span>
+                    <span data-monthly="$320.00" data-yearly="$3,264.00">$3,264.00</span>
+                  </div>
+                  <p class="mb-3.5 min-h-[30px] text-sm leading-relaxed text-zinc-800">For users who are serious about getting more work done.</p>
+                  <div class="mb-3 h-px bg-zinc-100"></div>
+                  <div class="mb-4 flex flex-1 flex-col gap-2">
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Includes everything in Pro</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">8.5x Pro usage</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">5x file storage</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Early access to features before anyone else</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Expand our extensive integration library</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Priority support</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Help drive the roadmap for new features</span></div>
+                  </div>
+                  <div class="relative isolate mt-5 w-full">
+                    <span aria-hidden="true" class="paywall-btn-glow pointer-events-none absolute -inset-0.5 -z-10 block rounded-[14px] bg-[linear-gradient(90deg,#a476f8,#7733f5,#6c2edf,#925cf7,#a476f8)] bg-[length:200%_100%] opacity-25 blur-md"></span>
+                    <a href="https://platform.agpt.co/signup?plan=max" class="inline-flex h-[3.25rem] w-full items-center justify-center gap-2 whitespace-nowrap rounded-full border border-zinc-800 bg-zinc-800 px-4 py-3 font-sans text-sm font-medium leading-snug text-white no-underline transition-colors hover:border-zinc-900 hover:bg-zinc-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950">Upgrade to Max</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team -->
+            <div class="order-3 relative rounded-2xl bg-gradient-to-br from-zinc-300 via-zinc-400 to-zinc-500 p-px transition-opacity md:order-none md:my-5">
+              <div class="relative flex h-full flex-col overflow-hidden rounded-[15px] bg-white p-5">
+                <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(140%_70%_at_0%_0%,rgba(244,244,245,0.7),transparent_60%)]"></div>
+                <div class="relative flex h-full flex-col">
+                  <div class="mb-2 flex items-center gap-2">
+                    <h2 class="font-poppins text-[17px] font-semibold leading-[1.5rem] text-zinc-800">Team</h2>
+                    <span class="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-500">Coming soon</span>
+                  </div>
+                  <div class="mb-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                    <span class="font-poppins text-[26px] font-medium leading-none tracking-[-1px] text-zinc-800">Contact us</span>
+                  </div>
+                  <p class="mb-3.5 min-h-[30px] text-sm leading-relaxed text-zinc-800">For teams that need collaboration, controls, and custom usage.</p>
+                  <div class="mb-3 h-px bg-zinc-100"></div>
+                  <div class="mb-4 flex flex-1 flex-col gap-2">
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-stone-100"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-stone-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Multi-user workspaces</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-stone-100"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-stone-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Admin controls &amp; roles</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-stone-100"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-stone-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Centralized billing &amp; seat management</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-stone-100"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-stone-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Collaboration &amp; approvals</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-stone-100"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-stone-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Security &amp; compliance options</span></div>
+                    <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-stone-100"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-stone-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Secure access for shared integrations</span></div>
+                  </div>
+                  <div class="relative isolate mt-5 w-full">
+                    <a href="https://tally.so/r/2Eb9zj" target="_blank" rel="noopener noreferrer" class="inline-flex h-[2.25rem] w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-zinc-100 bg-zinc-100 px-3 py-2 font-sans text-sm font-medium leading-snug text-black no-underline transition-colors hover:border-zinc-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950">Contact sales</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
