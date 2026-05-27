@@ -223,7 +223,11 @@
     .topscene {
       position: relative;
       width: 100%;
-      background-image: url('bg.png');
+      /* Subtle dark tint over the hero image so the white headline, subhead,
+         and prompt chips read with a touch more contrast. */
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
+        url('bg.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
