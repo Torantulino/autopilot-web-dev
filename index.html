@@ -418,6 +418,11 @@
     border-bottom: 1px solid var(--rule);
     position: relative;
   }
+  /* The two adjacent .press blocks ("As featured in" + "Cited & referenced by")
+     each carry top+bottom borders, which doubled into a seam between them. Drop
+     the inner edges so the pair reads as one bordered band. */
+  .press:has(+ .press) { border-bottom: none; }
+  .press + .press { border-top: none; }
 
   .press__eyebrow {
     text-align: center;
