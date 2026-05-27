@@ -242,6 +242,16 @@
       line-height: 1.05;
       letter-spacing: -0.02em;
     }
+    /* Inline AutoGPT logo replacing the "AutoGPT" wordmark in the hero h1.
+       The logo's lettering occupies ~43% of the PNG height, so height:1.63em
+       makes the "AUTO" cap height match the "Meet" cap height. Its baseline
+       sits ~18% above the image bottom, hence the downward vertical nudge. */
+    .hero__logo {
+      display: inline-block;
+      height: 1.85em;
+      width: auto;
+      vertical-align: -0.39em;
+    }
     .hero__h2 {
       font-size: clamp(1.0625rem, 2.2vw, 1.25rem);
       line-height: 1.35;
@@ -1160,7 +1170,7 @@
     <div class="wrapper">
       <div class="relative mb-4 flex flex-col items-center px-4 text-center md:mb-6">
         <h1 class="hero__h1 text-white mb-2 flex items-center gap-1 font-semibold md:mb-2.5 md:gap-0">
-          <span class="pt-0.5 md:pt-0">Meet <span>AutoGPT</span></span>
+          <span class="pt-0.5 md:pt-0">Meet <img src="logo.png" alt="AutoGPT" class="hero__logo" decoding="async" /></span>
         </h1>
         <h2 class="hero__h2 text-white/65 mb-6 max-w-[25ch] text-center font-normal md:max-w-full">
           Stop building workflows. Start hiring agents.
