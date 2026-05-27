@@ -1240,15 +1240,37 @@
     color: var(--ink-dark);
     white-space: nowrap;
   }
-  .intg-chip__count {
-    display: inline-flex;
-    align-items: center;
+  .intg-chip__logo {
+    height: 18px;
+    width: 18px;
+    flex: 0 0 auto;
+    object-fit: contain;
+    opacity: 0.85;
+  }
+  .intg-chip__logo.is-failed { display: none; }
+
+  /* Use-case capability tags in the header — the "what you can do" framing,
+     kept compact so the section still fits one screen. */
+  .intg-caps {
+    list-style: none;
+    margin: 22px auto 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 660px;
+  }
+  .intg-caps li {
+    font-family: "Geist", sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink-mid);
+    background: rgba(31, 31, 32, 0.04);
+    border: 1px solid var(--paper-line);
     border-radius: 999px;
-    background: #ede4fd;
-    color: #6d28d9;
-    padding: 2px 8px;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 4px 11px;
+    white-space: nowrap;
   }
 
   /* Brand logos (bottom rail) — like press .logo but on a light background, so
@@ -2134,12 +2156,25 @@
       <p class="integrations__sub">
         Every major LLM and AI model is already connected and paid for through us — so you never need to know what an API key is. Just link the handful of accounts that are genuinely yours, and your agents get to work.
       </p>
+      <ul class="intg-caps" aria-label="What the models can do">
+        <li>Chat &amp; reasoning</li>
+        <li>Image generation</li>
+        <li>Video generation</li>
+        <li>Text-to-speech</li>
+        <li>Transcription</li>
+        <li>Music</li>
+        <li>Image editing</li>
+        <li>Vision</li>
+        <li>OCR</li>
+        <li>3D</li>
+        <li>Embeddings</li>
+      </ul>
     </header>
 
     <div class="integrations__rails">
       <div class="integrations__rail">
         <p class="integrations__rail-label">Already connected — no API key needed</p>
-        <div class="marquee intg-rail--chips" aria-label="AI capabilities available out of the box">
+        <div class="marquee intg-rail--chips" aria-label="Popular AI models available out of the box">
           <ul class="marquee__track" id="intg-rail-models" role="list"></ul>
         </div>
       </div>
@@ -2579,25 +2614,26 @@
   // ResizeObserver, which recomputes each track's width and preserves position.
 
   // ---------- Integrations rails ----------
-  // Top rail: AI-capability chips — what's already connected, no API key needed.
-  // (Model counts are illustrative, drawn from the aggregated catalogs we expose.)
+  // Top rail: popular AI models (one per lab), each with its maker's logo —
+  // what's already connected, no API key needed. Flagship names; bump as needed.
   // Bottom rail: brand logos of the third-party platforms users connect
   // themselves, pulled from SimpleIcons with a typographic fallback if a mark 404s.
   const intgModels = [
-    { label: "Large language models", count: "45+" },
-    { label: "Image generation",      count: "86" },
-    { label: "Video generation",      count: "86" },
-    { label: "Text-to-speech",        count: "39" },
-    { label: "Speech-to-text",        count: "14" },
-    { label: "Music generation",      count: "16" },
-    { label: "Image editing",         count: "39" },
-    { label: "Upscale & restore",     count: "35" },
-    { label: "Vision & reasoning",    count: "28" },
-    { label: "OCR",                   count: "18" },
-    { label: "Background removal",    count: "14" },
-    { label: "3D generation",         count: "16" },
-    { label: "Lipsync",               count: "17" },
-    { label: "Embeddings",            count: "16" },
+    { name: "GPT-5.2",         slug: "openai" },
+    { name: "Claude Opus 4.6", slug: "anthropic" },
+    { name: "Gemini 3 Pro",    slug: "googlegemini" },
+    { name: "Llama 4",         slug: "meta" },
+    { name: "Mistral Large",   slug: "mistralai" },
+    { name: "DeepSeek",        slug: "deepseek" },
+    { name: "Qwen",            slug: "qwen" },
+    { name: "Sonar",           slug: "perplexity" },
+    { name: "Grok 4" },                              // xAI — no Simple Icons mark
+    { name: "FLUX.2" },                              // Black Forest Labs
+    { name: "Veo 3" },                               // Google
+    { name: "Seedance 2.0",    slug: "bytedance" },
+    { name: "Stable Diffusion" },                    // Stability AI
+    { name: "ElevenLabs",      slug: "elevenlabs" },
+    { name: "Nemotron",        slug: "nvidia" },
   ];
 
   const intgApps = [
@@ -2621,10 +2657,14 @@
   ];
 
   function intgChipMarkup(o) {
-    return `<li class="intg-chip" title="${o.label}">
-              <span class="intg-chip__label">${o.label}</span>
-              <span class="intg-chip__count">${o.count}</span>
-            </li>`;
+    // Popular model name + its maker's logo where Simple Icons has one; labs
+    // without a mark (FLUX, Veo, Grok, Stable Diffusion) show as a name pill.
+    const logo = o.slug
+      ? `<img class="intg-chip__logo" src="https://cdn.jsdelivr.net/npm/simple-icons/icons/${o.slug}.svg"
+              alt="" loading="eager" decoding="async" fetchpriority="low"
+              onerror="this.classList.add('is-failed')" />`
+      : "";
+    return `<li class="intg-chip" title="${o.name}">${logo}<span>${o.name}</span></li>`;
   }
 
   function intgLogoMarkup(o) {
