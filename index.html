@@ -283,18 +283,12 @@
 
     /* ---------- Hero recommended-prompt chips ---------- */
     .hero__prompts {
-      margin: clamp(20px, 3vw, 32px) auto 0;
-      max-width: 480px;
+      margin-top: clamp(20px, 3vw, 32px);
+      /* Break out a little wider than the 640px input so the chips sit on 2 rows. */
+      width: min(760px, 90vw);
+      margin-left: 50%;
+      transform: translateX(-50%);
       text-align: center;
-    }
-    .hero__prompts-eyebrow {
-      margin: 0 0 14px;
-      font-family: "Geist", sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.45);
     }
     .hero__prompts-list {
       display: flex;
@@ -372,7 +366,6 @@
         0 0 0 4px rgba(10, 10, 14, 1);
     }
     @media (max-width: 640px) {
-      .hero__prompts-eyebrow { margin-bottom: 10px; }
       .hero__prompts-list { gap: 8px; }
       .prompt-chip {
         font-size: 13px;
@@ -1247,7 +1240,6 @@
       </form>
 
       <div class="hero__prompts" aria-label="Recommended prompts">
-        <p class="hero__prompts-eyebrow">Or try a prompt</p>
         <ul class="hero__prompts-list" role="list">
           <li><a class="prompt-chip" href="#usecase-daily-briefing">Brief me for today<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
           <li><a class="prompt-chip" href="#usecase-call-prep">Prep me for my call<svg class="prompt-chip__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12M5 11l5 5 5-5"/></svg></a></li>
