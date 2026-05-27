@@ -495,7 +495,8 @@
   /* Press/media-logo rows are JS-driven by the shared marquee controller, like the
      testimonials rows: disable the CSS scroll animation and make them grab-draggable.
      The site-wide :hover animation-play-state rule above then becomes a no-op. */
-  .press .marquee__track {
+  .press .marquee__track,
+  .integrations .marquee__track {
     animation: none;
     cursor: grab;
     user-select: none;
@@ -503,11 +504,15 @@
     touch-action: pan-y;
     will-change: transform;
   }
-  .press .marquee__track.is-dragging { cursor: grabbing; }
+  .press .marquee__track.is-dragging,
+  .integrations .marquee__track.is-dragging { cursor: grabbing; }
   .press .marquee__track a,
-  .press .marquee__track img { -webkit-user-drag: none; }
+  .press .marquee__track img,
+  .integrations .marquee__track a,
+  .integrations .marquee__track img { -webkit-user-drag: none; }
   @media (prefers-reduced-motion: reduce) {
-    .press .marquee { overflow-x: hidden; }
+    .press .marquee,
+    .integrations .marquee { overflow-x: hidden; }
   }
 
   .logo {
@@ -1149,6 +1154,140 @@
   @media (prefers-reduced-motion: reduce) {
     .testimonials__card { transition: none; }
     .testimonials__card:hover { transform: none; }
+  }
+
+  /* ---------- Integrations (paper, two scrolling rails) ---------- */
+  /* Reuses the .marquee / .marquee__track engine; these scoped tokens give the
+     rails their own (compact) row height, gap and speeds without touching the
+     press/testimonials rails. */
+  .integrations {
+    --row-h: 38px;
+    --gap: 52px;
+    --speed-1: 60s;
+    --speed-2: 78s;
+    --mask-edge: 64px;
+    width: 100%;
+    background: var(--paper-deep);
+    background-image:
+      radial-gradient(1200px 560px at 50% 0%, rgba(119, 51, 245, 0.06) 0%, transparent 60%),
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 16%, var(--paper-deep) 82%, var(--paper) 100%);
+    padding: clamp(52px, 7vw, 84px) clamp(16px, 4vw, 24px);
+    color: var(--ink-dark);
+  }
+  .integrations__container { max-width: 1100px; margin: 0 auto; }
+
+  .integrations__head { text-align: center; max-width: 760px; margin: 0 auto; }
+  .integrations__head .demo__eyebrow { color: var(--ink-soft); margin: 0 0 20px; }
+  .integrations__title {
+    font-family: "Poppins", "Geist", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink-dark);
+    margin: 0 0 18px;
+  }
+  .integrations__title em { font-style: italic; font-weight: 500; color: var(--accent); }
+  .integrations__sub {
+    font-family: "Geist", sans-serif;
+    font-size: clamp(15px, 1.35vw, 18px);
+    line-height: 1.55;
+    color: var(--ink-mid);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .integrations__rails {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(22px, 3.4vw, 36px);
+    margin-top: clamp(38px, 5vw, 56px);
+  }
+  .integrations__rail-label {
+    text-align: center;
+    font-family: "Geist", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+  }
+
+  /* Capability chips (top rail) — text + a model-count badge, no logos. */
+  .intg-rail--chips .marquee__track { gap: 14px; }
+  .intg-chip {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 15px;
+    border-radius: 999px;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    box-shadow: 0 1px 2px rgba(24, 24, 27, 0.05);
+    font-family: "Geist", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-dark);
+    white-space: nowrap;
+  }
+  .intg-chip__count {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: #ede4fd;
+    color: #6d28d9;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* Brand logos (bottom rail) — like press .logo but on a light background, so
+     no whitening filter; brand colour stays, muted at rest and lit on hover. */
+  .intg-logo {
+    flex: 0 0 auto;
+    height: var(--row-h);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.74;
+    transition: opacity 220ms ease, transform 220ms ease;
+    user-select: none;
+  }
+  .intg-logo:hover { opacity: 1; transform: translateY(-1px); }
+  .intg-logo img {
+    display: block;
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+  .intg-logo img.is-failed { display: none; }
+  .intg-logo .fallback {
+    display: none;
+    white-space: nowrap;
+    font-family: "Geist", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--ink-mid);
+  }
+  .intg-logo img.is-failed + .fallback { display: inline-flex; align-items: center; }
+
+  .integrations__stats {
+    margin: clamp(34px, 4.5vw, 52px) 0 0;
+    text-align: center;
+    font-family: "Geist", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 639px) {
+    .integrations { --row-h: 30px; --gap: 34px; --mask-edge: 28px; --speed-1: 44s; --speed-2: 56s; }
+    .intg-chip { font-size: 14px; padding: 8px 13px; }
   }
   </style>
 </head>
@@ -1973,6 +2112,44 @@
 </section>
 
 <!-- ================================================================= -->
+<!-- Integrations — breadth + the "batteries-included" benefit, just     -->
+<!-- above pricing. Two scrolling rails (reusing the .marquee engine):   -->
+<!-- AI capability chips (already connected) and the platforms users     -->
+<!-- connect themselves. Rail contents are built in the inline script.   -->
+<!-- ================================================================= -->
+<section class="integrations" aria-labelledby="integrations-title">
+  <div class="integrations__container">
+    <header class="integrations__head">
+      <p class="demo__eyebrow">Integrations</p>
+      <h2 class="integrations__title" id="integrations-title">
+        Connect what's yours. <em>We've wired up the rest.</em>
+      </h2>
+      <p class="integrations__sub">
+        Every major LLM and AI model is already connected and paid for through us — so you never need to know what an API key is. Just link the handful of accounts that are genuinely yours, and your agents get to work.
+      </p>
+    </header>
+
+    <div class="integrations__rails">
+      <div class="integrations__rail">
+        <p class="integrations__rail-label">Already connected — no API key needed</p>
+        <div class="marquee intg-rail--chips" aria-label="AI capabilities available out of the box">
+          <ul class="marquee__track" id="intg-rail-models" role="list"></ul>
+        </div>
+      </div>
+
+      <div class="integrations__rail">
+        <p class="integrations__rail-label">Bring the accounts that are yours</p>
+        <div class="marquee marquee--reverse" aria-label="Third-party platforms you can connect">
+          <ul class="marquee__track" id="intg-rail-apps" role="list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="integrations__stats">45+ platforms · hundreds of AI models · zero API keys</p>
+  </div>
+</section>
+
+<!-- ================================================================= -->
 <!-- Pricing — the same Pro/Max/Team cards as the pricing page, kept in -->
 <!-- sync from one source. The billing toggle + cards between the       -->
 <!-- markers are GENERATED from partials/pricing-cards.html by          -->
@@ -2394,6 +2571,79 @@
   // below (same as the testimonials rows). Late-loading logos are handled by its
   // ResizeObserver, which recomputes each track's width and preserves position.
 
+  // ---------- Integrations rails ----------
+  // Top rail: AI-capability chips — what's already connected, no API key needed.
+  // (Model counts are illustrative, drawn from the aggregated catalogs we expose.)
+  // Bottom rail: brand logos of the third-party platforms users connect
+  // themselves, pulled from SimpleIcons with a typographic fallback if a mark 404s.
+  const intgModels = [
+    { label: "Large language models", count: "45+" },
+    { label: "Image generation",      count: "86" },
+    { label: "Video generation",      count: "86" },
+    { label: "Text-to-speech",        count: "39" },
+    { label: "Speech-to-text",        count: "14" },
+    { label: "Music generation",      count: "16" },
+    { label: "Image editing",         count: "39" },
+    { label: "Upscale & restore",     count: "35" },
+    { label: "Vision & reasoning",    count: "28" },
+    { label: "OCR",                   count: "18" },
+    { label: "Background removal",    count: "14" },
+    { label: "3D generation",         count: "16" },
+    { label: "Lipsync",               count: "17" },
+    { label: "Embeddings",            count: "16" },
+  ];
+
+  const intgApps = [
+    { n: "Slack",           slug: "slack" },
+    { n: "Gmail",           slug: "gmail" },
+    { n: "Google Sheets",   slug: "googlesheets" },
+    { n: "Google Calendar", slug: "googlecalendar" },
+    { n: "Google Docs",     slug: "googledocs" },
+    { n: "GitHub",          slug: "github" },
+    { n: "Notion",          slug: "notion" },
+    { n: "Discord",         slug: "discord" },
+    { n: "Telegram",        slug: "telegram" },
+    { n: "X",               slug: "x" },
+    { n: "HubSpot",         slug: "hubspot" },
+    { n: "Linear",          slug: "linear" },
+    { n: "Todoist",         slug: "todoist" },
+    { n: "Airtable",        slug: "airtable" },
+    { n: "Reddit",          slug: "reddit" },
+    { n: "WordPress",       slug: "wordpress" },
+    { n: "Medium",          slug: "medium" },
+  ];
+
+  function intgChipMarkup(o) {
+    return `<li class="intg-chip" title="${o.label}">
+              <span class="intg-chip__label">${o.label}</span>
+              <span class="intg-chip__count">${o.count}</span>
+            </li>`;
+  }
+
+  function intgLogoMarkup(o) {
+    // Monochrome Simple Icons brand marks (uniform + reliable across the rail);
+    // a styled wordmark shows if any mark fails to load.
+    const src = "https://cdn.jsdelivr.net/npm/simple-icons/icons/" + o.slug + ".svg";
+    return `<li class="intg-logo" title="${o.n}">
+              <img src="${src}" alt="${o.n}" loading="eager" decoding="async"
+                   fetchpriority="low" onerror="this.classList.add('is-failed')" />
+              <span class="fallback">${o.n}</span>
+            </li>`;
+  }
+
+  // Same seamless-loop trick as the press wall: render the items twice so the
+  // CSS -50% reset is invisible.
+  function intgFill(elId, items, render) {
+    var el = document.getElementById(elId);
+    if (!el) return;
+    var html = items.map(render).join("");
+    el.innerHTML = html + html;
+  }
+
+  intgFill("intg-rail-models", intgModels, intgChipMarkup);
+  intgFill("intg-rail-apps",  intgApps,   intgLogoMarkup);
+  // These two rails are driven by the shared setupMarqueeDrag controller below.
+
   // Testimonials marquee: duplicate each row's cards for seamless infinite scroll.
   ["t-row1", "t-row2", "t-row3"].forEach(function (id) {
     var track = document.getElementById(id);
@@ -2552,7 +2802,9 @@
       { id: "t-row3", speedSec: 110, direction: -1 },
       { id: "row1",   speedSec: 90,  direction: -1 },
       { id: "row2",   speedSec: 90,  direction: +1 },
-      { id: "row3",   speedSec: 110, direction: -1 }
+      { id: "row3",   speedSec: 110, direction: -1 },
+      { id: "intg-rail-models", speedSec: 60, direction: -1 },
+      { id: "intg-rail-apps",   speedSec: 78, direction: +1 }
     ]);
   });
   </script>
