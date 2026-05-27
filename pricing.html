@@ -8,17 +8,31 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <script>
-    // Paywall replica uses Poppins for headings/prices (matches the platform UI),
-    // and keeps Inter as the default sans so it blends with the rest of the page.
+    /* AutoGPT Design System tokens (Tokens PDF). Overrides the named Tailwind
+       ramps so existing utility classes (text-zinc-800, bg-purple-50, …) resolve
+       to DS values. Geist is the body sans; Poppins stays for headings/prices. */
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            poppins: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+          colors: {
+            slate:  { 50:'#F7F8F9', 100:'#EFF1F4', 200:'#CFD4DB', 300:'#B8BFCA', 400:'#8A97A8', 500:'#64748B', 600:'#5B6A7E', 700:'#475263', 800:'#37404C', 900:'#2A313A' },
+            zinc:   { 50:'#F9F9FA', 100:'#EFEFF0', 200:'#DADADC', 300:'#C5C5C9', 400:'#ADADB3', 500:'#83838C', 600:'#68686F', 700:'#8E98A8', 800:'#3E3E43', 900:'#2C2C30' },
+            red:    { 50:'#fdecec', 100:'#fac5c5', 200:'#f8a9a9', 300:'#f48282', 400:'#f26969', 500:'#ef4444', 600:'#d93e3e', 700:'#aa3030', 800:'#832525', 900:'#641d1d' },
+            orange: { 50:'#fff3e6', 100:'#ffdab0', 200:'#ffc88a', 300:'#feaf54', 400:'#fe9f33', 500:'#fe8700', 600:'#e77b00', 700:'#b46000', 800:'#8c4a00', 900:'#6b3900' },
+            yellow: { 50:'#fef9e6', 100:'#fcebb0', 200:'#fae28a', 300:'#f8d554', 400:'#f7cd33', 500:'#f5c000', 600:'#dfaf00', 700:'#ae8800', 800:'#876a00', 900:'#675100' },
+            green:  { 50:'#e8f6ed', 100:'#b7e2c7', 200:'#94d5ac', 300:'#63c186', 400:'#45b56e', 500:'#16a34a', 600:'#149443', 700:'#107435', 800:'#0c5a29', 900:'#09441f' },
+            teal:   { 50:'#e7f8fb', 100:'#b3eaf4', 200:'#8fe0ee', 300:'#5cd1e6', 400:'#3cc9e1', 500:'#0bbbda', 600:'#0aaac6', 700:'#08859b', 800:'#066778', 900:'#054f5c' },
+            blue:   { 50:'#eaf2ff', 100:'#bed7ff', 200:'#9ec4ff', 300:'#72a9ff', 400:'#5798ff', 500:'#2d7eff', 600:'#2973e8', 700:'#2059b5', 800:'#19458c', 900:'#13356b' },
+            purple: { 50:'#f1ebfe', 100:'#d5c0fc', 200:'#c0a1fa', 300:'#a476f8', 400:'#925cf7', 500:'#7733f5', 600:'#6c2edf', 700:'#5424ae', 800:'#411c87', 900:'#321567' },
+            pink:   { 50:'#fdedf5', 100:'#f9c6df', 200:'#f6abd0', 300:'#f284bb', 400:'#f06dad', 500:'#ec4899', 600:'#d7428b', 700:'#a8336d', 800:'#822854', 900:'#631e40' },
           },
+          fontFamily: {
+            sans: ['Geist', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+            poppins: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          borderRadius: { xs:'4px', s:'8px', m:'12px', l:'16px', xl:'20px' },
         },
       },
     };
@@ -47,14 +61,14 @@
       flex-direction: column;
       min-height: 100vh;
       margin: 0;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #27272a;
+      font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #2C2C30;
     }
 
     /* ---------- Site header (same glass nav as index) ---------- */
     .site-header {
       isolation: isolate;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-feature-settings: "cv11", "ss01", "ss03";
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -64,7 +78,7 @@
       display: inline-flex;
       align-items: center;
       padding: 0.625rem 0.875rem;
-      border-radius: 9px;
+      border-radius: 8px;
       font-size: 15px;
       font-weight: 500;
       letter-spacing: -0.005em;
@@ -132,7 +146,7 @@
     }
 
     .cta-pill {
-      color: #18181b;
+      color: #1F1F20;
       font-size: 15px;
       font-weight: 600;
       letter-spacing: -0.005em;
@@ -187,7 +201,7 @@
       position: absolute;
       inset: -10% -10% -30% -10%;
       background:
-        radial-gradient(55% 40% at 50% 0%, rgba(99, 102, 241, 0.07) 0%, transparent 70%),
+        radial-gradient(55% 40% at 50% 0%, rgba(119, 51, 245, 0.07) 0%, transparent 70%),
         radial-gradient(40% 30% at 85% 60%, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
@@ -206,7 +220,7 @@
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #52525b;
+      color: #505057;
       margin: 0 0 24px;
     }
     .pricing__eyebrow::before,
@@ -223,15 +237,15 @@
       margin-top: 48px;
       text-align: center;
       font-size: 13px;
-      color: #52525b;
+      color: #505057;
     }
     .pricing__footnote a {
-      color: #4f46e5;
+      color: #7733f5;
       text-decoration: underline;
-      text-decoration-color: rgba(79, 70, 229, 0.4);
+      text-decoration-color: rgba(119, 51, 245, 0.4);
       text-underline-offset: 3px;
     }
-    .pricing__footnote a:hover { color: #4338ca; text-decoration-color: rgba(79, 70, 229, 0.7); }
+    .pricing__footnote a:hover { color: #6c2edf; text-decoration-color: rgba(119, 51, 245, 0.7); }
 
     /* ==================== Feature comparison wall ==================== */
     :root { --site-header-h: 80px; }
@@ -240,28 +254,28 @@
 
     .cmp__head { text-align: center; max-width: 760px; margin: 0 auto 40px; }
     .cmp__title {
-      font-family: "Poppins", "Inter", system-ui, sans-serif;
+      font-family: "Poppins", "Geist", system-ui, sans-serif;
       font-optical-sizing: auto;
       font-weight: 500;
       font-size: clamp(32px, 4.6vw, 52px);
       line-height: 1.06;
       letter-spacing: -0.02em;
-      color: #18181b;
+      color: #1F1F20;
       margin: 0 0 18px;
     }
     .cmp__title em {
       font-style: italic;
       font-weight: 500;
-      background: linear-gradient(90deg, #9333ea 0%, #4f46e5 100%);
+      background: linear-gradient(90deg, #925cf7 0%, #6c2edf 100%);
       -webkit-background-clip: text;
               background-clip: text;
       -webkit-text-fill-color: transparent;
-      color: #4f46e5;
+      color: #7733f5;
     }
     .cmp__sub {
       font-size: clamp(15px, 1.3vw, 18px);
       line-height: 1.6;
-      color: #52525b;
+      color: #505057;
       max-width: 660px;
       margin: 0 auto;
     }
@@ -269,7 +283,7 @@
     /* Controls / search */
     .cmp__controls { max-width: 520px; margin: 0 auto 16px; }
     .cmp__search { position: relative; display: flex; align-items: center; }
-    .cmp__search-icon { position: absolute; left: 15px; width: 18px; height: 18px; color: #71717a; pointer-events: none; }
+    .cmp__search-icon { position: absolute; left: 15px; width: 18px; height: 18px; color: #83838C; pointer-events: none; }
     .cmp__search-input {
       width: 100%;
       box-sizing: border-box;
@@ -277,17 +291,17 @@
       border-radius: 9999px;
       border: 1px solid rgba(24, 24, 27, 0.14);
       background: #ffffff;
-      color: #18181b;
+      color: #1F1F20;
       font-family: inherit;
       font-size: 15px;
     }
-    .cmp__search-input::placeholder { color: #71717a; }
+    .cmp__search-input::placeholder { color: #83838C; }
     .cmp__search-input:focus-visible {
       outline: none;
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #4f46e5;
+      border-color: #7733f5;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #7733f5;
     }
-    .cmp__search-status { min-height: 18px; margin: 8px 0 0; text-align: center; font-size: 13px; color: #52525b; }
+    .cmp__search-status { min-height: 18px; margin: 8px 0 0; text-align: center; font-size: 13px; color: #505057; }
 
     /* Jump nav (sticky, above the plan header) */
     .cmp__jump {
@@ -319,21 +333,21 @@
       padding: 7px 13px;
       border-radius: 9999px;
       border: 1px solid rgba(24, 24, 27, 0.12);
-      background: #f4f4f5;
-      color: #52525b;
+      background: #EFEFF0;
+      color: #505057;
       font-size: 13px;
       font-weight: 500;
       text-decoration: none;
       transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
     }
-    .cmp__chip:hover { color: #18181b; border-color: rgba(24, 24, 27, 0.24); background: #ececef; }
+    .cmp__chip:hover { color: #1F1F20; border-color: rgba(24, 24, 27, 0.24); background: #DADADC; }
     .cmp__chip.is-active {
       color: #ffffff;
-      background: linear-gradient(180deg, #4f46e5 0%, #4338ca 100%);
+      background: linear-gradient(180deg, #7733f5 0%, #6c2edf 100%);
       border-color: transparent;
       font-weight: 600;
     }
-    .cmp__chip:focus-visible { outline: none; box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #4f46e5; }
+    .cmp__chip:focus-visible { outline: none; box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #7733f5; }
     .cmp__chip-count { font-variant-numeric: tabular-nums; opacity: 0.65; font-size: 11px; }
     .cmp__chip.is-active .cmp__chip-count { opacity: 0.85; }
 
@@ -355,8 +369,8 @@
     .cmp__cell--plan { flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; gap: 5px; }
     .cmp__cell--val { align-items: center; justify-content: center; text-align: center; }
 
-    .cmp__plan-name { font-family: "Poppins", "Inter", system-ui, sans-serif; font-weight: 500; font-size: 18px; color: #18181b; }
-    .cmp__plan-tag { font-size: 12px; color: #71717a; }
+    .cmp__plan-name { font-family: "Poppins", "Geist", system-ui, sans-serif; font-weight: 500; font-size: 18px; color: #1F1F20; }
+    .cmp__plan-tag { font-size: 12px; color: #83838C; }
     .cmp__plan-cta {
       margin-top: 4px;
       display: inline-flex;
@@ -368,31 +382,31 @@
       font-weight: 600;
       text-decoration: none;
       color: #ffffff;
-      background-image: linear-gradient(180deg, #4f46e5 0%, #4338ca 100%);
-      box-shadow: 0 1px 0 rgba(255,255,255,0.25) inset, 0 8px 18px -8px rgba(79, 70, 229, 0.55);
-      transition: transform 180ms ease, box-shadow 180ms ease;
+      background-color: #1F1F20;  /* DS Primary button (text-black) */
+      box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 8px 18px -8px rgba(31, 31, 32, 0.45);
+      transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
     }
-    .cmp__plan-cta:hover { transform: translateY(-0.5px); box-shadow: 0 1px 0 rgba(255,255,255,0.25) inset, 0 10px 22px -8px rgba(79, 70, 229, 0.65); }
+    .cmp__plan-cta:hover { transform: translateY(-0.5px); background-color: #2C2C30; box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 10px 22px -8px rgba(31, 31, 32, 0.5); }
     .cmp__plan-cta--ghost {
-      color: #27272a;
+      color: #2C2C30;
       background-image: none;
       background: #ffffff;
       border: 1px solid rgba(24, 24, 27, 0.16);
       box-shadow: none;
     }
-    .cmp__plan-cta--ghost:hover { color: #18181b; background: #f4f4f5; border-color: rgba(24, 24, 27, 0.26); }
-    .cmp__plan-cta:focus-visible { outline: none; box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #4f46e5; }
+    .cmp__plan-cta--ghost:hover { color: #1F1F20; background: #EFEFF0; border-color: rgba(24, 24, 27, 0.26); }
+    .cmp__plan-cta:focus-visible { outline: none; box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #7733f5; }
 
     .cmp__legend { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
-    .cmp__legend-title { font-size: 13px; font-weight: 600; color: #18181b; }
-    .cmp__legend-key { font-size: 11px; color: #52525b; }
+    .cmp__legend-title { font-size: 13px; font-weight: 600; color: #1F1F20; }
+    .cmp__legend-key { font-size: 11px; color: #505057; }
 
     /* Category band */
     .cmp__cat { padding: 30px 4px 10px; }
     .cmp__cat-head { display: flex; align-items: baseline; gap: 10px; }
-    .cmp__cat-name { font-family: "Poppins", "Inter", system-ui, sans-serif; font-weight: 500; font-size: 19px; color: #18181b; margin: 0; }
-    .cmp__cat-count { font-size: 12px; color: #71717a; font-variant-numeric: tabular-nums; }
-    .cmp__cat-note { margin: 8px 0 0; font-size: 13px; line-height: 1.55; color: #52525b; max-width: 78ch; }
+    .cmp__cat-name { font-family: "Poppins", "Geist", system-ui, sans-serif; font-weight: 500; font-size: 19px; color: #1F1F20; margin: 0; }
+    .cmp__cat-count { font-size: 12px; color: #83838C; font-variant-numeric: tabular-nums; }
+    .cmp__cat-note { margin: 8px 0 0; font-size: 13px; line-height: 1.55; color: #505057; max-width: 78ch; }
 
     /* Rows */
     .cmp__row {
@@ -403,19 +417,19 @@
       transition: background 140ms ease;
       scroll-margin-top: calc(var(--site-header-h) + var(--cmp-jump-h, 56px) + var(--cmp-head-h, 64px) + 12px);
     }
-    .cmp__row:hover { background: rgba(79, 70, 229, 0.045); }
-    .cmp__row[data-highlight="true"] { box-shadow: inset 3px 0 0 #4f46e5; }
+    .cmp__row:hover { background: rgba(119, 51, 245, 0.045); }
+    .cmp__row[data-highlight="true"] { box-shadow: inset 3px 0 0 #7733f5; }
     .cmp__group { scroll-margin-top: calc(var(--site-header-h) + var(--cmp-jump-h, 56px) + var(--cmp-head-h, 64px) + 12px); }
 
     .cmp__feat { display: inline-flex; align-items: center; gap: 4px; min-width: 0; }
-    .cmp__feat-name { font-size: 14.5px; line-height: 1.4; color: #27272a; }
-    .cmp__star { display: inline-flex; align-items: center; color: #4f46e5; margin-right: 5px; flex: 0 0 auto; }
+    .cmp__feat-name { font-size: 14.5px; line-height: 1.4; color: #2C2C30; }
+    .cmp__star { display: inline-flex; align-items: center; color: #7733f5; margin-right: 5px; flex: 0 0 auto; }
     .cmp__star-icon { width: 13px; height: 13px; }
 
     /* Value cells */
-    .cmp__check { display: inline-flex; color: #4f46e5; }
+    .cmp__check { display: inline-flex; color: #7733f5; }
     .cmp__check svg { width: 19px; height: 19px; }
-    .cmp__dash { color: #71717a; font-size: 16px; line-height: 1; }
+    .cmp__dash { color: #83838C; font-size: 16px; line-height: 1; }
     .cmp__pill {
       display: inline-flex;
       align-items: center;
@@ -423,9 +437,9 @@
       text-align: center;
       padding: 4px 10px;
       border-radius: 9999px;
-      background: #f4f4f5;
+      background: #EFEFF0;
       border: 1px solid rgba(24, 24, 27, 0.12);
-      color: #3f3f46;
+      color: #3E3E43;
       font-size: 12.5px;
       font-weight: 600;
       line-height: 1.3;
@@ -433,7 +447,7 @@
     }
     .cmp__pill--sm { padding: 2px 8px; font-size: 11px; }
     .cmp__valwrap { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; }
-    .cmp__note { font-size: 10.5px; color: #52525b; line-height: 1.2; }
+    .cmp__note { font-size: 10.5px; color: #505057; line-height: 1.2; }
     .cmp__split { display: inline-flex; flex-direction: column; gap: 5px; align-items: flex-start; }
     .cmp__split-row { display: inline-flex; align-items: center; gap: 6px; }
     .cmp__split-tier {
@@ -441,7 +455,7 @@
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #71717a;
+      color: #83838C;
       min-width: 26px;
       text-align: right;
     }
@@ -457,20 +471,20 @@
       border: 0;
       border-radius: 9999px;
       background: transparent;
-      color: #71717a;
+      color: #83838C;
       cursor: pointer;
       flex: 0 0 auto;
       transition: color 140ms ease, background 140ms ease;
     }
-    .cmp__info:hover { color: #4f46e5; background: rgba(79, 70, 229, 0.08); }
-    .cmp__info:focus-visible { outline: none; color: #4f46e5; box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #4f46e5; }
+    .cmp__info:hover { color: #7733f5; background: rgba(119, 51, 245, 0.08); }
+    .cmp__info:focus-visible { outline: none; color: #7733f5; box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #7733f5; }
     .cmp__info-icon { width: 15px; height: 15px; }
     .cmp__tip {
       position: fixed;
       z-index: 60;
       max-width: min(280px, calc(100vw - 24px));
       padding: 10px 12px;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #1f1d2b;
       color: rgba(255, 255, 255, 0.95);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -481,16 +495,16 @@
       pointer-events: none;
     }
 
-    .cmp__noresults { text-align: center; padding: 44px 0; color: #52525b; font-size: 15px; }
+    .cmp__noresults { text-align: center; padding: 44px 0; color: #505057; font-size: 15px; }
 
     .cmp__caveat {
       margin: 28px 4px 0;
       font-size: 12.5px;
       line-height: 1.6;
-      color: #52525b;
+      color: #505057;
       max-width: 82ch;
     }
-    .cmp__caveat strong { color: #27272a; font-weight: 600; }
+    .cmp__caveat strong { color: #2C2C30; font-weight: 600; }
 
     .cmp__sr-only {
       position: absolute;
@@ -610,7 +624,7 @@
         <div class="flex flex-col items-center gap-1 text-center">
           <h1 id="paywall-title" class="font-poppins text-[1.375rem] font-medium leading-[1.6rem] tracking-[-0.01313rem] text-black md:text-[1.75rem] md:leading-[2.5rem]">
             Choose the plan that's right for
-            <span class="bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent">you</span>
+            <span class="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">you</span>
           </h1>
           <p class="font-sans text-[0.875rem] font-normal leading-[1.375rem] text-zinc-500">
             Upgrade, downgrade, or change plans anytime. All plans include core features to get you started.
@@ -667,16 +681,16 @@
             </div>
 
             <!-- Max (highlighted) -->
-            <div class="order-1 relative rounded-2xl bg-gradient-to-br from-purple-500 via-fuchsia-500 to-indigo-500 p-px shadow-[0_10px_32px_-8px_rgba(119,51,245,0.25)] transition-opacity md:order-none">
+            <div class="order-1 relative rounded-2xl bg-gradient-to-br from-purple-500 via-fuchsia-500 to-purple-700 p-px shadow-[0_10px_32px_-8px_rgba(119,51,245,0.25)] transition-opacity md:order-none">
               <span class="absolute -top-3 right-5 z-10 inline-flex overflow-hidden rounded-full p-px shadow-[0_10px_28px_-6px_rgba(124,58,237,0.55)]">
-                <span aria-hidden="true" class="paywall-badge-ring absolute -inset-[150%] bg-[conic-gradient(from_0deg,#a855f7,#7c3aed,#4f46e5,#1e40af,#4f46e5,#7c3aed,#a855f7)]"></span>
-                <span class="relative inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 px-2.5 py-1 text-[10px] font-semibold text-white">
+                <span aria-hidden="true" class="paywall-badge-ring absolute -inset-[150%] bg-[conic-gradient(from_0deg,#a476f8,#7733f5,#6c2edf,#5424ae,#6c2edf,#7733f5,#a476f8)]"></span>
+                <span class="relative inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-purple-600 via-blue-600 to-blue-500 px-2.5 py-1 text-[10px] font-semibold text-white">
                   <span class="paywall-star inline-flex"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-yellow-300" fill="currentColor" aria-hidden="true"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.5-58.55-45.11-39.41a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-54.84a15.95,15.95,0,0,1,29.44,0l23.21,54.84,59.45,5.15a16,16,0,0,1,9.11,28.06Z"/></svg></span>
                   Best value
                 </span>
               </span>
               <div class="relative flex h-full flex-col overflow-hidden rounded-[15px] bg-white p-6">
-                <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_0%_0%,rgba(168,85,247,0.10),transparent_60%),radial-gradient(120%_60%_at_100%_100%,rgba(99,102,241,0.08),transparent_60%)]"></div>
+                <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_0%_0%,rgba(168,85,247,0.10),transparent_60%),radial-gradient(120%_60%_at_100%_100%,rgba(119,51,245,0.08),transparent_60%)]"></div>
                 <div class="relative flex h-full flex-col">
                   <div class="mb-2 flex items-center gap-2">
                     <h2 class="font-poppins text-[17px] font-semibold leading-[1.5rem] text-zinc-800">Max</h2>
@@ -702,7 +716,7 @@
                     <div class="flex items-center gap-2"><span aria-hidden="true" class="flex h-4 w-4 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-2.5 w-2.5 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span><span class="text-[13px] text-zinc-800">Help drive the roadmap for new features</span></div>
                   </div>
                   <div class="relative isolate mt-5 w-full">
-                    <span aria-hidden="true" class="paywall-btn-glow pointer-events-none absolute -inset-0.5 -z-10 block rounded-[14px] bg-[linear-gradient(90deg,#a855f7,#7c3aed,#4f46e5,#6366f1,#a855f7)] bg-[length:200%_100%] opacity-25 blur-md"></span>
+                    <span aria-hidden="true" class="paywall-btn-glow pointer-events-none absolute -inset-0.5 -z-10 block rounded-[14px] bg-[linear-gradient(90deg,#a476f8,#7733f5,#6c2edf,#925cf7,#a476f8)] bg-[length:200%_100%] opacity-25 blur-md"></span>
                     <a href="https://platform.agpt.co/signup?plan=max" class="inline-flex h-[3.25rem] w-full items-center justify-center gap-2 whitespace-nowrap rounded-full border border-zinc-800 bg-zinc-800 px-4 py-3 font-sans text-sm font-medium leading-snug text-white no-underline transition-colors hover:border-zinc-900 hover:bg-zinc-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950">Upgrade to Max</a>
                   </div>
                 </div>
