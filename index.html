@@ -865,7 +865,7 @@
     background-image:
       radial-gradient(1200px 700px at 50% 0%, rgba(255, 255, 255, 0.55) 0%, transparent 65%),
       linear-gradient(180deg, var(--paper-deep) 0%, var(--paper) 100%);
-    padding: clamp(72px, 11vw, 128px) clamp(16px, 4vw, 24px);
+    padding: clamp(72px, 11vw, 128px) clamp(16px, 4vw, 24px) 0;
     color: var(--ink-dark);
   }
   .testimonials__inner {
@@ -927,7 +927,7 @@
     margin: 56px auto 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
     text-align: left;
   }
   /* The marquee clips overflow on both axes — required horizontally for the
@@ -945,7 +945,7 @@
      (the site-wide .marquee + .marquee margin). Add it back: -12px base
      + 16px ≈ the original 28px gap between rows. */
   .testimonials__rails .marquee + .marquee {
-    margin-top: 16px;
+    margin-top: 4px;
   }
   .testimonials__rails .marquee__track {
     margin: 0;
@@ -1097,7 +1097,7 @@
   }
   @media (max-width: 639px) {
     .testimonials {
-      padding: clamp(56px, 12vw, 80px) clamp(16px, 5vw, 20px);
+      padding: clamp(56px, 12vw, 80px) clamp(16px, 5vw, 20px) 0;
     }
     .testimonials__rails {
       --row-h: 162px;
@@ -1106,7 +1106,7 @@
       --speed-2: 60s;
       --speed-3: 70s;
       --mask-edge: 36px;
-      gap: 8px;
+      gap: 4px;
       margin-top: 40px;
     }
     .testimonials__card { width: 280px; padding: 18px 18px 14px; }
