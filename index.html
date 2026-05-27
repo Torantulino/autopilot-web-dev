@@ -492,6 +492,24 @@
     .marquee { overflow-x: auto; }
   }
 
+  /* Press/media-logo rows are JS-driven by the shared marquee controller, like the
+     testimonials rows: disable the CSS scroll animation and make them grab-draggable.
+     The site-wide :hover animation-play-state rule above then becomes a no-op. */
+  .press .marquee__track {
+    animation: none;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+    will-change: transform;
+  }
+  .press .marquee__track.is-dragging { cursor: grabbing; }
+  .press .marquee__track a,
+  .press .marquee__track img { -webkit-user-drag: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .press .marquee { overflow-x: hidden; }
+  }
+
   .logo {
     flex: 0 0 auto;
     height: var(--row-h);
@@ -2372,34 +2390,9 @@
   fillTrack("row2", featuredRow2);
   fillTrack("row3", cited);
 
-  // Start each press row only once its logos have settled. Logos load at
-  // unpredictable times — and previously lazily, as the section scrolled into
-  // view — and each late arrival re-widened the track, shifting where the CSS
-  // loop's -50% reset lands and causing a visible "teleport." Waiting for every
-  // image to load (or error) means the track width is final before it moves.
-  function startMarqueeWhenReady(elId) {
-    var track = document.getElementById(elId);
-    if (!track) return;
-    var started = false;
-    var start = function () {
-      if (started) return;
-      started = true;
-      track.classList.add("is-running");
-    };
-    var imgs = track.querySelectorAll("img");
-    var remaining = imgs.length;
-    if (!remaining) { start(); return; }
-    var tick = function () { if (--remaining <= 0) start(); };
-    for (var i = 0; i < imgs.length; i++) {
-      var img = imgs[i];
-      if (img.complete) { tick(); continue; }
-      img.addEventListener("load", tick, { once: true });
-      img.addEventListener("error", tick, { once: true });
-    }
-    // Safety net: never leave a row frozen if an image hangs.
-    setTimeout(start, 4000);
-  }
-  ["row1", "row2", "row3"].forEach(startMarqueeWhenReady);
+  // Press/media-logo rows are driven by the shared setupMarqueeDrag controller
+  // below (same as the testimonials rows). Late-loading logos are handled by its
+  // ResizeObserver, which recomputes each track's width and preserves position.
 
   // Testimonials marquee: duplicate each row's cards for seamless infinite scroll.
   ["t-row1", "t-row2", "t-row3"].forEach(function (id) {
@@ -2407,16 +2400,13 @@
     if (track) track.innerHTML = track.innerHTML + track.innerHTML;
   });
 
-  // Testimonials drag-with-momentum. JS owns the transform; the CSS marquee
-  // animation is disabled inside .testimonials__rails. Ambient velocity matches
-  // the previous CSS speeds (80s/95s/110s for one half-width traversal).
-  function setupTestimonialsDrag() {
+  // Drag-with-momentum marquee controller — shared by the testimonials rows and
+  // the press/media-logo rows. JS owns the transform; the CSS marquee animation
+  // is disabled on these tracks. Each config's speedSec is the seconds for one
+  // half-width traversal (matching the old CSS --speed values); direction is
+  // -1 (drifts left) or +1 (drifts right).
+  function setupMarqueeDrag(rowConfigs) {
     var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var rowConfigs = [
-      { id: "t-row1", speedSec: 80,  direction: -1 },
-      { id: "t-row2", speedSec: 95,  direction: +1 },
-      { id: "t-row3", speedSec: 110, direction: -1 }
-    ];
     var rows = [];
     for (var i = 0; i < rowConfigs.length; i++) {
       var cfg = rowConfigs[i];
@@ -2553,7 +2543,18 @@
     requestAnimationFrame(tick);
   }
   // One RAF delay so the duplicated innerHTML has laid out and scrollWidth is correct.
-  requestAnimationFrame(setupTestimonialsDrag);
+  // Drives the testimonials rows and the press/media-logo rows from one loop; the
+  // press rows alternate direction (row1 left, row2 right, row3 left).
+  requestAnimationFrame(function () {
+    setupMarqueeDrag([
+      { id: "t-row1", speedSec: 80,  direction: -1 },
+      { id: "t-row2", speedSec: 95,  direction: +1 },
+      { id: "t-row3", speedSec: 110, direction: -1 },
+      { id: "row1",   speedSec: 90,  direction: -1 },
+      { id: "row2",   speedSec: 90,  direction: +1 },
+      { id: "row3",   speedSec: 110, direction: -1 }
+    ]);
+  });
   </script>
 
   <script>
