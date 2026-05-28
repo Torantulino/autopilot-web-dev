@@ -1358,11 +1358,15 @@
     .feat__tab { scroll-snap-align: center; }
   }
 
-  /* Panels — opacity-only crossfade. Fixed 2-col grid (text left,
-     image right). No alternation: each panel occupies the same
-     slot, swapped by the tab. */
-  .feat__panels { position: relative; }
+  /* Panels — stacked into a single 1×1 grid cell so the container
+     sizes to the *tallest* panel and the section's overall height
+     doesn't jump when tabs swap. Inactive panels stay laid out but
+     are visually hidden (opacity 0) and made inert (no tab stops,
+     hidden from a11y tree). Crossfade is pure CSS. */
+  .feat__panels { display: grid; }
   .feat__panel {
+    grid-column: 1;
+    grid-row: 1;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
     grid-template-areas: "text media";
@@ -1370,9 +1374,10 @@
     gap: clamp(28px, 4vw, 56px);
     transition: opacity 220ms ease;
   }
-  .feat__panel[hidden] { display: none; }
-  .feat__panel.is-leaving { opacity: 0; pointer-events: none; }
-  .feat__panel.is-entering { opacity: 0; }
+  .feat__panel[inert] {
+    opacity: 0;
+    pointer-events: none;
+  }
 
   .feat__text { grid-area: text; max-width: 520px; }
   .feat__panel-title {
@@ -1446,8 +1451,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     .feat__panel { transition: none; }
-    .feat__panel.is-leaving,
-    .feat__panel.is-entering { opacity: 1; }
     .feat__learn svg { transition: none; }
     .feat__learn:hover svg { transform: none; }
   }
@@ -2665,7 +2668,7 @@
       </article>
 
       <!-- Panel 2 — Agent Builder -->
-      <article id="feat-panel-builder" role="tabpanel" aria-labelledby="feat-tab-builder" class="feat__panel" hidden>
+      <article id="feat-panel-builder" role="tabpanel" aria-labelledby="feat-tab-builder" class="feat__panel" inert aria-hidden="true">
         <div class="feat__text">
           <h3 class="feat__panel-title">Build anything visually. <em>Powered by blocks.</em></h3>
           <p class="feat__panel-body">
@@ -2706,7 +2709,7 @@
       </article>
 
       <!-- Panel 3 — Agent Dashboard -->
-      <article id="feat-panel-dashboard" role="tabpanel" aria-labelledby="feat-tab-dashboard" class="feat__panel" hidden>
+      <article id="feat-panel-dashboard" role="tabpanel" aria-labelledby="feat-tab-dashboard" class="feat__panel" inert aria-hidden="true">
         <div class="feat__text">
           <h3 class="feat__panel-title">One home for <em>every agent you run.</em></h3>
           <p class="feat__panel-body">
@@ -3597,7 +3600,6 @@
       if (!tablist || tabs.length === 0 || panels.length === 0) return;
 
       var CYCLE_MS = 6000;
-      var FADE_MS  = 220;
       var order    = tabs.map(function (t) { return t.getAttribute('data-feat-tab'); });
       var current  = order[0];
       var timer    = null;
@@ -3620,42 +3622,24 @@
 
       function activate(name) {
         if (name === current) return;
-        var outgoing = panels.filter(function (p) { return !p.hasAttribute('hidden'); })[0];
         var incoming = root.querySelector('#feat-panel-' + name);
         if (!incoming) return;
 
         tabs.forEach(function (t) { setTabState(t, t.getAttribute('data-feat-tab') === name); });
-        current = name;
-
-        if (reducedMotion) {
-          if (outgoing && outgoing !== incoming) outgoing.setAttribute('hidden', '');
-          incoming.removeAttribute('hidden');
-          return;
-        }
-
-        // Crossfade: fade the current panel out, then swap visibility,
-        // then fade the incoming one in on the next animation frame.
-        var swap = function () {
-          if (outgoing && outgoing !== incoming) {
-            outgoing.classList.remove('is-leaving');
-            outgoing.setAttribute('hidden', '');
+        // Panels are stacked into a single grid cell so the section's
+        // height is locked to the tallest panel — swapping is just
+        // toggling `inert` and letting CSS crossfade the opacity.
+        panels.forEach(function (p) {
+          var active = p === incoming;
+          if (active) {
+            p.removeAttribute('inert');
+            p.setAttribute('aria-hidden', 'false');
+          } else {
+            p.setAttribute('inert', '');
+            p.setAttribute('aria-hidden', 'true');
           }
-          incoming.removeAttribute('hidden');
-          incoming.classList.add('is-entering');
-          // Force layout, then drop the class to trigger the opacity transition.
-          // eslint-disable-next-line no-unused-expressions
-          incoming.offsetHeight;
-          requestAnimationFrame(function () {
-            incoming.classList.remove('is-entering');
-          });
-        };
-
-        if (outgoing && outgoing !== incoming) {
-          outgoing.classList.add('is-leaving');
-          window.setTimeout(swap, FADE_MS);
-        } else {
-          swap();
-        }
+        });
+        current = name;
       }
 
       function next() {
