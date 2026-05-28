@@ -1,2 +1,5 @@
 # Local design reference material (not part of the shipped site)
 design/
+
+# Claude Code workspace — worktrees, scratch scripts, screenshots
+.claude/

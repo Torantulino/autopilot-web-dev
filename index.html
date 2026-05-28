@@ -1301,6 +1301,157 @@
     .hiw__step:hover { transform: none; }
   }
 
+  /* ---------- Core features (tabbed showcase, on paper) ----------
+     Three product surfaces (AutoPilot / Builder / Dashboard) in a
+     pill-toggled tabset that auto-cycles every ~6s until the user
+     clicks a tab. Mirrors .hiw's white-with-purple-radial palette,
+     but the radial is anchored to the bottom so the band fades
+     into .integrations' --paper-deep beneath it. */
+  .feat {
+    width: 100%;
+    background: var(--paper);
+    background-image:
+      radial-gradient(1200px 600px at 50% 100%, rgba(119, 51, 245, 0.045) 0%, transparent 60%);
+    padding: clamp(56px, 9vw, 96px) clamp(16px, 4vw, 24px);
+    color: var(--ink-dark);
+  }
+  .feat__container { max-width: 1100px; margin: 0 auto; }
+
+  .feat__head { text-align: center; max-width: 760px; margin: 0 auto clamp(28px, 4vw, 40px); }
+  .feat__head .demo__eyebrow { color: var(--ink-soft); margin: 0 0 20px; }
+  .feat__title {
+    font-family: "Poppins", "Geist", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink-dark);
+    margin: 0 0 18px;
+  }
+  .feat__title em { font-style: italic; font-weight: 500; color: var(--accent); }
+  .feat__sub {
+    font-family: "Geist", sans-serif;
+    font-size: clamp(15px, 1.35vw, 18px);
+    line-height: 1.55;
+    color: var(--ink-mid);
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  /* Tab pill — visually matches the pricing billing toggle. The pill
+     shell itself is utility-classed in the markup; this block just
+     centers the row and adds the scroll-snap behavior for narrow
+     viewports where the labels would otherwise wrap. */
+  .feat__tabs {
+    margin: clamp(28px, 4vw, 40px) auto clamp(36px, 5vw, 56px);
+  }
+  @media (max-width: 640px) {
+    .feat__tabs {
+      max-width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .feat__tabs::-webkit-scrollbar { display: none; }
+    .feat__tab { scroll-snap-align: center; }
+  }
+
+  /* Panels — opacity-only crossfade. Fixed 2-col grid (text left,
+     image right). No alternation: each panel occupies the same
+     slot, swapped by the tab. */
+  .feat__panels { position: relative; }
+  .feat__panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    grid-template-areas: "text media";
+    align-items: center;
+    gap: clamp(28px, 4vw, 56px);
+    transition: opacity 220ms ease;
+  }
+  .feat__panel[hidden] { display: none; }
+  .feat__panel.is-leaving { opacity: 0; pointer-events: none; }
+  .feat__panel.is-entering { opacity: 0; }
+
+  .feat__text { grid-area: text; max-width: 520px; }
+  .feat__panel-title {
+    font-family: "Poppins", "Geist", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink-dark);
+    margin: 0 0 18px;
+  }
+  .feat__panel-title em { font-style: italic; font-weight: 500; color: var(--accent); }
+  .feat__panel-body {
+    font-family: "Geist", sans-serif;
+    font-size: clamp(15px, 1.15vw, 17px);
+    line-height: 1.6;
+    color: var(--ink-mid);
+    max-width: 52ch;
+    margin: 0;
+  }
+  .feat__list {
+    list-style: none;
+    padding: 0;
+    margin: clamp(20px, 2.4vw, 28px) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .feat__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .feat__learn {
+    margin-top: clamp(24px, 3vw, 32px);
+  }
+  .feat__learn svg { transition: transform 160ms ease; }
+  .feat__learn:hover svg { transform: translateX(2px); }
+
+  /* Image slot — figure carries the drop-shadow so it stays right
+     whether the child is an <img> or, in the future, some other
+     element. Aspect ratio matches the source screenshots (~16:9). */
+  .feat__media {
+    grid-area: media;
+    margin: 0;
+    filter: drop-shadow(0 18px 40px rgba(24, 24, 27, 0.10));
+  }
+  .feat__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    border: 1px solid var(--paper-line);
+    background: var(--paper-deep);
+    object-fit: cover;
+  }
+
+  @media (max-width: 880px) {
+    .feat__panel {
+      grid-template-columns: 1fr;
+      grid-template-areas: "media" "text";
+      gap: clamp(24px, 5vw, 36px);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .feat__text { max-width: none; }
+    .feat__panel-title { font-size: clamp(22px, 6vw, 30px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feat__panel { transition: none; }
+    .feat__panel.is-leaving,
+    .feat__panel.is-entering { opacity: 1; }
+    .feat__learn svg { transition: none; }
+    .feat__learn:hover svg { transform: none; }
+  }
+
   /* ---------- Integrations (paper, two scrolling rails) ---------- */
   /* Reuses the .marquee / .marquee__track engine; these scoped tokens give the
      rails their own (compact) row height, gap and speeds without touching the
@@ -2441,6 +2592,164 @@
 </section>
 
 <!-- ================================================================= -->
+<!-- Core features — a tabbed showcase of the three product surfaces:    -->
+<!-- AutoPilot (chat-driven), Agent Builder (visual blocks), and the     -->
+<!-- Agent Dashboard (operate & oversee). Pill toggle matches the        -->
+<!-- pricing billing-cycle pill; auto-cycles every ~6s until a tab is    -->
+<!-- clicked, then permanently stops. Respects prefers-reduced-motion.   -->
+<!-- ================================================================= -->
+<section class="feat" aria-labelledby="feat-title">
+  <div class="feat__container">
+    <header class="feat__head">
+      <p class="demo__eyebrow">Core features</p>
+      <h2 class="feat__title" id="feat-title">
+        Built for the way you actually work. <em>Chat, build, oversee.</em>
+      </h2>
+      <p class="feat__sub">
+        Three surfaces, one platform. Describe what you want, fine-tune the details, and keep an eye on everything that's running &mdash; all without switching tools.
+      </p>
+    </header>
+
+    <!-- Tab pill — same shell utilities as the pricing billing toggle.
+         The toggled state classes (bg-white, text-zinc-900, shadow-sm,
+         bg-transparent, text-zinc-500, hover:text-zinc-700) are also
+         used statically by that toggle, so the Tailwind CDN JIT picks
+         them up when the JS swaps them on click / auto-cycle. -->
+    <div class="feat__tabs mx-auto inline-flex w-fit rounded-full border border-[#d8d8d8] bg-zinc-100 p-[3px]"
+         role="tablist" aria-label="Core features">
+      <button id="feat-tab-autopilot" type="button" role="tab" aria-selected="true"  aria-controls="feat-panel-autopilot" tabindex="0"  data-feat-tab="autopilot" class="feat__tab rounded-full border-none bg-white px-4 py-1.5 text-xs font-medium text-zinc-900 shadow-sm transition-all">AutoPilot</button>
+      <button id="feat-tab-builder"   type="button" role="tab" aria-selected="false" aria-controls="feat-panel-builder"   tabindex="-1" data-feat-tab="builder"   class="feat__tab rounded-full border-none bg-transparent px-4 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:text-zinc-700">Agent Builder</button>
+      <button id="feat-tab-dashboard" type="button" role="tab" aria-selected="false" aria-controls="feat-panel-dashboard" tabindex="-1" data-feat-tab="dashboard" class="feat__tab rounded-full border-none bg-transparent px-4 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:text-zinc-700">Agent Dashboard</button>
+    </div>
+
+    <div class="feat__panels">
+      <!-- Panel 1 — AutoPilot -->
+      <article id="feat-panel-autopilot" role="tabpanel" aria-labelledby="feat-tab-autopilot" class="feat__panel">
+        <div class="feat__text">
+          <h3 class="feat__panel-title">Automate by chatting. <em>Skip the setup.</em></h3>
+          <p class="feat__panel-body">
+            Tell AutoPilot what you want done, the way you'd brief a teammate. It learns your process, builds the agent, and puts the work on autopilot &mdash; all without leaving the conversation.
+          </p>
+          <ul class="feat__list">
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Go from idea to working agent in one chat.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">No flowcharts, prompt-engineering, or API setup.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Built-in expertise picks the right tools for you.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Refine in plain English whenever something changes.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Your process, captured the moment you describe it.</span>
+            </li>
+          </ul>
+          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
+            Try AutoPilot
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <figure class="feat__media">
+          <img class="feat__image" src="images/autogpt_autopilot_chat.png"
+               alt="AutoPilot — the chat-driven automation interface in AutoGPT"
+               width="1694" height="929" loading="lazy" decoding="async" />
+        </figure>
+      </article>
+
+      <!-- Panel 2 — Agent Builder -->
+      <article id="feat-panel-builder" role="tabpanel" aria-labelledby="feat-tab-builder" class="feat__panel" hidden>
+        <div class="feat__text">
+          <h3 class="feat__panel-title">Build anything visually. <em>Powered by blocks.</em></h3>
+          <p class="feat__panel-body">
+            When you need exact control, the visual Builder is yours. Drag blocks together, branch on conditions, and shape every step of your agent's logic without writing a line of code.
+          </p>
+          <ul class="feat__list">
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Compose complex flows from drag-and-drop blocks.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Branch, loop, and route with full visual logic.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Inspect every step's input and output live.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Connect any tool, model, or API on the canvas.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Save, fork, and share builds with your team.</span>
+            </li>
+          </ul>
+          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
+            Open the Builder
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <figure class="feat__media">
+          <img class="feat__image" src="images/autogpt_agent_builder.png"
+               alt="Agent Builder — the visual block-based canvas for building custom agents in AutoGPT"
+               width="1693" height="929" loading="lazy" decoding="async" />
+        </figure>
+      </article>
+
+      <!-- Panel 3 — Agent Dashboard -->
+      <article id="feat-panel-dashboard" role="tabpanel" aria-labelledby="feat-tab-dashboard" class="feat__panel" hidden>
+        <div class="feat__text">
+          <h3 class="feat__panel-title">One home for <em>every agent you run.</em></h3>
+          <p class="feat__panel-body">
+            The Dashboard is mission control for your agents. See what's running, what just finished, and what needs your input &mdash; all at a glance, with the detail one click away.
+          </p>
+          <ul class="feat__list">
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">See every agent's status at a glance.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Drill into any run to inspect what happened.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Track spend per agent, per run, per day.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Get pinged the moment an agent needs you.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Pause, edit, or rerun anything from one place.</span>
+            </li>
+          </ul>
+          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
+            See the Dashboard
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <figure class="feat__media">
+          <img class="feat__image" src="images/autogpt_agent_dashboard.png"
+               alt="Agent Dashboard — the high-level overview of every running AutoGPT agent: status, costs, and what needs attention"
+               width="1683" height="934" loading="lazy" decoding="async" />
+        </figure>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
 <!-- Integrations — breadth + the "batteries-included" benefit, just     -->
 <!-- above pricing. Two scrolling rails (reusing the .marquee engine):   -->
 <!-- AI capability chips (already connected) and the platforms users     -->
@@ -3269,6 +3578,149 @@
         b.addEventListener('click', function () { apply(b.getAttribute('data-billing')); });
       });
       apply('yearly');
+    })();
+  </script>
+
+  <script>
+    // Core features tabset. Three responsibilities, all small:
+    //   1) swap the active tab/panel with an opacity crossfade,
+    //   2) auto-cycle every CYCLE_MS until the user clicks (or
+    //      uses the keyboard) — then stop permanently,
+    //   3) respect prefers-reduced-motion (no auto-cycle, no fade).
+    // Style matches the billing-toggle IIFE above on purpose.
+    (function () {
+      var root = document.querySelector('.feat');
+      if (!root) return;
+      var tablist = root.querySelector('.feat__tabs');
+      var tabs   = Array.prototype.slice.call(root.querySelectorAll('.feat__tab'));
+      var panels = Array.prototype.slice.call(root.querySelectorAll('.feat__panel'));
+      if (!tablist || tabs.length === 0 || panels.length === 0) return;
+
+      var CYCLE_MS = 6000;
+      var FADE_MS  = 220;
+      var order    = tabs.map(function (t) { return t.getAttribute('data-feat-tab'); });
+      var current  = order[0];
+      var timer    = null;
+      var stoppedByUser = false;
+      var reducedMotion = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false;
+
+      // Active = white pill + ink-dark text + shadow; inactive = transparent
+      // + ink-soft text + hover bump. Classes mirror the pricing toggle so
+      // the Tailwind CDN JIT keeps them in its compiled output.
+      function setTabState(tab, active) {
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.setAttribute('tabindex', active ? '0' : '-1');
+        tab.classList.toggle('bg-white', active);
+        tab.classList.toggle('text-zinc-900', active);
+        tab.classList.toggle('shadow-sm', active);
+        tab.classList.toggle('bg-transparent', !active);
+        tab.classList.toggle('text-zinc-500', !active);
+        tab.classList.toggle('hover:text-zinc-700', !active);
+      }
+
+      function activate(name) {
+        if (name === current) return;
+        var outgoing = panels.filter(function (p) { return !p.hasAttribute('hidden'); })[0];
+        var incoming = root.querySelector('#feat-panel-' + name);
+        if (!incoming) return;
+
+        tabs.forEach(function (t) { setTabState(t, t.getAttribute('data-feat-tab') === name); });
+        current = name;
+
+        if (reducedMotion) {
+          if (outgoing && outgoing !== incoming) outgoing.setAttribute('hidden', '');
+          incoming.removeAttribute('hidden');
+          return;
+        }
+
+        // Crossfade: fade the current panel out, then swap visibility,
+        // then fade the incoming one in on the next animation frame.
+        var swap = function () {
+          if (outgoing && outgoing !== incoming) {
+            outgoing.classList.remove('is-leaving');
+            outgoing.setAttribute('hidden', '');
+          }
+          incoming.removeAttribute('hidden');
+          incoming.classList.add('is-entering');
+          // Force layout, then drop the class to trigger the opacity transition.
+          // eslint-disable-next-line no-unused-expressions
+          incoming.offsetHeight;
+          requestAnimationFrame(function () {
+            incoming.classList.remove('is-entering');
+          });
+        };
+
+        if (outgoing && outgoing !== incoming) {
+          outgoing.classList.add('is-leaving');
+          window.setTimeout(swap, FADE_MS);
+        } else {
+          swap();
+        }
+      }
+
+      function next() {
+        var i = order.indexOf(current);
+        return order[(i + 1) % order.length];
+      }
+
+      function scheduleCycle() {
+        if (stoppedByUser || reducedMotion) return;
+        clearTimer();
+        timer = window.setTimeout(function () {
+          activate(next());
+          scheduleCycle();
+        }, CYCLE_MS);
+      }
+
+      function clearTimer() {
+        if (timer != null) { window.clearTimeout(timer); timer = null; }
+      }
+
+      function stopCycle() {
+        stoppedByUser = true;
+        clearTimer();
+        tablist.setAttribute('data-paused', 'true');
+      }
+
+      // Click anywhere on the pill resolves to its data-feat-tab.
+      tablist.addEventListener('click', function (e) {
+        var btn = e.target.closest('.feat__tab');
+        if (!btn) return;
+        var name = btn.getAttribute('data-feat-tab');
+        if (!name) return;
+        stopCycle();
+        activate(name);
+      });
+
+      // Arrow keys move focus + activation; Home/End jump. Each keyboard
+      // activation also stops the auto-cycle — consistent with click.
+      tablist.addEventListener('keydown', function (e) {
+        var key = e.key;
+        var i = order.indexOf(current);
+        var to = null;
+        if (key === 'ArrowRight' || key === 'ArrowDown') to = order[(i + 1) % order.length];
+        else if (key === 'ArrowLeft' || key === 'ArrowUp') to = order[(i - 1 + order.length) % order.length];
+        else if (key === 'Home') to = order[0];
+        else if (key === 'End')  to = order[order.length - 1];
+        if (!to) return;
+        e.preventDefault();
+        stopCycle();
+        activate(to);
+        var btn = root.querySelector('#feat-tab-' + to);
+        if (btn) btn.focus();
+      });
+
+      // Don't burn cycles while the tab is in the background.
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) clearTimer();
+        else scheduleCycle();
+      });
+
+      if (reducedMotion) {
+        tablist.setAttribute('data-paused', 'true');
+      } else {
+        scheduleCycle();
+      }
     })();
   </script>
 </body>
