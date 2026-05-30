@@ -1473,6 +1473,79 @@
     .intg-chip { font-size: 14px; padding: 8px 13px; }
   }
 
+  /* ---------- FAQ (search-intent answers above the footer) ---------- */
+  .faq {
+    width: 100%;
+    background: var(--paper);
+    padding: clamp(56px, 8vw, 96px) clamp(16px, 4vw, 24px);
+    color: var(--ink-dark);
+  }
+  .faq__container { max-width: 820px; margin: 0 auto; }
+  .faq__head { text-align: center; margin: 0 auto clamp(36px, 5vw, 56px); }
+  .faq__head .demo__eyebrow { color: var(--ink-soft); margin: 0 0 20px; }
+  .faq__title {
+    font-family: "Poppins", "Geist", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .faq__title em { font-style: italic; font-weight: 500; color: var(--accent); }
+
+  .faq__item { border-bottom: 1px solid var(--paper-line); }
+  .faq__item:first-of-type { border-top: 1px solid var(--paper-line); }
+  .faq__q {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: clamp(20px, 2.4vw, 26px) 4px;
+    font-family: "Poppins", "Geist", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.4;
+    color: var(--ink-dark);
+    transition: color .18s ease;
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q:hover { color: var(--accent); }
+  .faq__q:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+  .faq__icon {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    color: var(--ink-soft);
+    transition: transform .3s ease, color .18s ease;
+  }
+  .faq__item[open] .faq__icon { transform: rotate(45deg); color: var(--accent); }
+  .faq__a {
+    padding: 0 4px clamp(22px, 2.6vw, 28px);
+    max-width: 700px;
+    font-family: "Geist", sans-serif;
+    font-size: clamp(15px, 1.2vw, 16px);
+    line-height: 1.65;
+    color: var(--ink-mid);
+  }
+  .faq__a p { margin: 0; }
+  .faq__a a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .faq__a a:hover { text-decoration: underline; }
+  .faq__foot {
+    text-align: center;
+    margin: clamp(36px, 5vw, 52px) auto 0;
+    font-family: "Geist", sans-serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .faq__foot a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .faq__foot a:hover { text-decoration: underline; }
+  @media (prefers-reduced-motion: reduce) {
+    .faq__icon { transition: color .18s ease; }
+  }
+
   /* ---------- Site footer (dark; bookends the glass header) ---------- */
   .site-footer {
     width: 100%;
@@ -2741,6 +2814,175 @@
     </a>
   </div>
 </section>
+
+<!-- ================================================================= -->
+<!-- FAQ — answers the highest-intent "what is / how / cost / self-host" -->
+<!-- searches. Native <details> accordions: accessible, no JS needed.    -->
+<!-- JSON-LD FAQPage below mirrors these Q&As for rich results.          -->
+<!-- ================================================================= -->
+<section class="faq" aria-labelledby="faq-title">
+  <div class="faq__container">
+    <header class="faq__head">
+      <p class="demo__eyebrow">FAQ</p>
+      <h2 class="faq__title" id="faq-title">Questions, <em>answered.</em></h2>
+    </header>
+
+    <details class="faq__item" name="faq">
+      <summary class="faq__q">
+        What is AutoGPT?
+        <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="faq__a">
+        <p>An AI agent is software you can hand a goal to — it makes its own plan, then carries out the steps to reach it, using AI models and your apps along the way. AutoGPT is the platform for building and running those agents. Describe what you want in plain language or assemble it visually, and your agents get to work — no code required.</p>
+      </div>
+    </details>
+
+    <details class="faq__item" name="faq">
+      <summary class="faq__q">
+        How does AutoGPT work?
+        <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="faq__a">
+        <p>You create an agent by describing the outcome you want in plain English, or by wiring up the steps in the visual builder. AutoGPT connects to the AI models and apps the job needs, runs the work in the background, and shows you every step of every run. Set it to run on a schedule or fire on a trigger, and it keeps working without you watching.</p>
+      </div>
+    </details>
+
+    <details class="faq__item" name="faq">
+      <summary class="faq__q">
+        What can I build with it?
+        <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="faq__a">
+        <p>Anything that's repeatable work rather than a one-off: monitoring the web and alerting you when something changes, drafting and sending outreach, researching prospects before a meeting, turning long documents into summaries, keeping spreadsheets and CRMs up to date. If you can describe the job, you can usually build an agent for it.</p>
+      </div>
+    </details>
+
+    <details class="faq__item" name="faq">
+      <summary class="faq__q">
+        How does AutoGPT compare to hiring a contractor?
+        <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="faq__a">
+        <p>A contractor is the right call for judgement-heavy, one-off work. AutoGPT is built for the repeatable kind: an agent runs around the clock, handles many tasks at once, responds in seconds, and costs a fraction of an hourly rate. Most people use both — a person for the bespoke work, agents for everything that happens again and again.</p>
+      </div>
+    </details>
+
+    <details class="faq__item" name="faq">
+      <summary class="faq__q">
+        How is AutoGPT different from Claude Code, Codex, or Perplexity?
+        <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="faq__a">
+        <p>Tools like Claude Code and Codex help you write code, and Perplexity answers questions with sources — they assist you, in the moment, while you're prompting them. AutoGPT is for building agents that run on their own: across your apps, on a schedule or trigger, doing the whole job end to end rather than the part you're actively working on.</p>
+      </div>
+    </details>
+
+    <details class="faq__item" name="faq">
+      <summary class="faq__q">
+        Why is there no free tier?
+        <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="faq__a">
+        <p>Every agent run uses real compute and paid AI-model usage that we cover for you. Rather than a free tier too limited to do anything real, every plan includes enough to put agents to work from day one. And because AutoGPT is <a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener noreferrer">open source</a>, you can always self-host it for free if you'd rather run it on your own infrastructure.</p>
+      </div>
+    </details>
+
+    <details class="faq__item" name="faq">
+      <summary class="faq__q">
+        What are credits, and what counts as usage?
+        <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="faq__a">
+        <p>Running agents is pay-as-you-go: each automation draws from a pre-paid credit wallet you can top up any time, and the rate is the same on every plan. Your subscription (Pro or Max) sets how much AutoPilot Chat usage is included — that's the main difference between plans. In short: the subscription covers chat, and the credit wallet covers the agents you run. See the <a href="pricing.html">pricing page</a> for the full breakdown.</p>
+      </div>
+    </details>
+
+    <details class="faq__item" name="faq">
+      <summary class="faq__q">
+        Can I self-host AutoGPT?
+        <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </summary>
+      <div class="faq__a">
+        <p>Yes. AutoGPT is open source, and you can run the entire platform yourself with a single Docker Compose command — on Linux, WSL, Podman, even a Raspberry Pi. Self-hosting is free; you bring your own model API keys and infrastructure. The hosted cloud is the managed, zero-setup option if you'd rather not run servers. Start from the <a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener noreferrer">GitHub repo</a> or the <a href="https://agpt.co/docs" target="_blank" rel="noopener noreferrer">docs</a>.</p>
+      </div>
+    </details>
+
+    <p class="faq__foot">Still have a question? Read the <a href="https://agpt.co/docs" target="_blank" rel="noopener noreferrer">docs</a> or <a href="https://discord.com/invite/autogpt" target="_blank" rel="noopener noreferrer">ask in Discord</a>.</p>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is AutoGPT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An AI agent is software you can hand a goal to — it makes its own plan, then carries out the steps to reach it, using AI models and your apps along the way. AutoGPT is the platform for building and running those agents. Describe what you want in plain language or assemble it visually, and your agents get to work — no code required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does AutoGPT work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You create an agent by describing the outcome you want in plain English, or by wiring up the steps in the visual builder. AutoGPT connects to the AI models and apps the job needs, runs the work in the background, and shows you every step of every run. Set it to run on a schedule or fire on a trigger, and it keeps working without you watching."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What can I build with AutoGPT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anything that's repeatable work rather than a one-off: monitoring the web and alerting you when something changes, drafting and sending outreach, researching prospects before a meeting, turning long documents into summaries, keeping spreadsheets and CRMs up to date. If you can describe the job, you can usually build an agent for it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does AutoGPT compare to hiring a contractor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A contractor is the right call for judgement-heavy, one-off work. AutoGPT is built for the repeatable kind: an agent runs around the clock, handles many tasks at once, responds in seconds, and costs a fraction of an hourly rate. Most people use both — a person for the bespoke work, agents for everything that happens again and again."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is AutoGPT different from Claude Code, Codex, or Perplexity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tools like Claude Code and Codex help you write code, and Perplexity answers questions with sources — they assist you, in the moment, while you're prompting them. AutoGPT is for building agents that run on their own: across your apps, on a schedule or trigger, doing the whole job end to end rather than the part you're actively working on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is there no free tier?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every agent run uses real compute and paid AI-model usage that we cover for you. Rather than a free tier too limited to do anything real, every plan includes enough to put agents to work from day one. And because AutoGPT is open source, you can always self-host it for free if you'd rather run it on your own infrastructure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are credits, and what counts as usage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Running agents is pay-as-you-go: each automation draws from a pre-paid credit wallet you can top up any time, and the rate is the same on every plan. Your subscription (Pro or Max) sets how much AutoPilot Chat usage is included — that's the main difference between plans. In short: the subscription covers chat, and the credit wallet covers the agents you run."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I self-host AutoGPT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. AutoGPT is open source, and you can run the entire platform yourself with a single Docker Compose command — on Linux, WSL, Podman, even a Raspberry Pi. Self-hosting is free; you bring your own model API keys and infrastructure. The hosted cloud is the managed, zero-setup option if you'd rather not run servers."
+      }
+    }
+  ]
+}
+</script>
 
 <!-- FOOTER:START -->
 <footer class="site-footer" aria-labelledby="site-footer-heading">
