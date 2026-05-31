@@ -1872,6 +1872,164 @@
 </section>
 
 <!-- ================================================================= -->
+<!-- Core features — a tabbed showcase of the three product surfaces:    -->
+<!-- AutoPilot (chat-driven), Agent Builder (visual blocks), and the     -->
+<!-- Agent Dashboard (operate & oversee). Pill toggle matches the        -->
+<!-- pricing billing-cycle pill; auto-cycles every ~6s until a tab is    -->
+<!-- clicked, then permanently stops. Respects prefers-reduced-motion.   -->
+<!-- ================================================================= -->
+<section class="feat" aria-labelledby="feat-title">
+  <div class="feat__container">
+    <header class="feat__head">
+      <p class="demo__eyebrow">Core features</p>
+      <h2 class="feat__title" id="feat-title">
+        Built for the way you actually work. <em>Chat, build, oversee.</em>
+      </h2>
+      <p class="feat__sub">
+        Three surfaces, one platform. Describe what you want, fine-tune the details, and keep an eye on everything that's running &mdash; all without switching tools.
+      </p>
+    </header>
+
+    <!-- Tab pill — same shell utilities as the pricing billing toggle.
+         The toggled state classes (bg-white, text-zinc-900, shadow-sm,
+         bg-transparent, text-zinc-500, hover:text-zinc-700) are also
+         used statically by that toggle, so the Tailwind CDN JIT picks
+         them up when the JS swaps them on click / auto-cycle. -->
+    <div class="feat__tabs mx-auto inline-flex w-fit rounded-full border border-[#d8d8d8] bg-zinc-100 p-[3px]"
+         role="tablist" aria-label="Core features">
+      <button id="feat-tab-autopilot" type="button" role="tab" aria-selected="true"  aria-controls="feat-panel-autopilot" tabindex="0"  data-feat-tab="autopilot" class="feat__tab rounded-full border-none bg-white px-4 py-1.5 text-xs font-medium text-zinc-900 shadow-sm transition-all">AutoPilot</button>
+      <button id="feat-tab-builder"   type="button" role="tab" aria-selected="false" aria-controls="feat-panel-builder"   tabindex="-1" data-feat-tab="builder"   class="feat__tab rounded-full border-none bg-transparent px-4 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:text-zinc-700">Agent Builder</button>
+      <button id="feat-tab-dashboard" type="button" role="tab" aria-selected="false" aria-controls="feat-panel-dashboard" tabindex="-1" data-feat-tab="dashboard" class="feat__tab rounded-full border-none bg-transparent px-4 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:text-zinc-700">Agent Dashboard</button>
+    </div>
+
+    <div class="feat__panels">
+      <!-- Panel 1 — AutoPilot -->
+      <article id="feat-panel-autopilot" role="tabpanel" aria-labelledby="feat-tab-autopilot" class="feat__panel">
+        <div class="feat__text">
+          <h3 class="feat__panel-title">Automate by chatting. <em>Skip the setup.</em></h3>
+          <p class="feat__panel-body">
+            Tell AutoPilot what you want done, the way you'd brief a teammate. It learns your process, builds the agent, and puts the work on autopilot &mdash; all without leaving the conversation.
+          </p>
+          <ul class="feat__list">
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Go from idea to working agent in one chat.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">No flowcharts, prompt-engineering, or API setup.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Built-in expertise picks the right tools for you.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Refine in plain English whenever something changes.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Your process, captured the moment you describe it.</span>
+            </li>
+          </ul>
+          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
+            Try AutoPilot
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <figure class="feat__media">
+          <img class="feat__image" src="images/autogpt_autopilot_chat.png"
+               alt="AutoPilot — the chat-driven automation interface in AutoGPT"
+               width="1694" height="929" loading="lazy" decoding="async" />
+        </figure>
+      </article>
+
+      <!-- Panel 2 — Agent Builder -->
+      <article id="feat-panel-builder" role="tabpanel" aria-labelledby="feat-tab-builder" class="feat__panel" inert aria-hidden="true">
+        <div class="feat__text">
+          <h3 class="feat__panel-title">Build anything visually. <em>Powered by blocks.</em></h3>
+          <p class="feat__panel-body">
+            When you need exact control, the visual Builder is yours. Drag blocks together, branch on conditions, and shape every step of your agent's logic without writing a line of code.
+          </p>
+          <ul class="feat__list">
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Compose complex flows from drag-and-drop blocks.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Branch, loop, and route with full visual logic.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Inspect every step's input and output live.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Connect any tool, model, or API on the canvas.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Save, fork, and share builds with your team.</span>
+            </li>
+          </ul>
+          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
+            Open the Builder
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <figure class="feat__media">
+          <img class="feat__image" src="images/autogpt_agent_builder.png"
+               alt="Agent Builder — the visual block-based canvas for building custom agents in AutoGPT"
+               width="1693" height="929" loading="lazy" decoding="async" />
+        </figure>
+      </article>
+
+      <!-- Panel 3 — Agent Dashboard -->
+      <article id="feat-panel-dashboard" role="tabpanel" aria-labelledby="feat-tab-dashboard" class="feat__panel" inert aria-hidden="true">
+        <div class="feat__text">
+          <h3 class="feat__panel-title">One home for <em>every agent you run.</em></h3>
+          <p class="feat__panel-body">
+            The Dashboard is mission control for your agents. See what's running, what just finished, and what needs your input &mdash; all at a glance, with the detail one click away.
+          </p>
+          <ul class="feat__list">
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">See every agent's status at a glance.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Drill into any run to inspect what happened.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Track spend per agent, per run, per day.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Get pinged the moment an agent needs you.</span>
+            </li>
+            <li>
+              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
+              <span class="text-[14px] leading-snug text-zinc-800">Pause, edit, or rerun anything from one place.</span>
+            </li>
+          </ul>
+          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
+            See the Dashboard
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <figure class="feat__media">
+          <img class="feat__image" src="images/autogpt_agent_dashboard.png"
+               alt="Agent Dashboard — the high-level overview of every running AutoGPT agent: status, costs, and what needs attention"
+               width="1683" height="934" loading="lazy" decoding="async" />
+        </figure>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
 <!-- Integrations — breadth + the "batteries-included" benefit, just     -->
 <!-- above the testimonials. Two scrolling rails (reusing the .marquee   -->
 <!-- engine): AI capability chips (already connected) and the platforms  -->
@@ -2534,164 +2692,6 @@
              width="1000" height="1000" loading="lazy" decoding="async" />
       </figure>
     </article>
-  </div>
-</section>
-
-<!-- ================================================================= -->
-<!-- Core features — a tabbed showcase of the three product surfaces:    -->
-<!-- AutoPilot (chat-driven), Agent Builder (visual blocks), and the     -->
-<!-- Agent Dashboard (operate & oversee). Pill toggle matches the        -->
-<!-- pricing billing-cycle pill; auto-cycles every ~6s until a tab is    -->
-<!-- clicked, then permanently stops. Respects prefers-reduced-motion.   -->
-<!-- ================================================================= -->
-<section class="feat" aria-labelledby="feat-title">
-  <div class="feat__container">
-    <header class="feat__head">
-      <p class="demo__eyebrow">Core features</p>
-      <h2 class="feat__title" id="feat-title">
-        Built for the way you actually work. <em>Chat, build, oversee.</em>
-      </h2>
-      <p class="feat__sub">
-        Three surfaces, one platform. Describe what you want, fine-tune the details, and keep an eye on everything that's running &mdash; all without switching tools.
-      </p>
-    </header>
-
-    <!-- Tab pill — same shell utilities as the pricing billing toggle.
-         The toggled state classes (bg-white, text-zinc-900, shadow-sm,
-         bg-transparent, text-zinc-500, hover:text-zinc-700) are also
-         used statically by that toggle, so the Tailwind CDN JIT picks
-         them up when the JS swaps them on click / auto-cycle. -->
-    <div class="feat__tabs mx-auto inline-flex w-fit rounded-full border border-[#d8d8d8] bg-zinc-100 p-[3px]"
-         role="tablist" aria-label="Core features">
-      <button id="feat-tab-autopilot" type="button" role="tab" aria-selected="true"  aria-controls="feat-panel-autopilot" tabindex="0"  data-feat-tab="autopilot" class="feat__tab rounded-full border-none bg-white px-4 py-1.5 text-xs font-medium text-zinc-900 shadow-sm transition-all">AutoPilot</button>
-      <button id="feat-tab-builder"   type="button" role="tab" aria-selected="false" aria-controls="feat-panel-builder"   tabindex="-1" data-feat-tab="builder"   class="feat__tab rounded-full border-none bg-transparent px-4 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:text-zinc-700">Agent Builder</button>
-      <button id="feat-tab-dashboard" type="button" role="tab" aria-selected="false" aria-controls="feat-panel-dashboard" tabindex="-1" data-feat-tab="dashboard" class="feat__tab rounded-full border-none bg-transparent px-4 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:text-zinc-700">Agent Dashboard</button>
-    </div>
-
-    <div class="feat__panels">
-      <!-- Panel 1 — AutoPilot -->
-      <article id="feat-panel-autopilot" role="tabpanel" aria-labelledby="feat-tab-autopilot" class="feat__panel">
-        <div class="feat__text">
-          <h3 class="feat__panel-title">Automate by chatting. <em>Skip the setup.</em></h3>
-          <p class="feat__panel-body">
-            Tell AutoPilot what you want done, the way you'd brief a teammate. It learns your process, builds the agent, and puts the work on autopilot &mdash; all without leaving the conversation.
-          </p>
-          <ul class="feat__list">
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Go from idea to working agent in one chat.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">No flowcharts, prompt-engineering, or API setup.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Built-in expertise picks the right tools for you.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Refine in plain English whenever something changes.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Your process, captured the moment you describe it.</span>
-            </li>
-          </ul>
-          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
-            Try AutoPilot
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-        <figure class="feat__media">
-          <img class="feat__image" src="images/autogpt_autopilot_chat.png"
-               alt="AutoPilot — the chat-driven automation interface in AutoGPT"
-               width="1694" height="929" loading="lazy" decoding="async" />
-        </figure>
-      </article>
-
-      <!-- Panel 2 — Agent Builder -->
-      <article id="feat-panel-builder" role="tabpanel" aria-labelledby="feat-tab-builder" class="feat__panel" inert aria-hidden="true">
-        <div class="feat__text">
-          <h3 class="feat__panel-title">Build anything visually. <em>Powered by blocks.</em></h3>
-          <p class="feat__panel-body">
-            When you need exact control, the visual Builder is yours. Drag blocks together, branch on conditions, and shape every step of your agent's logic without writing a line of code.
-          </p>
-          <ul class="feat__list">
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Compose complex flows from drag-and-drop blocks.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Branch, loop, and route with full visual logic.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Inspect every step's input and output live.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Connect any tool, model, or API on the canvas.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Save, fork, and share builds with your team.</span>
-            </li>
-          </ul>
-          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
-            Open the Builder
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-        <figure class="feat__media">
-          <img class="feat__image" src="images/autogpt_agent_builder.png"
-               alt="Agent Builder — the visual block-based canvas for building custom agents in AutoGPT"
-               width="1693" height="929" loading="lazy" decoding="async" />
-        </figure>
-      </article>
-
-      <!-- Panel 3 — Agent Dashboard -->
-      <article id="feat-panel-dashboard" role="tabpanel" aria-labelledby="feat-tab-dashboard" class="feat__panel" inert aria-hidden="true">
-        <div class="feat__text">
-          <h3 class="feat__panel-title">One home for <em>every agent you run.</em></h3>
-          <p class="feat__panel-body">
-            The Dashboard is mission control for your agents. See what's running, what just finished, and what needs your input &mdash; all at a glance, with the detail one click away.
-          </p>
-          <ul class="feat__list">
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">See every agent's status at a glance.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Drill into any run to inspect what happened.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Track spend per agent, per run, per day.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Get pinged the moment an agent needs you.</span>
-            </li>
-            <li>
-              <span aria-hidden="true" class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-purple-50"><svg viewBox="0 0 256 256" class="h-3 w-3 text-purple-500" fill="currentColor" aria-hidden="true"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></svg></span>
-              <span class="text-[14px] leading-snug text-zinc-800">Pause, edit, or rerun anything from one place.</span>
-            </li>
-          </ul>
-          <a class="feat__learn inline-flex items-center gap-1 text-sm font-medium text-purple-600 no-underline hover:text-purple-700" href="https://platform.agpt.co/signup">
-            See the Dashboard
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-        <figure class="feat__media">
-          <img class="feat__image" src="images/autogpt_agent_dashboard.png"
-               alt="Agent Dashboard — the high-level overview of every running AutoGPT agent: status, costs, and what needs attention"
-               width="1683" height="934" loading="lazy" decoding="async" />
-        </figure>
-      </article>
-    </div>
   </div>
 </section>
 
