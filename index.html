@@ -874,6 +874,37 @@
     margin: 0;
   }
 
+  /* Per-row CTA — inherits the row's --row-accent so each link is themed to its
+     scenario. Mirrors the hero prompt-chip arrow: the arrow's space is reserved at
+     all times so revealing it on hover never reflows the link. */
+  .usecases__cta {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 24px;
+    font-family: "Geist", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--row-accent, var(--accent));
+    text-decoration: none;
+    transition: opacity 200ms ease;
+  }
+  .usecases__cta-arrow {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-left: 6px;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+  .usecases__cta:hover { opacity: 0.82; }
+  .usecases__cta:hover .usecases__cta-arrow,
+  .usecases__cta:focus-visible .usecases__cta-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
   .usecases__panel {
     margin: 0;
     padding: clamp(16px, 2.4vw, 32px);
@@ -902,6 +933,7 @@
     .usecases__body  { font-size: 15px; }
     .usecases__intro { margin-bottom: clamp(32px, 8vw, 48px); }
     .usecases__intro .usecases__title { font-size: clamp(28px, 7vw, 36px); }
+    .usecases__cta { margin-top: 18px; }
   }
 
   /* ---------- Testimonials (Wall of Love) ---------- */
@@ -1653,7 +1685,7 @@
 
     <ul role="list" class="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-0.5">
       <li><a href="index.html" class="site-header__link" aria-current="page">Home</a></li>
-      <li><a href="#" class="site-header__link">Blog</a></li>
+      <li><a href="blog/" class="site-header__link">Blog</a></li>
       <li><a href="pricing.html" class="site-header__link">Pricing</a></li>
       <li><a href="https://agpt.co/docs" class="site-header__link">Docs</a></li>
       <li><a href="https://agpt.co/docs/platform/changelog/changelog" class="site-header__link">Changelog</a></li>
@@ -1678,7 +1710,7 @@
   <div id="mobile-menu" class="site-header__mobile lg:hidden hidden">
     <ul role="list" class="relative space-y-0.5 px-3 py-3">
       <li><a href="index.html" aria-current="page" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white hover:bg-white/[0.06] transition-colors">Home</a></li>
-      <li><a href="#" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Blog</a></li>
+      <li><a href="blog/" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Blog</a></li>
       <li><a href="pricing.html" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Pricing</a></li>
       <li><a href="https://agpt.co/docs" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Docs</a></li>
       <li><a href="https://agpt.co/docs/platform/changelog/changelog" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Changelog</a></li>
@@ -2399,6 +2431,7 @@
           Your <em>morning brief</em>, already written.
         </h3>
         <p class="usecases__body">Earnings, headlines, internal pulse &mdash; pulled, ranked, and on your desk before standup. No dashboards to babysit.</p>
+        <a class="usecases__cta" href="https://platform.agpt.co/signup">Build my morning brief<svg class="usecases__cta-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
       </div>
       <figure class="usecases__panel">
         <img class="usecases__image" src="images/daily_briefing.png"
@@ -2416,6 +2449,7 @@
           Walk in knowing <em>exactly who you're meeting</em>.
         </h3>
         <p class="usecases__body">Account history, recent news, last-touch context, and the three questions worth asking &mdash; assembled for every meeting on tomorrow's calendar.</p>
+        <a class="usecases__cta" href="https://platform.agpt.co/signup">Prep my next call<svg class="usecases__cta-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
       </div>
       <figure class="usecases__panel">
         <img class="usecases__image" src="images/call_prep.png"
@@ -2433,6 +2467,7 @@
           From brief to <em>full campaign draft</em> overnight.
         </h3>
         <p class="usecases__body">Positioning, channel cuts, subject lines, and a launch checklist &mdash; drafted while you sleep, ready for your edits in the morning.</p>
+        <a class="usecases__cta" href="https://platform.agpt.co/signup">Draft my campaign<svg class="usecases__cta-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
       </div>
       <figure class="usecases__panel">
         <img class="usecases__image" src="images/campaign_draft.png"
@@ -2450,6 +2485,7 @@
           Markets move. <em>You hear about it first.</em>
         </h3>
         <p class="usecases__body">Tickers, filings, and sector signals watched continuously. You only get pinged when something actually matters to your book.</p>
+        <a class="usecases__cta" href="https://platform.agpt.co/signup">Watch my markets<svg class="usecases__cta-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
       </div>
       <figure class="usecases__panel">
         <img class="usecases__image" src="images/market_watch_update.png"
@@ -2467,6 +2503,7 @@
           Incidents triaged <em>before you open Slack</em>.
         </h3>
         <p class="usecases__body">Logs cross-referenced, recent deploys checked, likely culprit named. Your on-call starts with a hypothesis, not a blank terminal.</p>
+        <a class="usecases__cta" href="https://platform.agpt.co/signup">Triage my incidents<svg class="usecases__cta-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
       </div>
       <figure class="usecases__panel">
         <img class="usecases__image" src="images/issue_analysis.png"
@@ -2484,6 +2521,7 @@
           Every ticket, <em>already half-answered</em>.
         </h3>
         <p class="usecases__body">Drafted replies, pulled order history, flagged escalations &mdash; your team reviews and sends instead of typing from scratch.</p>
+        <a class="usecases__cta" href="https://platform.agpt.co/signup">Clear my queue<svg class="usecases__cta-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
       </div>
       <figure class="usecases__panel">
         <img class="usecases__image" src="images/support_queue.png"
@@ -2501,6 +2539,7 @@
           Trial sites flagged <em>before they fall behind</em>.
         </h3>
         <p class="usecases__body">Enrollment pace, protocol deviations, and site activity reviewed daily. The CRO team gets a ranked watchlist, not another export.</p>
+        <a class="usecases__cta" href="https://platform.agpt.co/signup">Flag my at-risk sites<svg class="usecases__cta-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
       </div>
       <figure class="usecases__panel">
         <img class="usecases__image" src="images/at-risk-trials.png"
@@ -3042,7 +3081,7 @@
           <h3 class="site-footer__heading">Resources</h3>
           <ul role="list" class="mt-4 space-y-3">
             <li><a class="site-footer__link" href="https://agpt.co/docs">Docs</a></li>
-            <li><a class="site-footer__link" href="#">Blog</a></li>
+            <li><a class="site-footer__link" href="blog/">Blog</a></li>
           </ul>
         </nav>
 

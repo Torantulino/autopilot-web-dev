@@ -3,3 +3,6 @@ design/
 
 # Claude Code workspace — worktrees, scratch scripts, screenshots
 .claude/
+
+# Cached raw pages fetched by tools/scrape-blog.mjs (re-fetched on demand)
+.cache/
