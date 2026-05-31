@@ -904,6 +904,11 @@
     opacity: 1;
     transform: translateX(0);
   }
+  @media (prefers-reduced-motion: reduce) {
+    .usecases__cta-arrow { transition: none; }
+    .usecases__cta:hover .usecases__cta-arrow,
+    .usecases__cta:focus-visible .usecases__cta-arrow { transform: none; }
+  }
 
   .usecases__panel {
     margin: 0;
