@@ -1,17 +1,18 @@
 // gen-blog.mjs
 // Builds the static blog from local source (blog/posts.json + blog/posts/<slug>.html),
-// wrapping each post in the shared AutoGPT shell (sticky glass nav + footer) so the
-// migrated content matches THIS site's design while staying verbatim + SEO-identical.
+// wrapping each post in the shared AutoGPT shell (sticky glass nav + footer) using the
+// AutoGPT Design System tokens (see design/ PDFs + index.html :root vars).
 //
 //   node tools/gen-blog.mjs
 //
-// Writes (clean, extension-less URLs via directory index files):
+// Writes clean, extension-less URLs via directory index files:
 //   blog/<slug>/index.html   ->  /blog/<slug>     (one per post)
 //   blog/index.html          ->  /blog            (reverse-chronological listing)
 //
-// Source of truth: blog/posts.json (metadata, hand-editable) + blog/posts/*.html (bodies).
-// Regenerate after editing either. The footer is injected from partials/footer.html so it
-// stays in sync with the rest of the site (links rewritten to root-relative for /blog/*).
+// IMPORTANT — paths are RELATIVE, computed per page depth (`root`), because the site is
+// served from a sub-path on GitHub Pages (…/autopilot-web-dev/) today and from the domain
+// root at agpt.co later. Absolute "/foo" paths would 404 under the sub-path. canonical and
+// og:image stay ABSOLUTE on the production domain (https://agpt.co/...) for SEO/social.
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 
@@ -29,41 +30,24 @@ const INDEX_META = {
 const escAttr = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const escText = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-// ---------- shared footer (single source of truth), links made root-relative ----------
-const footer = readFileSync(new URL('partials/footer.html', ROOT), 'utf8')
-  .replace(/\s+$/, '')
-  .replace(/href="index\.html"/g, 'href="/"')
-  .replace(/href="pricing\.html"/g, 'href="/pricing.html"')
-  .replace(/href="how-it-works\.html"/g, 'href="/"')
-  .replace(/src="logo\.png"/g, 'src="/logo.png"')
-  .replace(/href="blog\/"/g, 'href="/blog"');
-
-// ---------- shared <head>: Tailwind + DS tokens + reused header/footer CSS + blog CSS ----------
-const HEAD_CHROME = `  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: {
-        colors: {
-          purple: { 50:'#f1ebfe', 100:'#d5c0fc', 200:'#c0a1fa', 300:'#a476f8', 400:'#925cf7', 500:'#7733f5', 600:'#6c2edf', 700:'#5424ae', 800:'#411c87', 900:'#321567' },
-          zinc:   { 50:'#F9F9FA', 100:'#EFEFF0', 200:'#DADADC', 300:'#C5C5C9', 400:'#ADADB3', 500:'#83838C', 600:'#68686F', 700:'#8E98A8', 800:'#3E3E43', 900:'#2C2C30' },
-        },
-        fontFamily: {
-          sans: ['Geist', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
-          poppins: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        },
-        borderRadius: { xs:'4px', s:'8px', m:'12px', l:'16px', xl:'20px' },
-      } },
-    };
-  </script>
+// ---------- per-page <head>: Tailwind + DS tokens + reused chrome CSS + blog CSS ----------
+// `root` is the relative prefix back to the site root ('../' for /blog, '../../' for posts).
+function headChrome(root) {
+  return `  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Poppins:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --paper: #ffffff; --paper-deep: #F3F4F6; --paper-line: rgba(31,31,32,0.10);
+      --ink-dark: #1F1F20; --ink-mid: #505057; --ink-soft: #68686F;
+      --accent: #7733f5; --accent-strong: #6c2edf;
+    }
     html { scroll-behavior: smooth; }
-    body { margin: 0; background-color: #ffffff; color: #18181b; font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { margin: 0; background-color: var(--paper); color: var(--ink-dark); font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-feature-settings: "cv11","ss01","ss03"; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
     /* ---------- Site header (sticky glass nav) — shared with index.html ---------- */
-    .site-header { isolation: isolate; font-feature-settings: "cv11", "ss01", "ss03"; }
+    .site-header { isolation: isolate; }
     .site-header__link { position: relative; display: inline-flex; align-items: center; padding: 0.625rem 0.875rem; border-radius: 8px; font-size: 15px; font-weight: 500; letter-spacing: -0.005em; color: rgba(255,255,255,0.72); transition: color 180ms ease, background-color 200ms ease; }
     .site-header__link[aria-current="page"] { color: #fff; }
     .site-header__link::after { content: ""; position: absolute; left: 0.875rem; right: 0.875rem; bottom: 0.4rem; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent); opacity: 0; transform: translateY(2px); transition: opacity 200ms ease, transform 200ms ease; pointer-events: none; }
@@ -82,58 +66,66 @@ const HEAD_CHROME = `  <script src="https://cdn.tailwindcss.com"></script>
     .site-header__mobile { position: relative; border-top: 1px solid rgba(255,255,255,0.06); background: rgba(10,10,14,0.85); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); }
     @media (prefers-reduced-motion: reduce) { .site-header__glass, .site-header__hairline, .cta-pill { transition: none; } .cta-pill:hover { transform: none; } }
 
-    /* ---------- Blog post ---------- */
-    .post-hero { position: relative; background: radial-gradient(120% 120% at 50% -10%, #1b1430 0%, #0A0A0E 60%); color: #fff; padding: 9rem 1.25rem 5rem; }
-    .post-hero__inner { max-width: 46rem; margin: 0 auto; }
-    .post-hero__back { display: inline-flex; align-items: center; gap: .4rem; font-size: .9rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; transition: color 160ms ease; }
-    .post-hero__back:hover { color: #fff; }
-    .post-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.25rem; }
-    .post-tag { font-size: 12px; font-weight: 500; letter-spacing: .02em; padding: .3rem .7rem; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.82); }
-    .post-hero h1 { font-family: "Poppins", sans-serif; font-weight: 700; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 1.4rem; }
-    .post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .8rem; color: rgba(255,255,255,.6); font-size: .95rem; }
-    .post-meta__author { color: #fff; font-weight: 600; }
-    .post-meta__dot { opacity: .4; }
-    .post-figure { position: relative; z-index: 1; max-width: 60rem; margin: -3.5rem auto 0; padding: 0 1.25rem; }
-    .post-figure img { width: 100%; height: auto; border-radius: 20px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.08); }
-    .post-body { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 4rem; font-size: 1.0625rem; line-height: 1.75; color: #27272a; }
-    .post-body > *:first-child { margin-top: 0; }
-    .post-body p { margin: 0 0 1.25rem; }
-    .post-body h2 { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 1.6rem; line-height: 1.25; letter-spacing: -0.01em; color: #111114; margin: 2.75rem 0 1rem; }
-    .post-body h3 { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 1.25rem; line-height: 1.3; color: #111114; margin: 2rem 0 .75rem; }
-    .post-body h4 { font-weight: 600; font-size: 1.05rem; color: #111114; margin: 1.5rem 0 .5rem; }
-    .post-body ul, .post-body ol { margin: 0 0 1.25rem; padding-left: 1.4rem; }
-    .post-body ul { list-style: disc; } .post-body ol { list-style: decimal; }
-    .post-body li { margin: 0 0 .5rem; }
-    .post-body li::marker { color: #925cf7; }
-    .post-body a { color: #6c2edf; text-decoration: underline; text-underline-offset: 2px; font-weight: 500; }
-    .post-body a:hover { color: #5424ae; }
-    .post-body strong { font-weight: 600; color: #18181b; }
-    .post-body blockquote { margin: 1.75rem 0; padding: .25rem 0 .25rem 1.25rem; border-left: 3px solid #c0a1fa; color: #3f3f46; font-style: italic; }
-    .post-body img { display: block; width: 100%; height: auto; border-radius: 16px; margin: 1.75rem 0; border: 1px solid #ececf1; }
-    .post-body hr { border: 0; border-top: 1px solid #ececf1; margin: 2.5rem 0; }
+    /* ---------- Shared dark hero band (matches the homepage hero) ---------- */
+    .blog-band { position: relative; isolation: isolate; color: #fff; overflow: hidden; }
+    .blog-band::before { content: ""; position: absolute; inset: 0; z-index: -2; background-image: url('${root}bg.png'); background-size: cover; background-position: center; }
+    .blog-band::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10,10,14,0.78) 0%, rgba(10,10,14,0.84) 60%, rgba(10,10,14,0.92) 100%); }
+    .blog-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.62); }
+    .blog-eyebrow::before, .blog-eyebrow::after { content: ""; width: 26px; height: 1px; background: rgba(255,255,255,0.25); }
 
     /* ---------- Blog listing ---------- */
-    .blog-hero { background: radial-gradient(120% 120% at 50% -10%, #1b1430 0%, #0A0A0E 60%); color: #fff; padding: 9.5rem 1.25rem 4rem; text-align: center; }
-    .blog-hero h1 { font-family: "Poppins", sans-serif; font-weight: 700; font-size: clamp(2.2rem, 5vw, 3.2rem); letter-spacing: -0.02em; margin: 0 0 1rem; }
-    .blog-hero p { max-width: 38rem; margin: 0 auto; color: rgba(255,255,255,.62); font-size: 1.1rem; line-height: 1.6; }
-    .blog-main { max-width: 75rem; margin: 0 auto; padding: 3.5rem 1.25rem 5rem; }
-    .blog-grid { display: grid; gap: 1.75rem; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
-    .blog-card { display: flex; flex-direction: column; border: 1px solid #ececf1; border-radius: 16px; overflow: hidden; background: #fff; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-    .blog-card:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -26px rgba(15,15,20,.28); border-color: #e0d6fb; }
-    .blog-card:focus-visible { outline: none; box-shadow: 0 0 0 2px #925cf7, 0 0 0 4px #fff; }
-    .blog-card__imgwrap { aspect-ratio: 16/9; overflow: hidden; background: #f4f4f6; }
-    .blog-card__imgwrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
-    .blog-card:hover .blog-card__imgwrap img { transform: scale(1.035); }
-    .blog-card__body { display: flex; flex-direction: column; flex: 1; padding: 1.25rem; }
-    .blog-card__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .75rem; }
-    .blog-card__tag { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #6c2edf; background: #f1ebfe; border-radius: 999px; padding: .25rem .55rem; }
-    .blog-card__date { font-size: .8rem; color: #83838c; margin-bottom: .4rem; }
-    .blog-card__title { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 1.15rem; line-height: 1.3; color: #18181b; margin: 0 0 .5rem; }
-    .blog-card__desc { font-size: .92rem; line-height: 1.55; color: #52525b; margin: 0 0 1rem; flex: 1; }
-    .blog-card__more { font-size: .9rem; font-weight: 600; color: #6c2edf; }
+    .blog-hero { text-align: center; padding: 9.5rem 1.25rem 4.5rem; }
+    .blog-hero h1 { font-family: "Poppins", sans-serif; font-weight: 500; font-size: clamp(2.4rem, 5.4vw, 3.6rem); line-height: 1.05; letter-spacing: -0.022em; margin: 1.25rem 0 1.1rem; }
+    .blog-hero p { max-width: 40rem; margin: 0 auto; color: rgba(255,255,255,0.66); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6; }
+    .blog-main { max-width: 78rem; margin: 0 auto; padding: 3.5rem 1.25rem 6rem; }
+    .blog-grid { display: grid; gap: 1.75rem; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
+    .blog-card { display: flex; flex-direction: column; background: var(--paper); border: 1px solid var(--paper-line); border-radius: 16px; overflow: hidden; text-decoration: none; box-shadow: 0 1px 2px rgba(24,24,27,0.04), 0 4px 12px rgba(24,24,27,0.05); transition: transform .22s ease, box-shadow .28s ease; }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(24,24,27,0.04), 0 4px 12px rgba(24,24,27,0.06), 0 16px 40px rgba(24,24,27,0.08), 0 40px 90px rgba(24,24,27,0.13); }
+    .blog-card:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px #fff; }
+    .blog-card__imgwrap { aspect-ratio: 16/9; overflow: hidden; background: var(--paper-deep); }
+    .blog-card__imgwrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .blog-card:hover .blog-card__imgwrap img { transform: scale(1.04); }
+    .blog-card__body { display: flex; flex-direction: column; flex: 1; padding: 1.35rem 1.4rem 1.5rem; }
+    .blog-card__tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .85rem; }
+    .blog-card__tag { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-strong); background: #f1ebfe; border-radius: 999px; padding: .28rem .6rem; }
+    .blog-card__date { font-size: .8rem; color: var(--ink-soft); margin-bottom: .45rem; }
+    .blog-card__title { font-family: "Poppins", sans-serif; font-weight: 500; font-size: 1.2rem; line-height: 1.3; letter-spacing: -0.015em; color: var(--ink-dark); margin: 0 0 .55rem; }
+    .blog-card__desc { font-size: .93rem; line-height: 1.6; color: var(--ink-mid); margin: 0 0 1.15rem; flex: 1; }
+    .blog-card__more { font-size: .9rem; font-weight: 600; color: var(--accent-strong); }
+    .blog-card:hover .blog-card__more { color: var(--accent); }
+
+    /* ---------- Blog post ---------- */
+    .post-hero { padding: 9rem 1.25rem 6rem; }
+    .post-hero__inner { max-width: 48rem; margin: 0 auto; }
+    .post-hero__back { display: inline-flex; align-items: center; gap: .45rem; font-size: .875rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-bottom: 1.75rem; transition: color 160ms ease; }
+    .post-hero__back:hover { color: #fff; }
+    .post-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.4rem; }
+    .post-tag { font-size: 12px; font-weight: 500; letter-spacing: .02em; padding: .32rem .72rem; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.84); }
+    .post-hero h1 { font-family: "Poppins", sans-serif; font-weight: 500; font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.08; letter-spacing: -0.022em; margin: 0 0 1.6rem; }
+    .post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .85rem; color: rgba(255,255,255,.62); font-size: .95rem; }
+    .post-meta__author { color: #fff; font-weight: 600; }
+    .post-meta__dot { opacity: .42; }
+    .post-figure { position: relative; z-index: 1; max-width: 62rem; margin: -4rem auto 0; padding: 0 1.25rem; }
+    .post-figure img { width: 100%; height: auto; border-radius: 20px; box-shadow: 0 1px 2px rgba(24,24,27,0.06), 0 16px 40px rgba(24,24,27,0.12), 0 48px 120px rgba(24,24,27,0.18); border: 1px solid var(--paper-line); background: var(--paper-deep); }
+    .post-body { max-width: 44rem; margin: 0 auto; padding: 3.25rem 1.25rem 4.5rem; font-size: 1.075rem; line-height: 1.75; color: #2b2b30; }
+    .post-body > *:first-child { margin-top: 0; }
+    .post-body p { margin: 0 0 1.3rem; }
+    .post-body h2 { font-family: "Poppins", sans-serif; font-weight: 500; font-size: 1.65rem; line-height: 1.22; letter-spacing: -0.02em; color: var(--ink-dark); margin: 3rem 0 1.1rem; }
+    .post-body h3 { font-family: "Poppins", sans-serif; font-weight: 500; font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.015em; color: var(--ink-dark); margin: 2.1rem 0 .8rem; }
+    .post-body h4 { font-weight: 600; font-size: 1.075rem; color: var(--ink-dark); margin: 1.6rem 0 .5rem; }
+    .post-body ul, .post-body ol { margin: 0 0 1.3rem; padding-left: 1.45rem; }
+    .post-body ul { list-style: disc; } .post-body ol { list-style: decimal; }
+    .post-body li { margin: 0 0 .55rem; padding-left: .2rem; }
+    .post-body li::marker { color: var(--accent); }
+    .post-body a { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; font-weight: 500; }
+    .post-body a:hover { color: var(--accent); }
+    .post-body strong { font-weight: 600; color: var(--ink-dark); }
+    .post-body blockquote { margin: 1.9rem 0; padding: .35rem 0 .35rem 1.4rem; border-left: 3px solid var(--accent); color: var(--ink-mid); font-style: italic; }
+    .post-body img { display: block; width: 100%; height: auto; border-radius: 16px; margin: 2rem 0; border: 1px solid var(--paper-line); }
+    .post-body hr { border: 0; border-top: 1px solid var(--paper-line); margin: 2.75rem 0; }
 
     /* ---------- Footer — shared with index.html ---------- */
-    .site-footer { width: 100%; background-color: #0A0A0E; font-feature-settings: "cv11", "ss01", "ss03"; color: rgba(255,255,255,0.72); }
+    .site-footer { width: 100%; background-color: #0A0A0E; color: rgba(255,255,255,0.72); }
     .site-footer__hairline { height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 18%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.08) 82%, transparent 100%); }
     .site-footer__heading { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.40); }
     .site-footer__link { position: relative; display: inline-flex; align-items: center; width: fit-content; font-size: 14px; font-weight: 500; letter-spacing: -0.005em; color: rgba(255,255,255,0.60); transition: color 180ms ease; }
@@ -147,19 +139,21 @@ const HEAD_CHROME = `  <script src="https://cdn.tailwindcss.com"></script>
     .site-footer__social:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(255,255,255,0.55), 0 0 0 4px #0A0A0E; }
     @media (prefers-reduced-motion: reduce) { .site-footer__link, .site-footer__link::after, .site-footer__social { transition: none; } .site-footer__social:hover { transform: none; } }
   </style>`;
+}
 
-// ---------- shared header markup (root-relative links; Blog active) ----------
-const HEADER = `<header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 w-full">
+// ---------- shared header markup (relative links via `root`; Blog active) ----------
+function header(root) {
+  return `<header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 w-full">
   <div class="site-header__glass" aria-hidden="true"></div>
   <div class="site-header__hairline" aria-hidden="true"></div>
   <nav aria-label="Primary" class="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-    <a href="/" aria-label="AutoGPT home" class="relative flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-4 focus-visible:ring-offset-zinc-950">
-      <img src="/logo.png" alt="AutoGPT" width="790" height="356" class="h-10 w-auto" decoding="async" />
+    <a href="${root}index.html" aria-label="AutoGPT home" class="relative flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-4 focus-visible:ring-offset-zinc-950">
+      <img src="${root}logo.png" alt="AutoGPT" width="790" height="356" class="h-10 w-auto" decoding="async" />
     </a>
     <ul role="list" class="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-0.5">
-      <li><a href="/" class="site-header__link">Home</a></li>
-      <li><a href="/blog" class="site-header__link" aria-current="page">Blog</a></li>
-      <li><a href="/pricing.html" class="site-header__link">Pricing</a></li>
+      <li><a href="${root}index.html" class="site-header__link">Home</a></li>
+      <li><a href="${root}blog/" class="site-header__link" aria-current="page">Blog</a></li>
+      <li><a href="${root}pricing.html" class="site-header__link">Pricing</a></li>
       <li><a href="https://agpt.co/docs" class="site-header__link">Docs</a></li>
       <li><a href="https://agpt.co/docs/platform/changelog/changelog" class="site-header__link">Changelog</a></li>
     </ul>
@@ -176,9 +170,9 @@ const HEADER = `<header id="site-header" class="site-header fixed top-0 left-0 r
   </nav>
   <div id="mobile-menu" class="site-header__mobile lg:hidden hidden">
     <ul role="list" class="relative space-y-0.5 px-3 py-3">
-      <li><a href="/" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Home</a></li>
-      <li><a href="/blog" aria-current="page" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white hover:bg-white/[0.06] transition-colors">Blog</a></li>
-      <li><a href="/pricing.html" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Pricing</a></li>
+      <li><a href="${root}index.html" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Home</a></li>
+      <li><a href="${root}blog/" aria-current="page" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white hover:bg-white/[0.06] transition-colors">Blog</a></li>
+      <li><a href="${root}pricing.html" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Pricing</a></li>
       <li><a href="https://agpt.co/docs" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Docs</a></li>
       <li><a href="https://agpt.co/docs/platform/changelog/changelog" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Changelog</a></li>
       <li class="mt-2 border-t border-white/[0.06] pt-2"><a href="https://platform.agpt.co/login" class="block rounded-lg px-3 py-3 text-[17px] font-medium tracking-[-0.005em] text-white/85 hover:bg-white/[0.06] hover:text-white transition-colors">Sign in</a></li>
@@ -186,6 +180,18 @@ const HEADER = `<header id="site-header" class="site-header fixed top-0 left-0 r
     </ul>
   </div>
 </header>`;
+}
+
+// ---------- shared footer (single source of truth), links made relative via `root` ----------
+function footerFor(root) {
+  return readFileSync(new URL('partials/footer.html', ROOT), 'utf8')
+    .replace(/\s+$/, '')
+    .replace(/href="index\.html"/g, `href="${root}index.html"`)
+    .replace(/href="pricing\.html"/g, `href="${root}pricing.html"`)
+    .replace(/href="how-it-works\.html"/g, `href="${root}index.html"`)
+    .replace(/src="logo\.png"/g, `src="${root}logo.png"`)
+    .replace(/href="blog\/"/g, `href="${root}blog/"`);
+}
 
 const HEADER_JS = `  <script>
     (function () {
@@ -212,10 +218,8 @@ const HEADER_JS = `  <script>
     })();
   </script>`;
 
-function headBlock(meta) {
-  const canonical = meta.canonical;
+function headBlock(meta, root) {
   const ogType = meta.ogType || 'website';
-  const ogImage = meta.ogImage || '';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -223,20 +227,22 @@ function headBlock(meta) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escText(meta.title)}</title>
   <meta name="description" content="${escAttr(meta.description)}">
-  <link rel="canonical" href="${escAttr(canonical)}">
+  <link rel="canonical" href="${escAttr(meta.canonical)}">
   <meta name="robots" content="${escAttr(meta.robots || 'max-image-preview:large')}">
   <meta property="og:type" content="${escAttr(ogType)}">
   <meta property="og:title" content="${escAttr(meta.ogTitle || meta.title)}">
   <meta property="og:description" content="${escAttr(meta.description)}">
-  <meta property="og:url" content="${escAttr(canonical)}">
-  <meta property="og:image" content="${escAttr(ogImage)}">
+  <meta property="og:url" content="${escAttr(meta.canonical)}">
+  <meta property="og:image" content="${escAttr(meta.ogImage || '')}">
   <meta name="twitter:card" content="${escAttr(meta.twitterCard || 'summary_large_image')}">
   <meta name="twitter:title" content="${escAttr(meta.ogTitle || meta.title)}">
   <meta name="twitter:description" content="${escAttr(meta.description)}">
-  <meta name="twitter:image" content="${escAttr(ogImage)}">
-${HEAD_CHROME}
+  <meta name="twitter:image" content="${escAttr(meta.ogImage || '')}">
+${headChrome(root)}
 </head>`;
 }
+
+const SKIP_LINK = `<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-zinc-900 focus:shadow-lg">Skip to content</a>`;
 
 function metaRow(post) {
   const bits = [];
@@ -248,10 +254,13 @@ function metaRow(post) {
 }
 
 function renderPost(post) {
-  const body = readFileSync(new URL(`blog/posts/${post.slug}.html`, ROOT), 'utf8').trim();
+  const root = '../../';
+  // body fragment image srcs are stored root-relative ("/images/…") -> make relative
+  const body = readFileSync(new URL(`blog/posts/${post.slug}.html`, ROOT), 'utf8').trim()
+    .replace(/src="\/images\//g, `src="${root}images/`);
   const tags = (post.tags || []).map((t) => `<span class="post-tag">${escText(t)}</span>`).join('');
   const figure = post.heroImage
-    ? `\n    <figure class="post-figure"><img src="/${escAttr(post.heroImage)}" alt="${escAttr(post.title)}" width="1600" height="900" decoding="async"></figure>`
+    ? `\n    <figure class="post-figure"><img src="${root}${escAttr(post.heroImage)}" alt="${escAttr(post.title)}" width="1600" height="900" decoding="async"></figure>`
     : '';
   return `${headBlock({
     title: post.htmlTitle || post.title,
@@ -262,15 +271,15 @@ function renderPost(post) {
     ogType: post.ogType,
     ogImage: post.ogImage,
     twitterCard: post.twitterCard,
-  })}
+  }, root)}
 <body>
-<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-zinc-900 focus:shadow-lg">Skip to content</a>
-${HEADER}
+${SKIP_LINK}
+${header(root)}
 <main id="main-content">
   <article>
-    <header class="post-hero">
+    <header class="post-hero blog-band">
       <div class="post-hero__inner">
-        <a href="/blog" class="post-hero__back">&larr; All articles</a>
+        <a href="${root}blog/" class="post-hero__back">&larr; All articles</a>
         <div class="post-tags">${tags}</div>
         <h1>${escText(post.title)}</h1>
         <div class="post-meta">${metaRow(post)}</div>
@@ -281,19 +290,19 @@ ${body}
     </div>
   </article>
 </main>
-${footer}
+${footerFor(root)}
 ${HEADER_JS}
 </body>
 </html>
 `;
 }
 
-function renderCard(post) {
+function renderCard(post, root) {
   const tags = (post.tags || []).slice(0, 2).map((t) => `<span class="blog-card__tag">${escText(t)}</span>`).join('');
   const img = post.heroImage
-    ? `<div class="blog-card__imgwrap"><img src="/${escAttr(post.heroImage)}" alt="${escAttr(post.title)}" loading="lazy" decoding="async"></div>`
+    ? `<div class="blog-card__imgwrap"><img src="${root}${escAttr(post.heroImage)}" alt="${escAttr(post.title)}" loading="lazy" decoding="async"></div>`
     : '';
-  return `      <a class="blog-card" href="/blog/${escAttr(post.slug)}">
+  return `      <a class="blog-card" href="${root}blog/${escAttr(post.slug)}/">
         ${img}
         <div class="blog-card__body">
           <div class="blog-card__tags">${tags}</div>
@@ -306,7 +315,8 @@ function renderCard(post) {
 }
 
 function renderListing(listed) {
-  const cards = listed.map(renderCard).join('\n');
+  const root = '../';
+  const cards = listed.map((p) => renderCard(p, root)).join('\n');
   return `${headBlock({
     title: INDEX_META.title,
     ogTitle: INDEX_META.title,
@@ -315,12 +325,13 @@ function renderListing(listed) {
     ogType: 'website',
     ogImage: INDEX_META.ogImage,
     twitterCard: 'summary_large_image',
-  })}
+  }, root)}
 <body>
-<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-zinc-900 focus:shadow-lg">Skip to content</a>
-${HEADER}
+${SKIP_LINK}
+${header(root)}
 <main id="main-content">
-  <header class="blog-hero">
+  <header class="blog-hero blog-band">
+    <span class="blog-eyebrow">Blog</span>
     <h1>${escText(INDEX_META.title)}</h1>
     <p>${escText(INDEX_META.description)}</p>
   </header>
@@ -330,7 +341,7 @@ ${cards}
     </div>
   </div>
 </main>
-${footer}
+${footerFor(root)}
 ${HEADER_JS}
 </body>
 </html>
@@ -342,12 +353,11 @@ const written = [];
 for (const post of posts) {
   mkdirSync(new URL(`blog/${post.slug}/`, ROOT), { recursive: true });
   writeFileSync(new URL(`blog/${post.slug}/index.html`, ROOT), renderPost(post), 'utf8');
-  written.push(`/blog/${post.slug}`);
+  written.push(post.slug);
 }
 const listed = posts.filter((p) => p.listed);
 writeFileSync(new URL('blog/index.html', ROOT), renderListing(listed), 'utf8');
 
-console.log(`\n  ✓ Blog generated from blog/posts.json`);
+console.log(`\n  ✓ Blog generated (relative paths)`);
 console.log(`    /blog            (listing, ${listed.length} cards)`);
-console.log(`    ${written.length} post pages: ${written.map((w) => w.replace('/blog/', '')).join(', ')}`);
-console.log('');
+console.log(`    ${written.length} post pages\n`);
