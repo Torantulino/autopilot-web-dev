@@ -1,0 +1,35 @@
+[
+  {
+    "slug": "platform-terms-of-use",
+    "title": "AutoGPT Platform Terms of Use",
+    "htmlTitle": "AutoGPT Platform Terms of Use",
+    "description": "Review the official Terms of Use for the AutoGPT Platform. ",
+    "ogType": "website",
+    "ogImage": "https://agpt.co/images/legal/d5t2IkFfffxXUaOVsjTFVzCmnQ.png",
+    "twitterCard": "summary_large_image",
+    "robots": "max-image-preview:large",
+    "canonical": "https://agpt.co/legal/platform-terms-of-use"
+  },
+  {
+    "slug": "platform-privacy-policy",
+    "title": "Platform Privacy Policy",
+    "htmlTitle": "Platform Privacy Policy",
+    "description": "Review the Privacy Policy for the AutoGPT Platofrm",
+    "ogType": "website",
+    "ogImage": "https://agpt.co/images/legal/d5t2IkFfffxXUaOVsjTFVzCmnQ.png",
+    "twitterCard": "summary_large_image",
+    "robots": "max-image-preview:large",
+    "canonical": "https://agpt.co/legal/platform-privacy-policy"
+  },
+  {
+    "slug": "agent-jam-terms-and-conditions",
+    "title": "Agent Jam Terms & Conditions",
+    "htmlTitle": "Agent Jam Terms & Conditions",
+    "description": "Review the official Terms & Conditions for AutoGPT",
+    "ogType": "website",
+    "ogImage": "https://agpt.co/images/legal/d5t2IkFfffxXUaOVsjTFVzCmnQ.png",
+    "twitterCard": "summary_large_image",
+    "robots": "max-image-preview:large",
+    "canonical": "https://agpt.co/legal/agent-jam-terms-and-conditions"
+  }
+]

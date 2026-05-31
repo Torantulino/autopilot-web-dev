@@ -13,6 +13,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const ROOT = new URL('../', import.meta.url);
 const ORIGIN = 'https://agpt.co';
 const posts = JSON.parse(readFileSync(new URL('blog/posts.json', ROOT), 'utf8'));
+const legal = JSON.parse(readFileSync(new URL('legal/pages.json', ROOT), 'utf8'));
 
 // Top-level pages this repo serves (in priority order). Keep in sync with the nav.
 const STATIC_PAGES = [
@@ -38,6 +39,10 @@ for (const s of STATIC_PAGES) {
 // every post (listed AND unlisted — they all have live, indexable URLs)
 for (const p of posts) {
   urls.push({ loc: `${ORIGIN}/blog/${p.slug}`, lastmod: toISO(p.date) });
+}
+// legal pages
+for (const l of legal) {
+  urls.push({ loc: `${ORIGIN}/legal/${l.slug}`, lastmod: null });
 }
 
 const body = urls

@@ -3086,9 +3086,15 @@
     <!-- Bottom bar -->
     <div class="mt-12 lg:mt-14">
       <div class="site-footer__hairline" aria-hidden="true"></div>
-      <p class="mt-6 text-[13px] text-white/45">
-        &copy; <span data-footer-year>2026</span> AutoGPT
-      </p>
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-[13px] text-white/45">
+          &copy; <span data-footer-year>2026</span> AutoGPT
+        </p>
+        <ul role="list" class="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <li><a class="site-footer__link" href="legal/platform-privacy-policy/">Privacy Policy</a></li>
+          <li><a class="site-footer__link" href="legal/platform-terms-of-use/">Terms of Use</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <script>
